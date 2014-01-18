@@ -5,8 +5,7 @@
     <tr>
       <th>Fecha</th>
       <th>Importe</th>
-      <th>Emitido</th>
-      <th>Recibido</th>
+      <th>Situación</th>
       <th>Factura</th>
       <th></th>
       <th></th>
@@ -19,8 +18,7 @@
       <tr>
         <td><%= recibo.fecha %></td>
         <td><%= recibo.importe %></td>
-        <td><%= recibo.emitido %></td>
-        <td><%= recibo.recibido %></td>
+        <td><%= recibo.situacion %></td>
         <td><%= recibo.factura %></td>
         <td><%= link_to 'Show', recibo %></td>
         <td><%= link_to 'Edit', edit_recibo_path(recibo) %></td>

@@ -18,7 +18,7 @@ class FacturasControllerTest < ActionController::TestCase
 
   test "should create factura" do
     assert_difference('Factura.count') do
-      post :create, factura: { cuit: @factura.cuit, descripcion: @factura.descripcion, domicilio: @factura.domicilio, emitida: @factura.emitida, fecha: @factura.fecha, fecha_pago: @factura.fecha_pago, importe_total: @factura.importe_total, iva: @factura.iva, nombre: @factura.nombre, numero: @factura.numero, recibida: @factura.recibida, tipo: @factura.tipo }
+      post :create, factura: { cuit: @factura.cuit, descripcion: @factura.descripcion, domicilio: @factura.domicilio, situacion: @factura.situacion, fecha: @factura.fecha, fecha_pago: @factura.fecha_pago, importe_total: @factura.importe_total, iva: @factura.iva, nombre: @factura.nombre, numero: @factura.numero, tipo: @factura.tipo }
     end
 
     assert_redirected_to factura_path(assigns(:factura))
@@ -35,7 +35,7 @@ class FacturasControllerTest < ActionController::TestCase
   end
 
   test "should update factura" do
-    patch :update, id: @factura, factura: { cuit: @factura.cuit, descripcion: @factura.descripcion, domicilio: @factura.domicilio, emitida: @factura.emitida, fecha: @factura.fecha, fecha_pago: @factura.fecha_pago, importe_total: @factura.importe_total, iva: @factura.iva, nombre: @factura.nombre, numero: @factura.numero, recibida: @factura.recibida, tipo: @factura.tipo }
+    patch :update, id: @factura, factura: { cuit: @factura.cuit, descripcion: @factura.descripcion, domicilio: @factura.domicilio, situacion: @factura.situacion, fecha: @factura.fecha, fecha_pago: @factura.fecha_pago, importe_total: @factura.importe_total, iva: @factura.iva, nombre: @factura.nombre, numero: @factura.numero, tipo: @factura.tipo }
     assert_redirected_to factura_path(assigns(:factura))
   end
 

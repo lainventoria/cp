@@ -4,8 +4,7 @@ FactoryGirl.define do
   factory :recibo do
     fecha "2014-01-17 21:25:25"
     importe { Money.new rand(1000) }
-    emitido false
-    recibido false
+    situacion "pago"
 
     factura
   end

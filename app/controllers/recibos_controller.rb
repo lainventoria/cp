@@ -69,6 +69,6 @@ class RecibosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recibo_params
-      params.require(:recibo).permit(:fecha, :importe, :emitido, :recibido, :factura_id)
+      params.require(:recibo).permit(:fecha, :importe, :situacion, :factura_id)
     end
 end

@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :caja do
+    obra
   end
 end

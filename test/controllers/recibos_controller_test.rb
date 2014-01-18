@@ -18,7 +18,7 @@ class RecibosControllerTest < ActionController::TestCase
 
   test "should create recibo" do
     assert_difference('Recibo.count') do
-      post :create, recibo: { emitido: @recibo.emitido, factura_id: @recibo.factura_id, fecha: @recibo.fecha, importe: @recibo.importe, recibido: @recibo.recibido }
+      post :create, recibo: { situacion: @recibo.situacion, factura_id: @recibo.factura_id, fecha: @recibo.fecha, importe: @recibo.importe }
     end
 
     assert_redirected_to recibo_path(assigns(:recibo))
@@ -35,7 +35,7 @@ class RecibosControllerTest < ActionController::TestCase
   end
 
   test "should update recibo" do
-    patch :update, id: @recibo, recibo: { emitido: @recibo.emitido, factura_id: @recibo.factura_id, fecha: @recibo.fecha, importe: @recibo.importe, recibido: @recibo.recibido }
+    patch :update, id: @recibo, recibo: { situacion: @recibo.situacion, factura_id: @recibo.factura_id, fecha: @recibo.fecha, importe: @recibo.importe }
     assert_redirected_to recibo_path(assigns(:recibo))
   end
 
