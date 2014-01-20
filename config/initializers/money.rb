@@ -1,4 +1,6 @@
 # encoding : utf-8
+# Extensiones para convertir a objeto Money
+require 'monetize/core_extensions'
 
 MoneyRails.configure do |config|
 

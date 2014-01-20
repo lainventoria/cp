@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :movimiento do
     monto { Money.new(rand(100)) }
+
     caja
   end
 end
