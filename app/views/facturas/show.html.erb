@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @factura.tipo %>
+</p>
+
+<p>
+  <strong>Número:</strong>
+  <%= @factura.numero %>
+</p>
+
+<p>
+  <strong>Situación:</strong>
+  <%= @factura.situacion %>
+</p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @factura.nombre %>
+</p>
+
+<p>
+  <strong>Domicilio:</strong>
+  <%= @factura.domicilio %>
+</p>
+
+<p>
+  <strong>Cuit:</strong>
+  <%= @factura.cuit %>
+</p>
+
+<p>
+  <strong>Iva:</strong>
+  <%= @factura.iva %>
+</p>
+
+<p>
+  <strong>Descripción:</strong>
+  <%= @factura.descripcion %>
+</p>
+
+<p>
+  <strong>Importe total:</strong>
+  <%= @factura.importe_total %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @factura.fecha %>
+</p>
+
+<p>
+  <strong>Fecha pago:</strong>
+  <%= @factura.fecha_pago %>
+</p>
+
+<%= link_to 'Editar', edit_factura_path(@factura) %> |
+<%= link_to 'Volver', facturas_path %>

@@ -1,0 +1,61 @@
+<%= form_for(@factura) do |f| %>
+  <% if @factura.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@factura.errors.count, "error") %>. No se guardo la factura por:</h2>
+
+      <ul>
+      <% @factura.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :tipo %><br>
+    <%= f.text_field :tipo, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :numero %><br>
+    <%= f.text_field :numero, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :situacion %><br>
+    <%= f.text_field :situacion, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :nombre %><br>
+    <%= f.text_area :nombre, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :domicilio %><br>
+    <%= f.text_area :domicilio, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :cuit %><br>
+    <%= f.text_area :cuit, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :iva %><br>
+    <%= f.text_field :iva, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :descripcion %><br>
+    <%= f.text_area :descripcion, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :importe_total %><br>
+    <%= f.text_field :importe_total, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :fecha %><br>
+    <%= f.date_select :fecha, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :fecha_pago %><br>
+    <%= f.date_select :fecha_pago, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Guardar", class: "btn btn-primary submit" %>
+  </div>
+<% end %>

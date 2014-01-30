@@ -1,0 +1,40 @@
+<%# Pedido prestado de http://getbootstrap.com/examples/navbar-fixed-top/ %>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Mostrar menú</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">CP</a>
+    </div>
+
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="<%= root_path %>">Inicio</a></li>
+        <li><a href="<%= cuentas_path %>">Cuentas</a></li>
+        <li><a href="<%= facturas_path %>">Facturas</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Más <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Bla</a></li>
+            <li><a href="#">Bla bla</a></li>
+            <li><a href="#">Yaquidish maquidish</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Un título de navegación</li>
+            <li><a href="#">Otro link</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="/#">Entrar</a></li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>

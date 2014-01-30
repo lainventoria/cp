@@ -1,0 +1,33 @@
+<%= form_for(@recibo) do |f| %>
+  <% if @recibo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recibo.errors.count, "error") %>. No se guardo el recibo por:</h2>
+
+      <ul>
+      <% @recibo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :fecha %><br>
+    <%= f.date_select :fecha, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :importe %><br>
+    <%= f.text_field :importe, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :situacion %><br>
+    <%= f.text_field :situacion, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :factura_id %><br>
+    <%= f.text_field :factura_id, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Guardar", class: "btn btn-primary submit" %>
+  </div>
+<% end %>
