@@ -15,6 +15,10 @@ class RecibosController < ApplicationController
   # GET /recibos/new
   def new
     @recibo = Recibo.new
+		if ! params[:factura_id].nil?
+			@factura = Factura.find(params[:factura_id])
+			@recibo.factura = @factura if ! @factura.nil?
+		end
   end
 
   # GET /recibos/1/edit
@@ -28,7 +32,7 @@ class RecibosController < ApplicationController
 
     respond_to do |format|
       if @recibo.save
-        format.html { redirect_to @recibo, notice: 'Recibo was successfully created.' }
+        format.html { redirect_to @recibo, notice: 'Recibo creado exitosamente.' }
         format.json { render action: 'show', status: :created, location: @recibo }
       else
         format.html { render action: 'new' }
@@ -42,7 +46,7 @@ class RecibosController < ApplicationController
   def update
     respond_to do |format|
       if @recibo.update(recibo_params)
-        format.html { redirect_to @recibo, notice: 'Recibo was successfully updated.' }
+        format.html { redirect_to @recibo, notice: 'Recibo actualizado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

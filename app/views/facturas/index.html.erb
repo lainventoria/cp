@@ -1,6 +1,6 @@
 <h1>Listado de facturas</h1>
 
-<table>
+<table class="table table-hover table-condensed">
   <thead>
     <tr>
       <th>Tipo</th>
@@ -10,7 +10,7 @@
       <th>Domicilio</th>
       <th>Cuit</th>
       <th>Iva</th>
-      <th>Descripcioón</th>
+      <th>Descripción</th>
       <th>Importe total</th>
       <th>Fecha</th>
       <th>Fecha pago</th>
@@ -33,9 +33,12 @@
         <td><%= factura.iva %></td>
         <td><%= factura.descripcion %></td>
         <td><%= factura.importe_total %></td>
-        <td><%= factura.fecha %></td>
-        <td><%= factura.fecha_pago %></td>
-        <td><%= factura.recibos.count %></td>
+        <td><%= l(factura.fecha, format: "%d/%m/%Y") %></td>
+        <td><%= l(factura.fecha_pago, format: "%d/%m/%Y") %></td>
+        <td>
+					<%= factura.recibos.count %>
+					<%= link_to raw('<i class="glyphicon glyphicon-plus-sign" title="Nuevo recibo"></i>'), new_factura_recibo_path(factura) %>
+				</td>
         <td><%= link_to 'Ver', factura %></td>
         <td><%= link_to 'Editar', edit_factura_path(factura) %></td>
         <td><%= link_to 'Borrar', factura, method: :delete, data: { confirm: '¿Está seguro?' } %></td>

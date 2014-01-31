@@ -5,6 +5,8 @@ Cp::Application.routes.draw do
   resources :cajas
   resources :obras
   resources :recibos
-  resources :facturas
+  resources :facturas do
+    resources :recibos
+  end
   resources :terceros
 end
