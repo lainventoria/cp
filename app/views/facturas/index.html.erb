@@ -1,0 +1,55 @@
+<h1>Listado de facturas</h1>
+
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Número</th>
+      <th>Situación</th>
+      <th>Nombre</th>
+      <th>Domicilio</th>
+      <th>Cuit</th>
+      <th>Iva</th>
+      <th>Descripción</th>
+      <th>Importe total</th>
+      <th>Fecha</th>
+      <th>Fecha pago</th>
+      <th>Recibos</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @facturas.each do |factura| %>
+      <tr>
+        <td><%= factura.tipo %></td>
+        <td><%= factura.numero %></td>
+        <td><%= factura.situacion %></td>
+        <td><%= factura.nombre %></td>
+        <td><%= factura.domicilio %></td>
+        <td><%= factura.cuit %></td>
+        <td><%= factura.iva %></td>
+        <td><%= factura.descripcion %></td>
+        <td><%= factura.importe_total %></td>
+        <td><%= formatted_date(factura.fecha) %></td>
+        <td><%= formatted_date(factura.fecha_pago) %></td>
+        <td>
+					<%= factura.recibos.count %>
+          <span class="pull-right">
+					<%= link_to raw('<i class="glyphicon glyphicon-list" title="Ver recibos"></i>'), [factura,:recibos] %>
+					<%= link_to raw('<i class="glyphicon glyphicon-plus-sign" title="Nuevo recibo"></i>'), [:new, factura, :recibo] %>
+          </span>
+				</td>
+        <td><%= link_to 'Ver', factura %></td>
+        <td><%= link_to 'Editar', [:edit, factura] %></td>
+        <td><%= link_to 'Borrar', factura, method: :delete, data: { confirm: '¿Está seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nueva Factura', new_factura_path %>

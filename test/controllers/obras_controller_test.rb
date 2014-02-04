@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ObrasControllerTest < ActionController::TestCase
   setup do
-    @obra = obras(:one)
+    @obra = create :obra
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class ObrasControllerTest < ActionController::TestCase
 
   test "should create obra" do
     assert_difference('Obra.count') do
-      post :create, obra: { nombre: @obra.nombre }
+      post :create, obra: attributes_for(:obra)
     end
 
     assert_redirected_to obra_path(assigns(:obra))
@@ -35,7 +35,7 @@ class ObrasControllerTest < ActionController::TestCase
   end
 
   test "should update obra" do
-    patch :update, id: @obra, obra: { nombre: @obra.nombre }
+    patch :update, id: @obra, obra: attributes_for(:obra)
     assert_redirected_to obra_path(assigns(:obra))
   end
 

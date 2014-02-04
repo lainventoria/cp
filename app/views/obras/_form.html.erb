@@ -1,7 +1,7 @@
 <%= form_for(@obra) do |f| %>
   <% if @obra.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@obra.errors.count, "error") %> prohibited this obra from being saved:</h2>
+      <h2><%= pluralize(@obra.errors.count, "error") %>. No se guardo la obra por:</h2>
 
       <ul>
       <% @obra.errors.full_messages.each do |msg| %>
@@ -11,11 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+    <%= f.text_field :nombre, class: "form-control" %>
   </div>
+
+  <div class="field form-group">
+    <%= f.label :direccion %><br>
+    <%= f.text_field :direccion, class: "form-control" %>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Guardar", class: "btn btn-primary submit"  %>
   </div>
 <% end %>

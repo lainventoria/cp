@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Obra:</strong>
+  <%= @caja.obra.nombre %>
+</p>
+
+<%= link_to 'Editar', edit_caja_path(@caja) %> |
+<%= link_to 'Volver', cajas_path %>

@@ -14,3 +14,9 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignorar gemas locales
+vendor/ruby
+
+# "Ya no necesitas esto"
+app/assets/stylesheets/scaffolds.css.scss

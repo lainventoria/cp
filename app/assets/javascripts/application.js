@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+// TODO cargar sólo los componentes que usemos
+//= require twitter/bootstrap
 //= require_tree .

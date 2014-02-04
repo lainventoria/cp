@@ -1,0 +1,53 @@
+<%= form_for(@tercero) do |f| %>
+  <% if @tercero.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tercero.errors.count, "error") %>. No se guardo el tercero por:</h2>
+
+      <ul>
+      <% @tercero.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :direccion %><br>
+    <%= f.text_area :direccion, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :telefono %><br>
+    <%= f.text_area :telefono, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :celular %><br>
+    <%= f.text_area :celular, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :email %><br>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :iva %><br>
+    <%= f.text_field :iva, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :proveedor %><br>
+    <%= f.text_field :proveedor, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :cliente %><br>
+    <%= f.text_field :cliente, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :cuit %><br>
+    <%= f.text_field :cuit, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Guardar", class: "btn btn-primary submit" %>
+  </div>
+<% end %>
