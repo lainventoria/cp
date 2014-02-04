@@ -1,0 +1,28 @@
+# Coding Style
+
+* Usá dos (2) espacios en lugar de tabs
+
+* Hacé comentarios explicativos
+
+* Los comentarios van en el mismo nivel de tabulación que la línea que
+  comentan
+
+
+## Peer Review / Pull Request
+
+* Usamos git-flow
+
+* Implementá features en sus propias ramas (git flow feature start ...)
+
+* Hacé tests
+
+* No mergees, hacé Pull Request y esperá la revisión
+
+* Los PR se hacen a partir de develop!!
+
+* Antes de un PR, hace un rebase a partir de develop
+
+  git checkout develop
+  git pull origin develop
+  git checkout feature/tu-rama
+  git rebase develop
