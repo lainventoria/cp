@@ -9,110 +9,116 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">GestionAr</a>
+      <a class="navbar-brand" href="<%= root_path %>"><%= titulo_de_la_aplicacion %></a>
     </div>
 
-    <%# Notas del diseño: menus desplegables para cada modulo del proyecto %>
-    <%# dentro del desplegable, primero se lista una seccion con las posibles operaciones %>
-    <%# luego, una segunda seccion listando los reportes preconfigurados/mas usuales %>
+    <%# nota de diseño: menus desplegables para cada modulo del proyecto
+        dentro del desplegable, primero se lista una seccion con las posibles operaciones
+        luego, una segunda seccion listando los reportes preconfigurados/mas usuales %>
 
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<%= root_path %>">Inicio</a></li>
+
         <li class="dropdown">
-	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cobros y Pagos<b class="caret"></b></a>
-	  <ul class="dropdown-menu">
-            <li class="dropdown-header">Operacion</li>
-	    <li><a href="#">Obligaciones de Pago</a></li>
-	    <li><a href="#">Recibos de Pago</a></li>
-	    <%# duda: existe un divider de linea discontinuada o diferente del utilizado mas abajo? %>
-	    <li class="divider"></li>
-	    <li><a href="#">Obligaciones de Cobro</a></li>
-            <li><a href="#">Recibos de Ingresos</a></li>
-            <li class="divider"></li>
-	    <li class="dropdown-header">Reportes</li>
-	    <%# Reporte donde se muestre semana a semana los obligaciones de pago y cobro conocidas %>
-	    <li><a href="#">Proyeccion Semanal de Cobros y Pagos</a></li>
-	    <li><a href="#">bla bla bla</a></li>
-          </ul>
-        </li>
-	<li class="dropdown">
-	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cajas y Bancos<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cobros y Pagos<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
-            <li><a href="#">Cheques Propios</a></li>
-	    <li><a href="#">Cheques de Terceros</a></li>
-            <li><a href="#">Retenciones</a></li>
-	    <li><a href="#">Transferencias</a></li>
-	    <li><a href="#">Cambios de Moneda</a></li>
-	    <%# Nos referimos por Arqueo a la carga de un movimiento que contenga un saldo paralelo al del sistema %>
-	    <%# Se utiliza para cargar el saldo de la caja/cuenta a una cierta fecha, resultado de una cuenta de dinero %>
-	    <%# o del saldo reportado por el banco en la web/correo %>
-	    <li><a href="#">Arqueos de Caja y Bancos</a></li>
+            <%# nota de diseño: los links no son definitivos ya que en este momento no existen las vistas.
+                Necesitamos vistas que filtren las facturas/recibos por tipo cobro/pago %>
+            <li><a href="<%= facturas_path %>">Facturas por Pagar</a></li>
+            <li><a href="<%= recibos_path %>">Recibos de Pago</a></li>
+            <%# duda: existe un divider de linea discontinuada o diferente del utilizado mas abajo? %>
             <li class="divider"></li>
-	    <li class="dropdown-header">Reportes</li>
-	    <%# El Reporte de Liquidez busca dar una idea de la disponibilidad financiera de la obra %>
-	    <%# liquidez bruta = cajas + bancos + cheques de 3ros - cheques propios %>
-	    <%# liquidez neta = liquidez bruta - recibos por pagar + recibos por cobrar %>
-	    <%# liquidez acida = liquidez neta - recibos por cobrar %>
-	    <li><a href="#">Reporte de Liquidez</a></li>
-	    <li><a href="#">bla bla bla</a></li>
+            <li><a href="<%= facturas_path %>">Facturas por Cobrar</a></li>
+            <li><a href="<%= recibos_path %>">Recibos de Ingreso</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Reportes</li>
+            <%# Reporte donde se muestre semana a semana las obligaciones de pago y cobro conocidas %>
+            <li><a href="#">Proyección Semanal de Cobros y Pagos</a></li>
           </ul>
-	</li>
-	<li class="dropdown">
+        </li>
+
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cajas y Bancos<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li class="dropdown-header">Operacion</li>
+            <li><a href="<%= cajas_path %>">Cajas</a></li>
+            <li><a href="<%= cuentas_path %>">Bancos</a></li>
+            <li><a href="#">Cheques Propios</a></li>
+            <li><a href="#">Cheques de Terceros</a></li>
+            <li><a href="#">Retenciones</a></li>
+            <li><a href="#">Transferencias</a></li>
+            <li><a href="#">Cambios de Moneda</a></li>
+            <%# Nos referimos por Arqueo a la carga de un movimiento que contenga un saldo paralelo al del sistema
+                Se utiliza para cargar el saldo de la caja/cuenta a una cierta fecha, resultado de una cuenta de dinero
+                o del saldo reportado por el banco en la web/correo %>
+            <li><a href="#">Arqueos de Cajas y Bancos</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Reportes</li>
+            <%# El Reporte de Liquidez busca dar una idea de la disponibilidad financiera de la obra
+                liquidez bruta = cajas + bancos + cheques de 3ros - cheques propios
+                liquidez neta = liquidez bruta - recibos por pagar + recibos por cobrar
+                liquidez acida = liquidez neta - recibos por cobrar %>
+            <li><a href="#">Reporte de Liquidez</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas<b class="caret"></b></a>
-	  <ul class="dropdown-menu">
+          <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
             <li><a href="#">Contratos</a></li>
             <li><a href="#">Unidades Funcionales</a></li>
-	    <li><a href="#">Cuotas</a></li>
+            <li><a href="#">Cuotas</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Reportes</li>
-	    <li><a href="#">Avances en Venta de la Obra</a></li>
-	    <li><a href="#">bla bla bla</a></li>
+            <li><a href="#">Avances en Venta de la Obra</a></li>
           </ul>
         </li>
+
         <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contratos<b class="caret"></b></a>
-        <ul class="dropdown-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contratos<b class="caret"></b></a>
+          <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
             <li><a href="#">Bases y Adicionales</a></li>
-	    <li><a href="#">Certificaciones</a></li>
+            <li><a href="#">Certificaciones</a></li>
             <li><a href="#">Mayores Costos</a></li>
-	    <li><a href="#">Minutas de Pago</a></li>
-	    <li><a href="#">Adelantos Financieros</a></li>
-	    <li class="divider"></li>
-	    <li class="dropdown-header">Reportes</li>
-	    <li><a href="#">Resumen de Avances</a></li>
-	    <li><a href="#">bla bla bla</a></li>
-	  </ul>
+            <li><a href="#">Minutas de Pago</a></li>
+            <li><a href="#">Adelantos Financieros</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Reportes</li>
+            <li><a href="#">Resumen de Avances</a></li>
+          </ul>
         </li>
+
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
             <li><a href="#">Recepción de Mercadería</a></li>
-	    <li class="divider"></li>
-	    <li class="dropdown-header">Reportes</li>
-	    <li><a href="#">Resumen de compras y entregas</a></li>
-	    <li><a href="#">bla bla bla</a></li>
-	  </ul>
-	</li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Reportes</li>
+            <li><a href="#">Resumen de compras y entregas</a></li>
+          </ul>
+        </li>
+
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuiracion<b class="caret"></b></a>
-	  <ul class="dropdown-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuración<b class="caret"></b></a>
+          <ul class="dropdown-menu">
             <li class="dropdown-header">Maestros</li>
-            <li><a href="#">Obras</a></li>
-	    <li><a href="#">Unidades Funcionales</a></li>
-	    <li><a href="#">Terceros</a></li>
-	    <li><a href="#">Tipo de Retencion</a></li>
-	    <li class="divider"></li>
-	    <li class="dropdown-header">Usuarios</li>
-	    <li><a href="#">Usuarios</a></li>
-	    <li><a href="#">Permisos</a></li>
-	  </ul>
-	</li>
+            <li><a href="<%= obras_path %>">Obras</a></li>
+            <li><a href="#">Unidades Funcionales</a></li>
+            <li><a href="<%= terceros_path %>">Terceros</a></li>
+            <li><a href="#">Tipos de Retención</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Usuarios</li>
+            <li><a href="#">Usuarios</a></li>
+            <li><a href="#">Permisos</a></li>
+          </ul>
+        </li>
+
       </ul>
+
       <ul class="nav navbar-nav navbar-right">
         <li class="active"><a href="/#">Entrar</a></li>
       </ul>
@@ -120,4 +126,5 @@
     </div>
 
   </div>
+
 </div>
