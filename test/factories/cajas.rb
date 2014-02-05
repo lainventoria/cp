@@ -3,5 +3,7 @@
 FactoryGirl.define do
   factory :caja do
     obra
+
+    tipo 'De obra'
   end
 end

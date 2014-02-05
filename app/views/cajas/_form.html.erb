@@ -1,4 +1,4 @@
-<%= form_for(@caja) do |f| %>
+<%= form_for([@obra, @caja]) do |f| %>
   <% if @caja.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@caja.errors.count, "error") %>. No se guardo la caja por:</h2>

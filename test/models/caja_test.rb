@@ -68,4 +68,13 @@ class CajaTest < ActiveSupport::TestCase
 
     assert_equal Money.new(0), @salida
   end
+
+  test 'unifica los tipos prefiriendo el existente' do
+    tipo_existente = 'Cajón sarasa'
+    create(:caja, tipo: tipo_existente)
+
+    assert_equal tipo_existente, create(:caja, tipo: ' Cajón    sarasa ').tipo
+    assert_equal tipo_existente, create(:caja, tipo: 'Cajon sarasa').tipo
+    assert_equal tipo_existente, create(:caja, tipo: 'cajón sarasa').tipo
+  end
 end

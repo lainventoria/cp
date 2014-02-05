@@ -5,18 +5,18 @@ class ObrasControllerTest < ActionController::TestCase
     @obra = create :obra
   end
 
-  test "should get index" do
+  test "accede a la lista de obras" do
     get :index
     assert_response :success
     assert_not_nil assigns(:obras)
   end
 
-  test "should get new" do
+  test "accede a crear" do
     get :new
     assert_response :success
   end
 
-  test "should create obra" do
+  test "crea" do
     assert_difference('Obra.count') do
       post :create, obra: attributes_for(:obra)
     end
@@ -24,22 +24,22 @@ class ObrasControllerTest < ActionController::TestCase
     assert_redirected_to obra_path(assigns(:obra))
   end
 
-  test "should show obra" do
+  test "muestra" do
     get :show, id: @obra
     assert_response :success
   end
 
-  test "should get edit" do
+  test "accede a editar" do
     get :edit, id: @obra
     assert_response :success
   end
 
-  test "should update obra" do
+  test "actualiza" do
     patch :update, id: @obra, obra: attributes_for(:obra)
     assert_redirected_to obra_path(assigns(:obra))
   end
 
-  test "should destroy obra" do
+  test "destruye" do
     assert_difference('Obra.count', -1) do
       delete :destroy, id: @obra
     end

@@ -1,36 +1,31 @@
 # encoding: utf-8
 class CajasController < ApplicationController
+  before_action :set_obra
   before_action :set_caja, only: [:show, :edit, :update, :destroy]
 
-  # GET /cajas
-  # GET /cajas.json
   def index
-    @cajas = Caja.all
+    @cajas = @obra.cajas
   end
 
-  # GET /cajas/1
-  # GET /cajas/1.json
   def show
   end
 
-  # GET /cajas/new
   def new
-    @caja = Caja.new
+    @caja = @obra.cajas.build
   end
 
-  # GET /cajas/1/edit
   def edit
   end
 
-  # POST /cajas
-  # POST /cajas.json
   def create
-    @caja = Caja.new(caja_params)
+    @caja = @obra.cajas.build(caja_params)
 
     respond_to do |format|
       if @caja.save
-        format.html { redirect_to @caja, notice: 'Caja creada con éxito.' }
-        format.json { render action: 'show', status: :created, location: @caja }
+        format.html { redirect_to [@obra, @caja], notice: 'Caja creada con éxito.' }
+        format.json {
+          render action: 'show', status: :created, location: [@obra, @caja]
+        }
       else
         format.html { render action: 'new' }
         format.json { render json: @caja.errors, status: :unprocessable_entity }
@@ -38,12 +33,10 @@ class CajasController < ApplicationController
     end
   end
 
-  # PATCH/PUT /cajas/1
-  # PATCH/PUT /cajas/1.json
   def update
     respond_to do |format|
       if @caja.update(caja_params)
-        format.html { redirect_to @caja, notice: 'Caja actualizada con éxito.' }
+        format.html { redirect_to [@obra, @caja], notice: 'Caja actualizada con éxito.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -52,20 +45,23 @@ class CajasController < ApplicationController
     end
   end
 
-  # DELETE /cajas/1
-  # DELETE /cajas/1.json
   def destroy
     @caja.destroy
     respond_to do |format|
-      format.html { redirect_to cajas_url }
+      format.html { redirect_to obra_cajas_url(@obra) }
       format.json { head :no_content }
     end
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
+    def set_obra
+      @obra = Obra.find(params[:obra_id])
+    end
+
     def set_caja
-      @caja = Caja.find(params[:id])
+      @caja = @obra.cajas.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

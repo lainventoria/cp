@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 gem 'money-rails'
+gem 'attribute_normalizer' # normaliza con varios métodos la entrada de usuario
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -45,6 +46,7 @@ end
 
 group :development, :test do
   gem 'pry-rails'
+  gem 'hirb'
   # Usar fábricas en vez de fixtures
   gem 'factory_girl_rails'
 end
