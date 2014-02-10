@@ -19,7 +19,9 @@
 
 * Usamos git-flow
 
-* Implementá features en sus propias ramas (git flow feature start ...)
+* Implementá features en sus propias ramas
+
+        git flow feature start <nombre descriptivo>
 
 * Hacé tests
 
@@ -29,7 +31,7 @@
 
 * Antes de un PR, hace un rebase a partir de develop
 
-  git checkout develop
-  git pull origin develop
-  git checkout feature/tu-rama
-  git rebase develop
+        git checkout develop
+        git pull origin develop
+        git checkout feature/tu-rama
+        git rebase develop
