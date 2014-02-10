@@ -20,7 +20,7 @@
       <ul class="nav navbar-nav">
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cobros y Pagos<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cobros y Pagos <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
             <%# nota de diseño: los links no son definitivos ya que en este momento no existen las vistas.
@@ -39,7 +39,7 @@
         </li>
 
         <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cajas y Bancos<b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cajas y Bancos <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
             <li><a href="<%= cajas_path %>">Cajas</a></li>
@@ -64,23 +64,24 @@
         </li>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
-            <li><a href="#">Contratos</a></li>
-            <li><a href="#">Unidades Funcionales</a></li>
+            <li><a href="#">Ventas</a></li>
             <li><a href="#">Cuotas</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Reportes</li>
             <li><a href="#">Avances en Venta de la Obra</a></li>
+            <li><a href="#">Unidades Funcionales Disponibles</a></li>
           </ul>
         </li>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contratos<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contratos <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
-            <li><a href="#">Bases y Adicionales</a></li>
+            <li><a href="#">Contratos (Bases)</a></li>
+            <li><a href="#">Adicionales</a></li>
             <li><a href="#">Certificaciones</a></li>
             <li><a href="#">Mayores Costos</a></li>
             <li><a href="#">Minutas de Pago</a></li>
@@ -92,9 +93,10 @@
         </li>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
+            <li><a href="#">Compras</a></li>
             <li><a href="#">Recepción de Mercadería</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Reportes</li>
@@ -103,13 +105,16 @@
         </li>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuración<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuración <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Maestros</li>
             <li><a href="<%= obras_path %>">Obras</a></li>
             <li><a href="#">Unidades Funcionales</a></li>
             <li><a href="<%= terceros_path %>">Terceros</a></li>
             <li><a href="#">Tipos de Retención</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Indices</li>
+            <li><a href="#">Indices</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Usuarios</li>
             <li><a href="#">Usuarios</a></li>
