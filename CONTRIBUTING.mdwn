@@ -23,7 +23,7 @@
 
         git flow feature start <nombre descriptivo>
 
-* Hacé tests
+* Hacé los tests antes que las features ([TDD][]!)
 
 * No mergees, hacé Pull Request y esperá la revisión
 
@@ -35,3 +35,5 @@
         git pull origin develop
         git checkout feature/tu-rama
         git rebase develop
+
+[TDD]: http://en.wikipedia.org/wiki/Test-driven_development
