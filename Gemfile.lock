@@ -40,6 +40,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    dummy (0.9.6)
+    dummy_data (0.9.6)
+      dummy (>= 0.9.1)
+      rails (>= 3.0.0)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.3.0)
@@ -148,6 +152,7 @@ DEPENDENCIES
   attribute_normalizer
   bootstrap-sass-rails
   coffee-rails (~> 4.0.0)
+  dummy_data
   execjs
   factory_girl_rails
   hirb

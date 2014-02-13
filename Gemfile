@@ -49,4 +49,5 @@ group :development, :test do
   gem 'hirb'
   # Usar fábricas en vez de fixtures
   gem 'factory_girl_rails'
+  gem 'dummy_data'
 end
