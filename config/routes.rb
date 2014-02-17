@@ -8,6 +8,11 @@ Cp::Application.routes.draw do
   resources :cuentas
 
   resources :facturas do
+  # Filtrar facturas por situacion
+    collection do
+      get 'cobros'
+      get 'pagos'
+    end
     resources :recibos
   end
 
