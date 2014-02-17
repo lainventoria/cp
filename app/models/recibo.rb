@@ -5,6 +5,9 @@ class Recibo < ActiveRecord::Base
   validates_presence_of :factura
   validate :validate_cancelacion, :validate_saldo
 
+  # Actualiza el saldo de la factura cuando guardamos un valor
+  after_save :actualizar_saldo
+
   # Todas las situaciones en que se generan recibos
   SITUACIONES = %w(cobro pago)
   validates_inclusion_of :situacion, in: SITUACIONES
@@ -38,5 +41,10 @@ class Recibo < ActiveRecord::Base
     end
 
     errors[:base] << "El importe es mayor al saldo #{saldo}" if saldo < 0
+  end
+
+  def actualizar_saldo
+    self.factura.calcular_saldo
+    self.factura.save
   end
 end

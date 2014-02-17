@@ -20,4 +20,16 @@ class FacturaTest < ActiveSupport::TestCase
 
     assert factura.cancelada?
   end
+
+  test "el saldo tiene que ser igual en memoria que en la bd" do
+    factura = create :factura, importe_total: Money.new(3000)
+    3.times { create :recibo, factura: factura, importe: Money.new(1000) }
+
+    assert factura.valid?, factura.errors.messages
+    assert factura.cancelada?
+    assert factura.save
+    assert factura.reload
+    assert factura.cancelada?
+
+  end
 end
