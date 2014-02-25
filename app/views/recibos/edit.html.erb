@@ -1,6 +1,55 @@
-<h1>Editando recibo</h1>
+<div class="row">
+  <h2>Editar Recibo</h2>
+</div>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <% @editar = true %>
+      <%= render 'form' %>
+    </div>
 
-<%= link_to 'Ver', [@recibo.factura, @recibo] %> |
-<%= link_to 'Volver', [@recibo.factura,:recibos] %>
+    <div class="row">
+      <a type="button" class="btn btn-danger col-md-3" href="<%= factura_recibo_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
+        <span class="glyphicon glyphicon-remove-circle"> Borrar Recibo</span>
+      </a>
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= factura_recibo_path(@recibo.factura, @recibo) %>">
+        <span class="glyphicon glyphicon-eye-open"> Volver a Recibo</span>
+      </a>
+      <button class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+        <span class="glyphicon glyphicon-ok"> Guardar Cambios</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="row">
+      <div class="field form-group col-md-5 pull-right">
+        <label>Saldo de la Factura</label><br>
+        <span class="form-control" disabled ><%= @factura.saldo %></span>
+      </div>
+    </div>
+
+    <div class="row col-md-offset-1">
+      <h4>Detalle de Movimientos</h4>
+      <%# incorporar aqui la lista de movimientos %>
+    </div>
+
+    <div class="row pull-right">
+      <a type="button" class="btn btn-primary" href="#">
+        <span class="glyphicon glyphicon-plus"> Nuevo Movimiento</span>
+      </a>
+    </div>
+
+  </div>
+
+<%# script que permite que un boton ubicado fuera del formulario lo postee
+    hay que referirse al formulario por su id
+    al editar un recibo el id es edit_recibo_@recibo.id %>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#btnGuardar').on('click', function() { $('#edit_recibo_<%= @recibo.id %>').submit(); });
+  });
+</script>
+
+</div>

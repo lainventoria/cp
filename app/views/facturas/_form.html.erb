@@ -1,8 +1,7 @@
 <%= form_for(@factura) do |f| %>
   <% if @factura.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@factura.errors.count, "error") %>. No se guardo la factura por:</h2>
-
+    <div id="error_explanation" class="alert alert-danger">
+      <strong>No se guardo la factura.</strong> Debe corregir <%= pluralize(@factura.errors.count, "error") %>
       <ul>
       <% @factura.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,51 +10,114 @@
     </div>
   <% end %>
 
-  <div class="field form-group">
-    <%= f.label :tipo %><br>
-    <%= f.text_field :tipo, class: "form-control" %>
+  <%# (des)habilita la edicion del formulario dependiendo del valor de @editar %>
+  <fieldset <% if not @editar %> disabled <% end %> >
+
+    <div class="row">
+      <div class="field form-group col-md-2">
+        <%= f.label :tipo %><br>
+        <%= f.text_field :tipo, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-3">
+        <%= f.label :numero %><br>
+        <%= f.text_field :numero, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-3 col-md-offset-1">
+        <%= f.label :fecha %><br>
+        <div class="input-group date">
+          <%= f.text_field :fecha, class: "form-control" %>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+      </div>
+      <div class="field form-group col-md-3">
+        <%= f.label :fecha_pago %><br>
+        <div class="input-group date">
+          <%= f.text_field :fecha_pago, class: "form-control" %>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field form-group col-md-8">
+        <%= f.label :nombre %><br>
+        <%= f.text_field :nombre, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-4">
+        <%= f.label :cuit %><br>
+        <%= f.text_field :cuit, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field form-group col-md-12">
+        <%= f.label :descripcion %><br>
+        <%= f.text_area :descripcion, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <%# lugar para el campo importe_neto que esta faltando %>
+      <div class="field form-group col-md-3 col-md-offset-4">
+        <%= f.label :iva %><br>
+        <%= f.text_field :iva, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-2 ">
+        <%= f.label :iva %><br>
+        <%= f.text_field :iva, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-3">
+        <%= f.label :importe_total %><br>
+        <%= f.text_field :importe_total, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <br>
+    </div>
+
+  </fieldset>
+
+  <%# DEBUG %>
+  <%# campos necesarios para crear nuevos recibos %>
+
+  <% if ! mostrar_ocultos %>
+    <div class="row hidden">
+  <% else %>
+    <div class="row">
+    <h6>Campos Ocultos (debug)<small>
+  <% end %>
+        id
+        <%= f.text_field :id %>
+
+        <%# en facturas nuevas, toma el valor de situacion de @situacion
+        parametro pasado al controlador por el entorno del boton Nueva Factura %>
+
+        <% if @factura.id.nil? %>
+          <% @factura.situacion = @situacion %>
+        <% end %>
+
+        situacion
+        <%= f.text_field :situacion %>
+
+        domicilio
+        <%= f.text_field :domicilio %>
+      </small>
+    </h6>
+    <br>
   </div>
-  <div class="field form-group">
-    <%= f.label :numero %><br>
-    <%= f.text_field :numero, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :situacion %><br>
-    <%= collection_select(:factura, :situacion, Factura::SITUACIONES, :to_s, :capitalize, class: "form-control" ) %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :nombre %><br>
-    <%= f.text_area :nombre, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :domicilio %><br>
-    <%= f.text_area :domicilio, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :cuit %><br>
-    <%= f.text_area :cuit, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :iva %><br>
-    <%= f.text_field :iva, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :descripcion %><br>
-    <%= f.text_area :descripcion, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :importe_total %><br>
-    <%= f.text_field :importe_total, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :fecha %><br>
-    <%= f.date_select :fecha, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :fecha_pago %><br>
-    <%= f.date_select :fecha_pago, class: "form-control" %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Guardar", class: "btn btn-primary submit" %>
-  </div>
+
+
+  <%# script para el selector de fechas que muestra el calendario del
+  mes inicialmente estaba app/assests/javascripts/ pero no funcionaba
+  al navegar usando el menu hacia la pagina y era necesario refrescarla
+  para que funcione. aca funciona bien. tendemos que copiar el script en
+  cada formulario y revisar que las preferencias sean las mismas %>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.input-group.date').datepicker({format: "dd M yyyy", weekStart: 1, autoclose: true, language: "es", forceParse: false})
+    })
+  </script>
+
 <% end %>

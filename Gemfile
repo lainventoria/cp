@@ -51,3 +51,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'dummy_data'
 end
+
+# selector de fechas con calendario mensual
+  gem 'bootstrap-datepicker-rails'

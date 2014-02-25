@@ -10,6 +10,7 @@
  *
  * TODO cargar sólo los componentes que usemos
  *= require twitter/bootstrap
+ *= require bootstrap-datepicker
  *= require_self
  *= require_tree .
  */

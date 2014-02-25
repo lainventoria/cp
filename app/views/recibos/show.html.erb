@@ -1,24 +1,56 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <h2>Detalle de Recibo de <%= @recibo.situacion.capitalize %></h2> 
+  <% if !notice.nil? %>
+    <div id="notice" class="alert alert-success"><%= notice %></div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Fecha:</strong>
-  <%= formatted_date(@recibo.fecha) %>
-</p>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <% @editar = false %>
+      <%= render 'form' %>
+    </div>
 
-<p>
-  <strong>Importe:</strong>
-  <%= @recibo.importe %>
-</p>
+    <div class="row">
+      <a type="button" class="btn btn-success col-md-3" href="<%= factura_path (@recibo.factura) %>">
+        <span class="glyphicon glyphicon-eye-open"> Ver Factura</span>
+      </a>
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= edit_factura_recibo_path(@recibo.factura, @recibo) %>">
+        <span class="glyphicon glyphicon-edit"> Editar Recibo</span>
+      </a>
+    </div>
 
-<p>
-  <strong>Situación:</strong>
-  <%= @recibo.situacion %>
-</p>
+    <div class="row">
+      <br>
+    </div>
 
-<p>
-  <strong>Factura:</strong>
-  <%= @recibo.factura %>
-</p>
+    <div class="row">  
+      <a type="button" class="btn btn-success col-md-3" href="
+        <% if @recibo.situacion == "cobro" %>
+          <%= cobros_recibos_path %>
+        <% else %>
+          <%= pagos_recibos_path %>
+        <% end %>
+        ">
+        <span class="glyphicon glyphicon-list"> Listar Recibos</span>
+      </a>
+    </div>
+  </div>
 
-<%= link_to 'Editar', [:edit,@recibo.factura,@recibo]  %> |
-<%= link_to 'Volver', [@recibo.factura,:recibos] %>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="field form-group col-md-5 pull-right">
+        <label>Saldo de la Factura</label><br>
+        <span class="form-control" disabled ><%= @factura.saldo %></span>
+      </div>
+    </div>
+
+    <div class="row col-md-offset-1">
+      <h4>Detalle de Movimientos</h4>
+      <%# TODO incorporar listado de movimientos cuando sea posible %>
+    </div>
+
+  </div>
+
+</div>

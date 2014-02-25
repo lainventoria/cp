@@ -11,23 +11,25 @@ class FacturasController < ApplicationController
   # Solo mostrar facturas para cobrar reciclando la vista de lista
   def cobros
     @facturas = Factura.where(situacion: "cobro")
-
+    @situacion = "cobro"
     render "index"
   end
 
   def pagos
     @facturas = Factura.where(situacion: "pago")
-
+    @situacion = "pago"
     render "index"
   end
 
   # GET /facturas/1
   # GET /facturas/1.json
   def show
+    expires_now()
   end
 
   # GET /facturas/new
   def new
+    @situacion = params[:situacion]
     @factura = Factura.new
   end
 

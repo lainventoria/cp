@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="La Inventoría">
     <meta charset="utf-8">
+    <%# agregado para probar nested-layouts
+        permite realizar ajustes al css del partial renderizado
+        ej: ver listado de recibos en view/facturas/show.html.erb  %>
+    <style><%= yield :stylesheets %></style>
   </head>
 
   <body>

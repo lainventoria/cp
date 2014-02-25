@@ -1,59 +1,68 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <h2>Detalle de Factura por 
+    <% if @factura.situacion == "pago" %>
+      Pagar
+    <% else %>
+      Cobrar
+    <% end %>
+  </h2> 
+  <% if !notice.nil? %>
+    <div id="notice" class="alert alert-success"><%= notice %></div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Tipo:</strong>
-  <%= @factura.tipo %>
-</p>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <% @editar = false %>
+      <%= render 'form' %>
+    </div>
 
-<p>
-  <strong>Número:</strong>
-  <%= @factura.numero %>
-</p>
+    <div class="row">
+      <a type="button" class="btn btn-success col-md-3" href="
+        <% if @factura.situacion == "cobro" %>
+          <%= cobros_facturas_path %>
+        <% else %>
+          <%= pagos_facturas_path %>
+        <% end %>
+        ">
+        <span class="glyphicon glyphicon-list-alt"> Listar Facturas</span>
+      </a>
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= edit_factura_path(@factura) %>">
+        <span class="glyphicon glyphicon-edit"> Editar Factura</span>
+      </a>
 
-<p>
-  <strong>Situación:</strong>
-  <%= @factura.situacion %>
-</p>
+    </div>
+  </div>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @factura.nombre %>
-</p>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="field form-group col-md-5 col-md-offset-1">
+        <label>Total Recibos</label><br>
+        <span class="form-control" disabled ><%= @factura.importe_total - @factura.saldo %></span>
+      </div>
+      <div class="field form-group col-md-5">
+        <label>Saldo remanente</label><br>
+        <span class="form-control" disabled ><%= @factura.saldo %></span>
+      </div>
+    </div>
 
-<p>
-  <strong>Domicilio:</strong>
-  <%= @factura.domicilio %>
-</p>
+    <div class="row col-md-offset-1">
+      <h4>Detalle de Recibos</h4>
+      <% @recibos = @factura.recibos %>
+      <%# nested-layout: CSS adicional para el objeto a renderizar %>
+      <% content_for :stylesheets do %>
+        #lista-corta {display: none}
+      <% end %>
+      <%= render 'recibos/list' %>
+    </div>
 
-<p>
-  <strong>Cuit:</strong>
-  <%= @factura.cuit %>
-</p>
+    <div class="row pull-right">
+      <a type="button" class="btn btn-primary" href="<%= new_factura_recibo_path(@factura) %>">
+        <span class="glyphicon glyphicon-plus"> Nuevo Recibo</span>
+      </a>
+    </div>
 
-<p>
-  <strong>Iva:</strong>
-  <%= @factura.iva %>
-</p>
+  </div>
+</div>
 
-<p>
-  <strong>Descripción:</strong>
-  <%= @factura.descripcion %>
-</p>
-
-<p>
-  <strong>Importe total:</strong>
-  <%= @factura.importe_total %>
-</p>
-
-<p>
-  <strong>Fecha:</strong>
-  <%= formatted_date(@factura.fecha) %>
-</p>
-
-<p>
-  <strong>Fecha pago:</strong>
-  <%= formatted_date(@factura.fecha_pago) %>
-</p>
-
-<%= link_to 'Editar', edit_factura_path(@factura) %> |
-<%= link_to 'Volver', facturas_path %>

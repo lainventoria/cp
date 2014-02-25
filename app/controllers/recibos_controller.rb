@@ -1,44 +1,41 @@
 # encoding: utf-8
 class RecibosController < ApplicationController
   before_action :set_recibo, only: [:show, :edit, :update, :destroy]
-  before_action :set_factura, only: [:show, :edit, :update, :destroy, :create, :new]
+  before_action :set_factura, only: [:show, :edit, :update, :destroy, :index, :create, :new]
 
   # GET /recibos
   # GET /recibos.json
   def index
-    # Filtrar por factura si venimos de /factura/:factura_id
-    if params[:factura_id]
-      @recibos = Recibo.where(factura_id: params[:factura_id])
-    else
-      @recibos = Recibo.all
-    end
+    @recibos = Recibo.all
   end
 
-  # Solo mostrar recibos de cobro reciclando la vista de lista
   def cobros
     @recibos = Recibo.where(situacion: "cobro")
-
+    @situacion = "Cobros"
     render "index"
   end
 
   def pagos
     @recibos = Recibo.where(situacion: "pago")
-
+    @situacion = "Pagos"
     render "index"
   end
 
   # GET /recibos/1
   # GET /recibos/1.json
   def show
+    @editar = false
   end
 
   # GET /recibos/new
   def new
     @recibo = Recibo.new
+    @editar = true
   end
 
   # GET /recibos/1/edit
   def edit
+    @editar = true
   end
 
   # POST /recibos
@@ -76,7 +73,7 @@ class RecibosController < ApplicationController
   def destroy
     @recibo.destroy
     respond_to do |format|
-      format.html { redirect_to [@factura, :recibos] }
+      format.html { redirect_to [@factura] }
       format.json { head :no_content }
     end
   end
@@ -88,7 +85,10 @@ class RecibosController < ApplicationController
     end
 
     def set_factura
-      @factura = Factura.find(params[:factura_id])
+      if params[:factura_id]
+        @factura = Factura.find(params[:factura_id])
+      end
+
       if ( ! @factura.nil? && ! @recibo.nil? ) 
         @recibo.factura = @factura
       end

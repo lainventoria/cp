@@ -1,5 +1,38 @@
-<h1>Nueva factura</h1>
+<div class="row">
+  <h2>Nueva Factura</h2>
+</div>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <% @editar = true %>
+      <%= render 'form' %>
+    </div>
 
-<%= link_to 'Volver', facturas_path %>
+    <div class="row">
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="
+        <% if @factura.situacion == "cobro" %>
+          <%= cobros_facturas_path %>
+        <% else %>
+          <%= pagos_facturas_path %>
+        <% end %>
+        ">
+        <span class="glyphicon glyphicon-eye-open"> Volver al Listado</span>
+      </a>
+
+      <button class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+        <span class="glyphicon glyphicon-ok"> Guardar Cambios</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<%# script que permite que un boton ubicado fuera del formulario lo postee
+    hay que referirse al formulario por su id
+    para el caso de una nueva factura el id del formulario es siempre new_factura %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#btnGuardar').on('click', function() { $('#new_factura').submit(); });
+  });
+</script>

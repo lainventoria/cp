@@ -1,0 +1,25 @@
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Fecha</th>
+      <th id="lista-corta">Tercero</th>
+      <th id="lista-corta">Factura</th>
+      <th id="lista-corta">Fecha Factura</th>
+      <th>Importe</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recibos.each do |recibo| %>
+      <tr>
+        <td><%= link_to '', [recibo.factura, recibo], class:"glyphicon glyphicon-eye-open" %></td>
+        <td><%= formatted_date(recibo.fecha) %></td>
+        <td id="lista-corta"><%= recibo.factura.nombre.first(30) %> %></td>
+        <td id="lista-corta"><%= recibo.factura.tipo.first(1) %>-<%= recibo.factura.numero.first(10) %>: <%= recibo.factura.descripcion.first(30) %></td>
+        <td id="lista-corta"><%= formatted_date (recibo.factura.fecha) %>
+        <td><%= recibo.importe %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

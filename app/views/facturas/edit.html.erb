@@ -1,6 +1,33 @@
-<h1>Editando factura</h1>
+<div class="row">
+  <h2>Editar Factura</h2>
+</div>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <% @editar = true %>
+      <%= render 'form' %>
+    </div>
 
-<%= link_to 'Ver', @factura %> |
-<%= link_to 'Volver', facturas_path %>
+    <div class="row">
+      <a type="button" class="btn btn-danger col-md-3" href="<%= factura_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
+        <span class="glyphicon glyphicon-remove-circle"> Borrar Factura</span>
+      </a>
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= factura_path(@factura) %>">
+        <span class="glyphicon glyphicon-eye-open"> Volver a Factura</span>
+      </a>
+      <button class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+        <span class="glyphicon glyphicon-ok"> Guardar Cambios</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<%# script que permite que un boton ubicado fuera del formulario lo postee
+    hay que referirse al formulario por su id
+    al editar una factura el id es edit_factura_@factura.id %>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#btnGuardar').on('click', function() { $('#edit_factura_<%= @factura.id %>').submit(); });
+  });
+</script>

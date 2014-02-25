@@ -1,33 +1,5 @@
-<h1>Listado de recibos</h1>
+<div class="row">
+  <h2>Listado de Recibos de <%= @situacion %></h2>
+</div>
 
-<table class="table table-hover table-condensed">
-  <thead>
-    <tr>
-      <th>Fecha</th>
-      <th>Importe</th>
-      <th>Situación</th>
-      <th>Factura</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @recibos.each do |recibo| %>
-      <tr>
-        <td><%= formatted_date(recibo.fecha) %></td>
-        <td><%= recibo.importe %></td>
-        <td><%= recibo.situacion %></td>
-        <td><%= recibo.factura %></td>
-        <td><%= link_to 'Ver', [recibo.factura, recibo] %></td>
-        <td><%= link_to 'Editar', [:edit, recibo.factura, recibo] %></td>
-        <td><%= link_to 'Borrar', [recibo.factura, recibo], {method: :delete, data: { confirm: '¿Está seguro?' }} %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'Nuevo Recibo', [:new,@factura,:recibo] %>
+<%= render 'list' %>

@@ -25,12 +25,12 @@
             <li class="dropdown-header">Operacion</li>
             <%# nota de diseño: los links no son definitivos ya que en este momento no existen las vistas.
                 Necesitamos vistas que filtren las facturas/recibos por tipo cobro/pago %>
-            <li><a href="<%= facturas_path %>">Facturas por Pagar</a></li>
-            <li><a href="#">Recibos de Pago</a></li>
+            <li><a href="<%= pagos_facturas_path %>">Facturas por Pagar</a></li>
+            <li><a href="<%= pagos_recibos_path %>">Recibos de Pagos</a></li>
             <%# duda: existe un divider de linea discontinuada o diferente del utilizado mas abajo? %>
             <li class="divider"></li>
-            <li><a href="<%= facturas_path %>">Facturas por Cobrar</a></li>
-            <li><a href="#">Recibos de Ingreso</a></li>
+            <li><a href="<%= cobros_facturas_path %>">Facturas por Cobrar</a></li>
+            <li><a href="<%= cobros_recibos_path %>">Recibos de Cobros</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Reportes</li>
             <%# Reporte donde se muestre semana a semana las obligaciones de pago y cobro conocidas %>

@@ -1,5 +1,64 @@
-<h1>Nuevo recibo</h1>
+<div class="row">
+  <h2>Nuevo Recibo</h2>
+</div>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <% @editar = true %>
+      <%= render 'form' %>
+    </div>
 
-<%= link_to 'Volver', [@factura, :recibos] %>
+    <div class="row">
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= factura_path (@factura) %>">
+        <span class="glyphicon glyphicon-eye-open"> Volver a Factura</span>
+      </a>
+
+      <button class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+        <span class="glyphicon glyphicon-ok"> Guardar Cambios</span>
+      </button>
+    </div>
+
+    <div class="row">
+      <br>
+    </div>
+
+    <div class="row">
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= factura_recibos_path(@factura) %>">
+        <span class="glyphicon glyphicon-list"> Listar Recibos</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="row">
+      <div class="field form-group col-md-5 pull-right">
+        <label>Saldo de la Factura</label><br>
+        <span class="form-control" disabled ><%= @factura.saldo %></span>
+      </div>
+    </div>
+
+    <div class="row col-md-offset-1">
+      <h4>Detalle de Movimientos</h4>
+      <%# lugar donde listar los movimientos que componen el recibo %>
+    </div>
+
+    <div class="row pull-right">
+      <a type="button" class="btn btn-primary" href="#">
+        <span class="glyphicon glyphicon-plus"> Nuevo Movimiento</span>
+      </a>
+    </div>
+
+  </div>
+
+</div>
+
+
+<%# script que permite que un boton ubicado fuera del formulario lo postee
+    hay que referirse al formulario por su id
+    para el caso de una nueva factura el id del formulario es siempre new_factura %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#btnGuardar').on('click', function() { $('#new_recibo').submit(); });
+  });
+</script>

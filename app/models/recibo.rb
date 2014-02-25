@@ -7,6 +7,7 @@ class Recibo < ActiveRecord::Base
 
   # Actualiza el saldo de la factura cuando guardamos un valor
   after_save :actualizar_saldo
+  after_destroy :actualizar_saldo
 
   # Todas las situaciones en que se generan recibos
   SITUACIONES = %w(cobro pago)
