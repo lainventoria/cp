@@ -174,7 +174,6 @@ DEPENDENCIES
   bootstrap-sass-rails
   coffee-rails (~> 4.0.0)
   dummy_data
-  execjs
   factory_girl_rails
   hirb
   inflections (= 0.0.5)
