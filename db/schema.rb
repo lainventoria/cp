@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140217232538) do
+ActiveRecord::Schema.define(version: 20140227212916) do
 
   create_table "cajas", force: true do |t|
     t.integer  "obra_id"
@@ -75,6 +75,22 @@ ActiveRecord::Schema.define(version: 20140217232538) do
   end
 
   add_index "recibos", ["factura_id"], name: "index_recibos_on_factura_id"
+
+  create_table "retenciones", force: true do |t|
+    t.integer  "factura_id"
+    t.integer  "recibo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "monto_centavos",         default: 0,     null: false
+    t.string   "monto_moneda",           default: "ARS", null: false
+    t.string   "documento_file_name"
+    t.string   "documento_content_type"
+    t.integer  "documento_file_size"
+    t.datetime "documento_updated_at"
+  end
+
+  add_index "retenciones", ["factura_id"], name: "index_retenciones_on_factura_id"
+  add_index "retenciones", ["recibo_id"], name: "index_retenciones_on_recibo_id"
 
   create_table "terceros", force: true do |t|
     t.string   "nombre"
