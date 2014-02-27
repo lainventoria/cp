@@ -33,4 +33,5 @@ Cp::Application.routes.draw do
     end
   end
 
+  resources :retenciones
 end
