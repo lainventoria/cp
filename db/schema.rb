@@ -94,6 +94,22 @@ ActiveRecord::Schema.define(version: 20140318051816) do
 
   add_index "recibos", ["factura_id"], name: "index_recibos_on_factura_id"
 
+  create_table "retenciones", force: true do |t|
+    t.integer  "factura_id"
+    t.integer  "recibo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "monto_centavos",         default: 0,     null: false
+    t.string   "monto_moneda",           default: "ARS", null: false
+    t.string   "documento_file_name"
+    t.string   "documento_content_type"
+    t.integer  "documento_file_size"
+    t.datetime "documento_updated_at"
+  end
+
+  add_index "retenciones", ["factura_id"], name: "index_retenciones_on_factura_id"
+  add_index "retenciones", ["recibo_id"], name: "index_retenciones_on_recibo_id"
+
   create_table "terceros", force: true do |t|
     t.string   "nombre"
     t.text     "direccion"
