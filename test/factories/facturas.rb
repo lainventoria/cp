@@ -7,7 +7,7 @@ FactoryGirl.define do
     situacion "pago"
     nombre "MyText"
     domicilio "MyText"
-    cuit "MyText"
+    cuit "22-22222-2"
     iva 1.5
     descripcion "MyText"
     importe_total { Money.new rand(1000) }
