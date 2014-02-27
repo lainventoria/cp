@@ -5,6 +5,7 @@ gem 'rails', '4.0.2'
 
 gem 'money-rails'
 gem 'attribute_normalizer' # normaliza con varios métodos la entrada de usuario
+gem 'paperclip'
 # permite importar y exportar datos en formato yml
 gem 'yaml_db', github: 'mauriciopasquier/yaml_db'
 
