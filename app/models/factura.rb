@@ -76,4 +76,12 @@ class Factura < ActiveRecord::Base
 	def to_s
 		nombre_y_numero
 	end
+
+  # Devuelve nil si no pudo pagar por alguna razón
+  # FIXME null object?
+  def pagar(importe)
+    nuevo = recibos.create(importe: importe)
+
+    nuevo.persisted? ? nuevo : nil
+  end
 end

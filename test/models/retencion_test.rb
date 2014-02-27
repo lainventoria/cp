@@ -9,4 +9,23 @@ class RetencionTest < ActiveSupport::TestCase
   test 'es válida' do
     assert (r = build(:retencion)).valid?, r.errors.messages
   end
+
+  test "se usa para pagar facturas" do
+    factura = create :factura
+
+    recibo = @retencion.pagar(factura)
+
+    assert_instance_of Recibo, recibo
+    assert_equal @retencion.monto, recibo.importe
+    assert_equal factura, @retencion.factura_pagada
+  end
+
+  test "paga y guarda" do
+    factura = create :factura
+
+    @retencion.pagar(factura)
+    assert @retencion.changed?
+    @retencion.pagar!(factura)
+    refute @retencion.changed?
+  end
 end

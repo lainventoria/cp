@@ -5,11 +5,20 @@ class Retencion < ActiveRecord::Base
 
   # El recibo del pago de otra factura
   belongs_to :recibo
-  has_one :factura_pagada, through: :recibo
+  has_one :factura_pagada, through: :recibo, source: :factura
 
   # TODO sólo pdfs?
   has_attached_file :documento
   validates_attachment_content_type :documento, content_type: /\Aapplication\/pdf\Z/
 
   monetize :monto_centavos, with_model_currency: :monto_moneda
+
+  def pagar(factura)
+    self.recibo = factura.pagar monto
+  end
+
+  def pagar!(factura)
+    pagar factura
+    save
+  end
 end
