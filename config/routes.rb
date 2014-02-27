@@ -25,5 +25,8 @@ Cp::Application.routes.draw do
       get 'pagos'
     end
   end
+
   resources :terceros
+
+  resources :retenciones
 end
