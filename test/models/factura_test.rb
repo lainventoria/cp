@@ -50,4 +50,24 @@ class FacturaTest < ActiveSupport::TestCase
     assert factura.save
 
   end
+
+  test "se puede pagar" do
+    factura = create :factura
+    monto = factura.importe_total
+
+    assert factura.recibos.empty?
+    recibo = factura.pagar monto
+    assert_equal monto, recibo.importe
+    assert_equal 1, factura.recibos.count
+  end
+
+  test "no se puede pagar de más" do
+    factura = create :factura
+    monto = 2 * factura.importe_total
+
+    assert factura.recibos.empty?
+    recibo = factura.pagar monto
+    assert_nil recibo
+    assert_equal 0, factura.recibos.count
+  end
 end

@@ -5,6 +5,7 @@ gem 'rails', '4.0.2'
 
 gem 'money-rails'
 gem 'attribute_normalizer' # normaliza con varios métodos la entrada de usuario
+gem 'paperclip'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -20,7 +21,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 
-gem 'execjs'
 gem 'therubyracer'
 
 # I18n
