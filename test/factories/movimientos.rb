@@ -5,5 +5,6 @@ FactoryGirl.define do
     monto { Money.new(rand(100)) }
 
     caja
+    recibo { Recibo.create situacion: 'interno' }
   end
 end

@@ -46,9 +46,13 @@ class Caja < ActiveRecord::Base
   def cambiar(cantidad, moneda, indice)
     # Sólo si la caja tiene suficiente saldo devolvemos el monto convertido
     Caja.transaction do
-      extraer(cantidad, true)
+      # Crear un recibo que agrupe todos los movimientos producto de
+      # este cambio
+      recibo = self.crear_recibo_interno
+
+      extraer(cantidad, true, recibo)
       cantidad.bank.exchange cantidad.fractional, indice do |nuevo|
-        depositar(Money.new(nuevo, moneda), true)
+        depositar(Money.new(nuevo, moneda), true, recibo)
       end
     end || Money.new(0)
   end
@@ -56,9 +60,10 @@ class Caja < ActiveRecord::Base
   # Sólo si la caja tiene suficiente saldo devolvemos el monto convertido,
   # caso contrario no devolvemos nada, opcionalmente una excepción para frenar
   # la transacción
-  def extraer(cantidad, lanzar_excepcion = false)
+  def extraer(cantidad, lanzar_excepcion = false, recibo = nil)
+    # Se arrastra el recibo si hay
     if cantidad <= total(cantidad.currency.iso_code)
-      depositar(cantidad * -1)
+      depositar(cantidad * -1, false, recibo)
       cantidad
     else
       raise ActiveRecord::Rollback, 'Falló la extracción' if lanzar_excepcion
@@ -67,11 +72,20 @@ class Caja < ActiveRecord::Base
 
   # Devolvemos cantidad para mantener consistente la API, opcionalmente una
   # excepción para frenar la transacción
-  def depositar(cantidad, lanzar_excepcion = false)
-    if movimientos.create(monto: cantidad)
+  def depositar(cantidad, lanzar_excepcion = false, recibo = nil)
+    # Crear un recibo adhoc para este movimiento
+    recibo = crear_recibo_interno unless recibo
+    if movimientos.create(monto: cantidad, recibo: recibo)
       cantidad
     else
       raise ActiveRecord::Rollback, 'Falló el depósito' if lanzar_excepcion
     end
+  end
+
+  # Crear un recibo interno para una transacción específica
+  def crear_recibo_interno
+    recibo = Recibo.create(importe: 0,
+                           situacion: 'interno',
+                           fecha: Time.now)
   end
 end

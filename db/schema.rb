@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140217232538) do
+ActiveRecord::Schema.define(version: 20140225012156) do
 
   create_table "cajas", force: true do |t|
     t.integer  "obra_id"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20140217232538) do
     t.string   "monto_moneda",   default: "ARS", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "recibo_id"
   end
 
   create_table "obras", force: true do |t|

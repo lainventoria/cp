@@ -2,16 +2,19 @@
 class Recibo < ActiveRecord::Base
   # Las facturas se cancelan con uno o más recibos
   belongs_to :factura, inverse_of: :recibos
+  # Los recibos disparan movimientos
+  has_many :movimientos, inverse_of: :recibo
   # Por eso cada recibo tiene que estar asociado a una factura
-  validates_presence_of :factura
-  validate :validate_cancelacion, :validate_saldo
+  # a menos que sea un recibo interno (burocracia!)
+  validates_presence_of :factura, unless: :interno?
+  validate :validate_cancelacion, :validate_saldo, unless: :interno?
 
   # Actualiza el saldo de la factura cuando guardamos un valor
-  after_save :actualizar_saldo
-  after_destroy :actualizar_saldo
+  after_save :actualizar_saldo, unless: :interno?
+  after_destroy :actualizar_saldo, unless: :interno?
 
   # Todas las situaciones en que se generan recibos
-  SITUACIONES = %w(cobro pago)
+  SITUACIONES = %w(cobro pago interno)
   validates_inclusion_of :situacion, in: SITUACIONES
 
   monetize :importe_centavos
@@ -24,6 +27,10 @@ class Recibo < ActiveRecord::Base
   # Es un recibo de cobro?
   def cobro?
     situacion == 'cobro'
+  end
+
+  def interno?
+    situacion == 'interno'
   end
 
   # Eso mismo
