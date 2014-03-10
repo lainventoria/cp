@@ -6,7 +6,9 @@ class RecibosController < ApplicationController
   # GET /recibos
   # GET /recibos.json
   def index
-    @recibos = Recibo.all
+    if params[:factura_id]
+      @recibos = Recibo.where(factura_id: params[:factura_id])
+    end
   end
 
   def cobros
