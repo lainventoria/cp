@@ -32,4 +32,21 @@ class ReciboTest < ActiveSupport::TestCase
     assert recibo2.invalid?, recibo2.errors.messages
     assert_not recibo2.save
   end
+
+  test "es un pago?" do
+    recibo_pago = create :recibo, situacion: "pago"
+    recibo_cobro = build :recibo, situacion: "cobro"
+    
+    assert recibo_pago.pago?
+    assert_not recibo_cobro.pago?
+  end
+
+  test "es un cobro?" do
+    recibo_pago = create :recibo, situacion: "pago"
+    recibo_cobro = build :recibo, situacion: "cobro"
+    
+    assert_not recibo_pago.cobro?
+    assert recibo_cobro.cobro?
+  end
+
 end

@@ -1,8 +1,8 @@
 <%= form_for(@tercero) do |f| %>
   <% if @tercero.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tercero.errors.count, "error") %>. No se guardo el tercero por:</h2>
-
+    <% @editar = true %>
+    <div id="error_explanation" class="alert alert-danger">
+      <strong>No se guardo el Tercero. </strong>Debe corregir <%= pluralize(@tercero.errors.count, "error") %>
       <ul>
       <% @tercero.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -10,44 +10,64 @@
       </ul>
     </div>
   <% end %>
+  
+  <fieldset <%= editar_o_bloquear %> > 
+    <div class="row">
+      <div class="field form-group col-md-6">
+        <%= f.label :nombre %><br>
+        <%= f.text_field :nombre, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-2">
+        <%= f.label :cuit %><br>
+        <%= f.text_field :cuit, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-2">
+        <%= f.label :iva %><br>
+        <%= f.text_field :iva, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-2">
+        <%= f.label :relacion %><br>
+        <%= f.text_field :relacion, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="field form-group">
+          <%= f.label :contacto %>
+          <%= f.text_field :contacto, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :email %><br>
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="field form-group">
+          <%= f.label :telefono %><br>
+          <%= f.text_field :telefono, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :celular %><br>
+          <%= f.text_field :celular, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="field form-group">
+          <%= f.label :direccion %><br>
+          <%= f.text_area :direccion, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field form-group col-md-12">
+        <%= f.label :notas %><br>
+        <%= f.text_area :notas, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row">
+    </div>
+  </div>
 
-  <div class="field form-group">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :direccion %><br>
-    <%= f.text_area :direccion, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :telefono %><br>
-    <%= f.text_area :telefono, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :celular %><br>
-    <%= f.text_area :celular, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :email %><br>
-    <%= f.text_field :email, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :iva %><br>
-    <%= f.text_field :iva, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :proveedor %><br>
-    <%= f.text_field :proveedor, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :cliente %><br>
-    <%= f.text_field :cliente, class: "form-control" %>
-  </div>
-  <div class="field form-group">
-    <%= f.label :cuit %><br>
-    <%= f.text_field :cuit, class: "form-control" %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Guardar", class: "btn btn-primary submit" %>
-  </div>
+  <br>  
+
 <% end %>

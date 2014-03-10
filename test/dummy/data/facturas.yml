@@ -3,9 +3,7 @@
 factura_0:
   tipo: A
   numero: 7
-  nombre: Vera Aléntova
-  domicilio: Av. Libertad 987
-  cuit: 30-44233123-7
+  tercero_id: 1
   descripcion: Praesentium enim ut aut suscipit. Vero ut ea dicta ad.
   importe_total_centavos: 249
   importe_total_moneda: ARS
@@ -23,9 +21,7 @@ factura_0:
 factura_1:
   tipo: C
   numero: 333
-  nombre: Olga Baclanova
-  domicilio: San Martin 999
-  cuit: 20-55555555-9
+  tercero_id: 2
   descripcion: Sin descripcion.
   importe_total_centavos: 164
   importe_total_moneda: ARS
@@ -43,9 +39,7 @@ factura_1:
 factura_2:
   tipo: R
   numero: 88
-  nombre: Alekséi Batálov
-  domicilio: Av. Mbaracuya 1234
-  cuit: 14-88456321-9
+  tercero_id: 3
   descripcion: Id est mollitia quisquam porro. Deserunt quidem aspernatur nemo voluptas.
     Ut est voluptas necessitatibus nulla. Modi ad eum aut quaerat. Minus accusamus
     a similique ipsam. 
@@ -65,9 +59,7 @@ factura_2:
 factura_3:
   tipo: A
   numero: 22
-  nombre: Sofiko Chiaureli
-  domicilio: Av. La Paz 789
-  cuit: 12-34567891-8
+  tercero_id: 4
   descripcion: Qui iure quidem optio sequi. A officiis quo aut quos. Tempore et autem
     dolore officia. Accusamus omnis ipsa delectus accusamus. Iste quibusdam distinctio
     odio ratione.
@@ -87,9 +79,7 @@ factura_3:
 factura_4:
   tipo: B
   numero: 14
-  nombre: Liubov Orlova
-  domicilio: Av. Pichincha 999
-  cuit: 12-12356489-7
+  tercero_id: 5
   descripcion: Laboriosam in quod eos culpa. 
   importe_total_centavos: 275
   importe_total_moneda: ARS
@@ -107,9 +97,7 @@ factura_4:
 factura_5:
   tipo: B
   numero: 42
-  nombre: Faína Ranévskaya
-  domicilio: Av. Non dignissimos 2355
-  cuit: 99-99999999-9
+  tercero_id: 6
   descripcion: Eum sed adipisci saepe vel. 
   importe_total_centavos: 351
   importe_total_moneda: ARS
@@ -127,9 +115,7 @@ factura_5:
 factura_6:
   tipo: A
   numero: 654
-  nombre: Liubov Orlova
-  domicilio: Av. Kingston 331
-  cuit: 33-11122233-1
+  tercero_id: 7
   descripcion: Expedita fugit repudiandae
   importe_total_centavos: 963
   importe_total_moneda: ARS
@@ -147,9 +133,7 @@ factura_6:
 factura_7:
   tipo: C
   numero: 66
-  nombre: Vladímir Vysotski
-  domicilio: Saepe magnam 55
-  cuit: 23-11111154-5
+  tercero_id: 1
   descripcion: Quam delectus molestiae modi ullam. Ut necessitatibus blanditiis dicta
     sed. Nihil reprehenderit quibusdam reiciendis et. Ea rerum nesciunt facere et.
     Quia quod libe
@@ -169,9 +153,7 @@ factura_7:
 factura_8:
   tipo: A
   numero: 88
-  nombre: Valeri Zolotujin
-  domicilio: Iure 142
-  cuit: 11-42111333-2
+  tercero_id: 8
   descripcion: Minima aliquam facere aut architecto. Dolor et nemo quaerat nostrum.
   importe_total_centavos: 944
   importe_total_moneda: ARS
@@ -189,9 +171,7 @@ factura_8:
 factura_9:
   tipo: B
   numero: 75
-  nombre: Andréi Tarkovski
-  domicilio: Mollitia 4523 15 Z
-  cuit: 11-42111333-2
+  tercero_id: 9
   descripcion: Exercitationem aut rerum deserunt blanditiis. 
   importe_total_centavos: 269
   importe_total_moneda: ARS

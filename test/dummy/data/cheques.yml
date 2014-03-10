@@ -1,7 +1,7 @@
 # 'cheques' data generated automatically by dummy at 20:24 03/03/2014 (40 records).
 ---
 cheque_0:
-  cuenta_id: 54837154
+  caja_id: 54837154
   recibo_id: 201161864
   situacion: propio
   numero: 308
@@ -10,7 +10,7 @@ cheque_0:
   fecha_vencimiento: '2015-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_1:
-  cuenta_id: 495116819
+  caja_id: 495116819
   recibo_id: 201161864
   situacion: propio
   numero: 543
@@ -19,7 +19,7 @@ cheque_1:
   fecha_vencimiento: '2015-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_2:
-  cuenta_id: 887179049
+  caja_id: 887179049
   recibo_id: 38482093
   situacion: terceros
   numero: 776
@@ -28,7 +28,7 @@ cheque_2:
   fecha_vencimiento: '2015-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_3:
-  cuenta_id: 887179049
+  caja_id: 887179049
   recibo_id: 38482093
   situacion: terceros
   numero: 969
@@ -37,7 +37,7 @@ cheque_3:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_4:
-  cuenta_id: 864846658
+  caja_id: 864846658
   recibo_id: 201161864
   situacion: propio
   numero: 404
@@ -46,7 +46,7 @@ cheque_4:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_5:
-  cuenta_id: 65435570
+  caja_id: 65435570
   recibo_id: 38482093
   situacion: terceros
   numero: 958
@@ -55,7 +55,7 @@ cheque_5:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_6:
-  cuenta_id: 335258163
+  caja_id: 335258163
   recibo_id: 201161864
   situacion: propio
   numero: 412
@@ -64,7 +64,7 @@ cheque_6:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_7:
-  cuenta_id: 54837154
+  caja_id: 54837154
   situacion: propio
   numero: 8
   monto_centavos: 889
@@ -72,7 +72,7 @@ cheque_7:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_8:
-  cuenta_id: 335258163
+  caja_id: 335258163
   situacion: propio
   numero: 193
   monto_centavos: 282
@@ -80,7 +80,7 @@ cheque_8:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_9:
-  cuenta_id: 876842807
+  caja_id: 876842807
   situacion: propio
   numero: 114
   monto_centavos: 26
@@ -88,7 +88,7 @@ cheque_9:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_10:
-  cuenta_id: 1029114640
+  caja_id: 1029114640
   situacion: propio
   numero: 473
   monto_centavos: 733
@@ -96,7 +96,7 @@ cheque_10:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_11:
-  cuenta_id: 173030301
+  caja_id: 173030301
   situacion: propio
   numero: 36
   monto_centavos: 760
@@ -104,7 +104,7 @@ cheque_11:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_12:
-  cuenta_id: 76264363
+  caja_id: 76264363
   situacion: propio
   numero: 638
   monto_centavos: 142
@@ -112,7 +112,7 @@ cheque_12:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_13:
-  cuenta_id: 345400876
+  caja_id: 345400876
   situacion: propio
   numero: 842
   monto_centavos: 828
@@ -120,7 +120,7 @@ cheque_13:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_14:
-  cuenta_id: 620532392
+  caja_id: 620532392
   situacion: propio
   numero: 585
   monto_centavos: 761
@@ -128,7 +128,7 @@ cheque_14:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_15:
-  cuenta_id: 65435570
+  caja_id: 65435570
   situacion: propio
   numero: 554
   monto_centavos: 907
@@ -136,7 +136,7 @@ cheque_15:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_16:
-  cuenta_id: 1039516444
+  caja_id: 1039516444
   situacion: propio
   numero: 226
   monto_centavos: 757
@@ -144,7 +144,7 @@ cheque_16:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_17:
-  cuenta_id: 495116819
+  caja_id: 495116819
   situacion: propio
   numero: 393
   monto_centavos: 704
@@ -152,7 +152,7 @@ cheque_17:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_18:
-  cuenta_id: 335258163
+  caja_id: 335258163
   situacion: propio
   numero: 335
   monto_centavos: 57
@@ -160,7 +160,7 @@ cheque_18:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_19:
-  cuenta_id: 54837154
+  caja_id: 54837154
   situacion: propio
   numero: 942
   monto_centavos: 84
@@ -168,7 +168,7 @@ cheque_19:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_20:
-  cuenta_id: 983041797
+  caja_id: 983041797
   situacion: propio
   numero: 135
   monto_centavos: 67
@@ -176,7 +176,7 @@ cheque_20:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_21:
-  cuenta_id: 183694219
+  caja_id: 183694219
   situacion: propio
   numero: 378
   monto_centavos: 400
@@ -184,7 +184,7 @@ cheque_21:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_22:
-  cuenta_id: 65435570
+  caja_id: 65435570
   situacion: propio
   numero: 489
   monto_centavos: 569
@@ -192,7 +192,7 @@ cheque_22:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_23:
-  cuenta_id: 183694219
+  caja_id: 183694219
   situacion: propio
   numero: 230
   monto_centavos: 666
@@ -200,7 +200,7 @@ cheque_23:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_24:
-  cuenta_id: 451880458
+  caja_id: 451880458
   situacion: propio
   numero: 543
   monto_centavos: 886
@@ -208,7 +208,7 @@ cheque_24:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_25:
-  cuenta_id: 620532392
+  caja_id: 620532392
   situacion: propio
   numero: 523
   monto_centavos: 725
@@ -216,7 +216,7 @@ cheque_25:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_26:
-  cuenta_id: 1039516444
+  caja_id: 1039516444
   situacion: propio
   numero: 670
   monto_centavos: 400
@@ -224,7 +224,7 @@ cheque_26:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_27:
-  cuenta_id: 495116819
+  caja_id: 495116819
   situacion: propio
   numero: 98
   monto_centavos: 381
@@ -232,7 +232,7 @@ cheque_27:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_28:
-  cuenta_id: 65435570
+  caja_id: 65435570
   situacion: propio
   numero: 416
   monto_centavos: 29
@@ -240,7 +240,7 @@ cheque_28:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_29:
-  cuenta_id: 596727489
+  caja_id: 596727489
   situacion: propio
   numero: 714
   monto_centavos: 192
@@ -248,7 +248,7 @@ cheque_29:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_30:
-  cuenta_id: 54837154
+  caja_id: 54837154
   situacion: propio
   numero: 443
   monto_centavos: 153
@@ -256,7 +256,7 @@ cheque_30:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_31:
-  cuenta_id: 183694219
+  caja_id: 183694219
   situacion: propio
   numero: 733
   monto_centavos: 410
@@ -264,7 +264,7 @@ cheque_31:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_32:
-  cuenta_id: 983041797
+  caja_id: 983041797
   situacion: propio
   numero: 72
   monto_centavos: 495
@@ -272,7 +272,7 @@ cheque_32:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_33:
-  cuenta_id: 451880458
+  caja_id: 451880458
   situacion: propio
   numero: 272
   monto_centavos: 591
@@ -280,7 +280,7 @@ cheque_33:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_34:
-  cuenta_id: 713413254
+  caja_id: 713413254
   situacion: propio
   numero: 606
   monto_centavos: 414
@@ -288,7 +288,7 @@ cheque_34:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_35:
-  cuenta_id: 864846658
+  caja_id: 864846658
   situacion: propio
   numero: 232
   monto_centavos: 151
@@ -296,7 +296,7 @@ cheque_35:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_36:
-  cuenta_id: 54837154
+  caja_id: 54837154
   situacion: propio
   numero: 78
   monto_centavos: 366
@@ -304,7 +304,7 @@ cheque_36:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_37:
-  cuenta_id: 983041797
+  caja_id: 983041797
   situacion: propio
   numero: 747
   monto_centavos: 346
@@ -312,7 +312,7 @@ cheque_37:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_38:
-  cuenta_id: 770184861
+  caja_id: 770184861
   situacion: propio
   numero: 843
   monto_centavos: 273
@@ -320,7 +320,7 @@ cheque_38:
   fecha_vencimiento: '2014-03-03 20:23:38 -0300'
   fecha_emision: '2014-03-03 20:23:38 -0300'
 cheque_39:
-  cuenta_id: 183694219
+  caja_id: 183694219
   situacion: propio
   numero: 594
   monto_centavos: 681

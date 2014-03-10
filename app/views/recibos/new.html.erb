@@ -5,18 +5,18 @@
 <div class="row">
   <div class="col-md-8">
     <div class="row">
-      <% @editar = true %>
       <%= render 'form' %>
     </div>
 
     <div class="row">
       <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= factura_path (@factura) %>">
-        <span class="glyphicon glyphicon-eye-open"> Volver a Factura</span>
+        <span class="glyphicon glyphicon-eye-open"></span>
+        Volver a Factura
       </a>
-
-      <button class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
-        <span class="glyphicon glyphicon-ok"> Guardar Cambios</span>
-      </button>
+      <a type="button" class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+        <span class="glyphicon glyphicon-ok"></span>
+        Guardar Cambios
+      </a>
     </div>
 
     <div class="row">
@@ -24,8 +24,9 @@
     </div>
 
     <div class="row">
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= factura_recibos_path(@factura) %>">
-        <span class="glyphicon glyphicon-list"> Listar Recibos</span>
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= recibos_por_tipo_path %>">
+        <span class="glyphicon glyphicon-list"></span>
+        Listar Recibos
       </a>
     </div>
   </div>
@@ -45,7 +46,8 @@
 
     <div class="row pull-right">
       <a type="button" class="btn btn-primary" href="#">
-        <span class="glyphicon glyphicon-plus"> Nuevo Movimiento</span>
+        <span class="glyphicon glyphicon-plus"></span>
+        Nuevo Movimiento
       </a>
     </div>
 

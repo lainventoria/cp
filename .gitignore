@@ -20,3 +20,7 @@ vendor/ruby
 
 # "Ya no necesitas esto"
 app/assets/stylesheets/scaffolds.css.scss
+
+# Notas personales del proyecto
+doc-local
+

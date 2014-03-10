@@ -83,7 +83,9 @@ class RecibosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recibo
-      @recibo = Recibo.find(params[:id])
+      if params[:id]
+        @recibo = Recibo.find(params[:id])
+      end
     end
 
     def set_factura

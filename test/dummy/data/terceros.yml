@@ -7,8 +7,7 @@ tercero_0:
   celular: 15666333
   email: aurelia@gmail.com
   iva: 21
-  proveedor: 0
-  cliente: 1
+  relacion: cliente
   cuit: 45-21442999-9
 tercero_1:
   nombre: Giorgio Faletti
@@ -17,8 +16,7 @@ tercero_1:
   celular: 15666333
   email: eddie_koelpin@hotmail.com
   iva: 21
-  proveedor: 0
-  cliente: 0
+  relacion: proveedor
   cuit: 45-21444799-9
 tercero_2:
   nombre: Alessandro Gassman
@@ -27,8 +25,7 @@ tercero_2:
   celular: 15666333
   email: ora@hotmail.com
   iva: 21
-  proveedor: 1
-  cliente: 0
+  relacion: ambos
   cuit: 45-21477999-9
 tercero_3:
   nombre: Ennio Girolami
@@ -37,8 +34,7 @@ tercero_3:
   celular: 15666333
   email: devante@gmail.com
   iva: 21
-  proveedor: 1
-  cliente: 0
+  relacion: cliente
   cuit: 45-21744999-9
 tercero_4:
   nombre: Tommaso Sgricci
@@ -47,8 +43,7 @@ tercero_4:
   celular: 15666333
   email: evangeline@yahoo.com
   iva: 21
-  proveedor: 1
-  cliente: 1
+  relacion: proveedor
   cuit: 45-21443999-9
 tercero_5:
   nombre: Vicky Astori
@@ -57,8 +52,7 @@ tercero_5:
   celular: 15666333
   email: theresa@hotmail.com
   iva: 21
-  proveedor: 1
-  cliente: 1
+  relacion: ambos
   cuit: 45-21444799-9
 tercero_6:
   nombre: Luigi Pistilli
@@ -67,8 +61,7 @@ tercero_6:
   celular: 15666333
   email: keith@hotmail.com
   iva: 21
-  proveedor: 0
-  cliente: 0
+  relacion: cliente
   cuit: 45-21444997-9
 tercero_7:
   nombre: Filippo Nigro
@@ -77,8 +70,7 @@ tercero_7:
   celular: 15666333
   email: stuart@yahoo.com
   iva: 21
-  proveedor: 0
-  cliente: 1
+  relacion: proveedor
   cuit: 45-21444999-9
 tercero_8:
   nombre: Gabriella Pession
@@ -87,8 +79,7 @@ tercero_8:
   celular: 15666333
   email: michelle_blick@hotmail.com
   iva: 21
-  proveedor: 0
-  cliente: 0
+  relacion: ambos
   cuit: 45-22344999-9
 tercero_9:
   nombre: Eleonora Duse
@@ -97,6 +88,5 @@ tercero_9:
   celular: 15666333
   email: kameron.kessler@yahoo.com
   iva: 21
-  proveedor: 1
-  cliente: 0
+  relacion: cliente
   cuit: 45-21443999-9

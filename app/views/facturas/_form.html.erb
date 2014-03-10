@@ -1,7 +1,7 @@
 <%= form_for(@factura) do |f| %>
   <% if @factura.errors.any? %>
     <div id="error_explanation" class="alert alert-danger">
-      <strong>No se guardo la factura.</strong> Debe corregir <%= pluralize(@factura.errors.count, "error") %>
+      <strong>No se guardo la Factura. </strong>Debe corregir <%= pluralize(@factura.errors.count, "error") %>
       <ul>
       <% @factura.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -10,8 +10,7 @@
     </div>
   <% end %>
 
-  <%# (des)habilita la edicion del formulario dependiendo del valor de @editar %>
-  <fieldset <% if not @editar %> disabled <% end %> >
+  <fieldset <%= editar_o_bloquear %> >
 
     <div class="row">
       <div class="field form-group col-md-2">
@@ -40,12 +39,12 @@
 
     <div class="row">
       <div class="field form-group col-md-8">
-        <%= f.label :nombre %><br>
-        <%= f.text_field :nombre, class: "form-control" %>
+        <%= f.label :tercero %><br>
+        <%= collection_select(:factura, :tercero_id, Tercero.all, :id, :nombre, class: "form-control") %>
       </div>
       <div class="field form-group col-md-4">
-        <%= f.label :cuit %><br>
-        <%= f.text_field :cuit, class: "form-control" %>
+        <%# f.label :cuit %><br>
+        <%# f.text_field :cuit, class: "form-control" %>
       </div>
     </div>
 
@@ -57,7 +56,6 @@
     </div>
 
     <div class="row">
-      <%# lugar para el campo importe_neto que esta faltando %>
       <div class="field form-group col-md-3 col-md-offset-4">
         <%= f.label :importe_neto %><br>
         <%= f.text_field :importe_neto, class: "form-control" %>
@@ -75,6 +73,9 @@
     <div class="row">
       <br>
     </div>
+
+    <%# campo necesario para crear/editar facturas %>
+    <%= f.hidden_field :situacion, value: determina_situacion %>
 
   </fieldset>
 

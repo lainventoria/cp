@@ -2,6 +2,9 @@
 class Factura < ActiveRecord::Base
   include ApplicationHelper
 
+  # Las facturas pertenecen a un tercero
+  belongs_to :tercero, inverse_of: :facturas
+
   # Las facturas se pueden cancelar con muchos recibos
   has_many :recibos, inverse_of: :factura
 
@@ -18,8 +21,6 @@ class Factura < ActiveRecord::Base
   monetize :saldo_centavos
   monetize :iva_centavos
 
-  validate :cuit
-
   # Mantener actualizados los valores calculados cada vez que se hace
   # una modificación
   before_create :calcular_importe_total, :calcular_saldo
@@ -27,29 +28,29 @@ class Factura < ActiveRecord::Base
   
   # Chequea si la situación es pago
   def pago?
-    situacion == 'pago'
+    self.situacion == 'pago'
   end
 
   # Chequea si la situación es cobro
   def cobro?
-    situacion == 'cobro'
+    self.situacion == 'cobro'
   end
 
   # La factura está cancelada cuando el saldo es 0
   def cancelada?
-    saldo == Money.new(0)
+    self.saldo == Money.new(0)
   end
 
   # Si el saldo es menor al importe_total es porque se pagó de más
   # Con las validaciones de Recibo no debería hacer falta
   def reintegro?
-    saldo < importe_total
+    self.saldo < self.importe_total
   end
 
   # Calcula el reintegro si se pagó de más
   # Con las validaciones de Recibo no debería hacer falta
   def reintegro
-    saldo * -1 if reintegro?
+    self.saldo * -1 if reintegro?
   end
 
   # Recalcula el saldo
@@ -74,15 +75,4 @@ class Factura < ActiveRecord::Base
     self.importe_total = self.importe_neto + self.iva
   end
 
-	def nombre_y_numero
-		"[#{numero}] #{nombre}"
-	end
-
-	def to_s
-		nombre_y_numero
-	end
-
-  def validate_cuit
-    errors[:base] << "El CUIT no es válido" if not validar_cuit(self.cuit)
-  end
 end

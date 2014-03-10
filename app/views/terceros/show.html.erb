@@ -1,49 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <h2>Detalle de Tercero</h2>
+  <% if !notice.nil? %>
+    <div id="notice" class="alert alert-success"><%= notice %></div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @tercero.nombre %>
-</p>
+<div class="row">
+  <%= render 'form' %>
 
-<p>
-  <strong>Dirección:</strong>
-  <%= @tercero.direccion %>
-</p>
-
-<p>
-  <strong>Teléfono:</strong>
-  <%= @tercero.telefono %>
-</p>
-
-<p>
-  <strong>Celular:</strong>
-  <%= @tercero.celular %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @tercero.email %>
-</p>
-
-<p>
-  <strong>Iva:</strong>
-  <%= @tercero.iva %>
-</p>
-
-<p>
-  <strong>Proveedor:</strong>
-  <%= @tercero.proveedor %>
-</p>
-
-<p>
-  <strong>Cliente:</strong>
-  <%= @tercero.cliente %>
-</p>
-
-<p>
-  <strong>Cuit:</strong>
-  <%= @tercero.cuit %>
-</p>
-
-<%= link_to 'Editar', edit_tercero_path(@tercero) %> |
-<%= link_to 'Volver', terceros_path %>
+  <div class="row">
+    <a type="button" class="btn btn-success col-md-2" href="<%= terceros_path %>">
+      <span class="glyphicon glyphicon-eye-open"></span>
+      Listar Terceros
+    </a>
+    <a type="button" class="btn btn-warning col-md-2 col-md-offset-1" href="<%= edit_tercero_path(@tercero) %>">
+      <span class="glyphicon glyphicon-edit"></span>
+      Editar Tercero
+    </a>
+  </div>
+</div>

@@ -11,15 +11,18 @@ class TercerosController < ApplicationController
   # GET /terceros/1
   # GET /terceros/1.json
   def show
+    @editar=false
   end
 
   # GET /terceros/new
   def new
     @tercero = Tercero.new
+    @editar = true
   end
 
   # GET /terceros/1/edit
   def edit
+    @editar=true
   end
 
   # POST /terceros
@@ -70,6 +73,6 @@ class TercerosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tercero_params
-      params.require(:tercero).permit(:nombre, :direccion, :telefono, :celular, :email, :iva, :proveedor, :cliente, :cuit)
+      params.require(:tercero).permit(:nombre, :direccion, :telefono, :celular, :email, :iva, :relacion, :cuit, :contacto, :notas)
     end
 end

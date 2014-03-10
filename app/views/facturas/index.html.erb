@@ -1,7 +1,8 @@
 <div class="row">
-  <h2>Listado de Facturas por <% if @situacion == "cobro" %>Cobrar<% else %>Pagar<% end %>
+  <h2><%= titulo_lista_facturas %>
     <a type="button" class="btn btn-primary pull-right" href="<%= new_factura_path(situacion: @situacion ) %>">
-      <span class="glyphicon glyphicon-plus"> Nueva Factura</span>
+      <span class="glyphicon glyphicon-plus"></span>
+      Nueva Factura
     </a>
   </h2>
 </div>
@@ -26,14 +27,21 @@
     <% @facturas.each do |factura| %>
       <tr>
         <td><%= link_to raw('<i class="glyphicon glyphicon-eye-open" title="Ver factura"></i>'), [factura] %></td>
-        <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= factura.tipo.first(1) %></td>
-        <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= factura.numero.first(10) %></td>
-        <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= formatted_date(factura.fecha) %></td>
-        <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= formatted_date(factura.fecha_pago) %></td>
-        <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= factura.nombre.first(20) %></td>
-        <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= factura.descripcion.first(40) %></td>
-        <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= factura.importe_total %></td>
-        <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= factura.saldo %></td>
+        
+        <% @campos = [
+            factura.tipo.first(1),
+            factura.numero.first(10),
+            formatted_date(factura.fecha),
+            formatted_date(factura.fecha_pago),
+            factura.tercero.nombre.first(20),
+            factura.descripcion.first(40),
+            factura.importe_total,
+            factura.saldo
+          ] 
+        %>
+        <% @campos.each do |campo| %>
+          <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= campo %></td>
+        <% end %>
         <td>
           <span class="pull-right">
             <%= link_to raw('<i class="glyphicon glyphicon-plus-sign" title="Nuevo recibo"></i>'), [:new, factura, :recibo] %>

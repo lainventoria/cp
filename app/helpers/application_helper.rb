@@ -34,4 +34,18 @@ module ApplicationHelper
     # el cuit es valido si el resto de dividir el resultado por 11 es 0
     (resultado % 11) == 0
   end
+
+  # habilita la edicion de los formularios segun el valor de @editar
+  def editar_o_bloquear
+    if ! @editar
+      'disabled'
+    end
+  end
+  
+  ### DEBUG ###
+  # Mostrar campos ocultos en formularios
+  def mostrar_ocultos
+    true 
+  end
+
 end

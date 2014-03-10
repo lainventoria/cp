@@ -2,12 +2,10 @@
 
 FactoryGirl.define do
   factory :factura do
+    tercero
     tipo "MyString"
     numero "MyString"
     situacion "pago"
-    nombre "MyText"
-    domicilio "MyText"
-    cuit "20-31278322-4"
     descripcion "MyText"
     importe_neto { Money.new rand(1000) }
     iva { Money.new(importe_neto * 0.21) }

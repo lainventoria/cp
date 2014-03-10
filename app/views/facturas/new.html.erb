@@ -5,24 +5,18 @@
 <div class="row">
   <div class="col-md-8">
     <div class="row">
-      <% @editar = true %>
       <%= render 'form' %>
     </div>
 
     <div class="row">
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="
-        <% if @factura.situacion == "cobro" %>
-          <%= cobros_facturas_path %>
-        <% else %>
-          <%= pagos_facturas_path %>
-        <% end %>
-        ">
-        <span class="glyphicon glyphicon-eye-open"> Volver al Listado</span>
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= facturas_por_tipo_path %>">
+        <span class="glyphicon glyphicon-eye-open"></span>
+        Volver al Listado
       </a>
-
-      <button class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
-        <span class="glyphicon glyphicon-ok"> Guardar Cambios</span>
-      </button>
+      <a type="button" class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+        <span class="glyphicon glyphicon-ok"></span>
+        Guardar Cambios
+      </a>
     </div>
   </div>
 </div>

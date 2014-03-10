@@ -1,11 +1,5 @@
 <div class="row">
-  <h2>Detalle de Factura por 
-    <% if @factura.situacion == "pago" %>
-      Pagar
-    <% else %>
-      Cobrar
-    <% end %>
-  </h2> 
+  <h2><%= titulo_detalle_factura %></h2> 
   <% if !notice.nil? %>
     <div id="notice" class="alert alert-success"><%= notice %></div>
   <% end %>
@@ -14,24 +8,18 @@
 <div class="row">
   <div class="col-md-8">
     <div class="row">
-      <% @editar = false %>
       <%= render 'form' %>
     </div>
 
     <div class="row">
-      <a type="button" class="btn btn-success col-md-3" href="
-        <% if @factura.situacion == "cobro" %>
-          <%= cobros_facturas_path %>
-        <% else %>
-          <%= pagos_facturas_path %>
-        <% end %>
-        ">
-        <span class="glyphicon glyphicon-list-alt"> Listar Facturas</span>
+      <a type="button" class="btn btn-success col-md-3" href="<%= facturas_por_tipo_path %>">
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Listar Facturas
       </a>
       <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= edit_factura_path(@factura) %>">
-        <span class="glyphicon glyphicon-edit"> Editar Factura</span>
+        <span class="glyphicon glyphicon-edit"></span>
+        Editar Factura
       </a>
-
     </div>
   </div>
 
@@ -59,7 +47,8 @@
 
     <div class="row pull-right">
       <a type="button" class="btn btn-primary" href="<%= new_factura_recibo_path(@factura) %>">
-        <span class="glyphicon glyphicon-plus"> Nuevo Recibo</span>
+        <span class="glyphicon glyphicon-plus"></span>
+        Nuevo Recibo
       </a>
     </div>
 

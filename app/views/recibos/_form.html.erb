@@ -1,18 +1,18 @@
 <%= form_for([@factura, @recibo]) do |f| %>
   <% if @recibo.errors.any? %>
+    <% @editar = true %>
     <div id="error_explanation" class="alert alert-danger">
-      <strong>No se guardo el recibo.</strong> Debe corregir <%= pluralize(@recibo.errors.count, "error") %>
+      <strong>No se guardo el Recibo. </strong>Debe corregir <%= pluralize(@recibo.errors.count, "error") %>
       <ul>
       <% @recibo.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
-        <% @editar = true %>
       <% end %>
       </ul>
     </div>
   <% end %>
 
   <%# (des)habilita la edicion del formulario dependiendo del valor de @editar %>
-  <fieldset <% if not @editar %> disabled <% end %> >
+  <fieldset <%= editar_o_bloquear %> >
 
     <div class="row">
       <div class="field form-group col-md-3">
@@ -31,7 +31,7 @@
     <div class="row">
       <div class="field form-group col-md-9">
         <label>Tercero</label>
-        <span class="form-control" disabled><%= @factura.nombre.first(80) %></span>
+        <span class="form-control" disabled><%= @factura.tercero.cuit %>: <%= @factura.tercero.nombre.first(40) %></span>
       </div>
       <div class="field form-group col-md-3" >
         <label>Nro. Factura</label>
@@ -42,6 +42,9 @@
     <div class="row">
       <br>
     </div>
+
+    <%# campo necesario para crear un recibo nuevo %>
+    <%= f.hidden_field :factura_id, value: @factura.id %>
 
     <%# comento estas lineas para guardar un ejemplo de dropdown no
         logre que Bootstrap les aplique css %>

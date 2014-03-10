@@ -1,43 +1,41 @@
-<h1>Listado de terceros</h1>
+<div class="row">
+  <h2>
+    Listado de Terceros
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_tercero_path %>">
+      <span class="glyphicon glyphicon-plus"></span>
+      Nuevo Tercero
+    </a>
+  </h2>
+</div>
 
 <table class="table table-hover table-condensed">
   <thead>
     <tr>
+      <th></th>
       <th>Nombre</th>
       <th>Dirección</th>
       <th>Teléfono</th>
       <th>Celular</th>
       <th>Email</th>
       <th>Iva</th>
-      <th>Proveedor</th>
-      <th>Cliente</th>
+      <th>Relacion</th>
       <th>Cuit</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @terceros.each do |tercero| %>
-      <tr>
+      <tr id="<%= tercero_path(tercero) %>">
+        <td><%= link_to raw('<i class="glyphicon glyphicon-eye-open" title="Ver Tercero"></i>'), [tercero] %></td>
         <td><%= tercero.nombre %></td>
         <td><%= tercero.direccion %></td>
         <td><%= tercero.telefono %></td>
         <td><%= tercero.celular %></td>
         <td><%= tercero.email %></td>
         <td><%= tercero.iva %></td>
-        <td><%= tercero.proveedor %></td>
-        <td><%= tercero.cliente %></td>
+        <td><%= tercero.relacion %></td>
         <td><%= tercero.cuit %></td>
-        <td><%= link_to 'Ver', tercero %></td>
-        <td><%= link_to 'Editar', edit_tercero_path(tercero) %></td>
-        <td><%= link_to 'Borrar', tercero, method: :delete, data: { confirm: '¿Está seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'Nuevo Tercero', new_tercero_path %>

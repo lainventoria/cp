@@ -14,3 +14,8 @@
  *= require_self
  *= require_tree .
  */
+
+/* separacion glyphicons texto en botones */
+.btn .glyphicon {
+  margin-right: 5px;
+}
