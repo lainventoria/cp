@@ -8,7 +8,9 @@ class CajaTest < ActiveSupport::TestCase
   end
 
   test 'es válida' do
-    assert (c = build(:caja)).valid?, c.errors.messages
+    [ :build, :build_stubbed, :create].each do |metodo|
+      assert_valid_factory metodo, :caja
+    end
   end
 
   test 'totaliza en pesos por default' do

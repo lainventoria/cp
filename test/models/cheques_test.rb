@@ -1,9 +1,10 @@
 require 'test_helper'
 
 class ChequeTest < ActiveSupport::TestCase
-
-  test "es valido" do
-    assert (c = create(:cheque)).valid?, c.errors.messages
+  test "es válido" do
+    [ :build, :build_stubbed, :create].each do |metodo|
+      assert_valid_factory metodo, :cheque
+    end
   end
 
   test "el cheque está vencido" do

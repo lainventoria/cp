@@ -3,7 +3,9 @@ require 'test_helper'
 
 class MovimientoTest < ActiveSupport::TestCase
   test 'es válido' do
-    assert (m = build(:movimiento)).valid?, m.errors.messages
+    [ :build, :build_stubbed, :create].each do |metodo|
+      assert_valid_factory metodo, :movimiento
+    end
   end
 
   test 'usa pesos argentinos por default' do

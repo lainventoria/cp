@@ -3,7 +3,9 @@ require 'test_helper'
 
 class ObraTest < ActiveSupport::TestCase
   test 'es válida' do
-    assert (o = build(:obra)).valid?, o.errors.messages
+    [ :build, :build_stubbed, :create].each do |metodo|
+      assert_valid_factory metodo, :obra
+    end
   end
 
   test 'crea sus cajas asociadas al crearse' do

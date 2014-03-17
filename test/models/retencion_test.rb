@@ -7,7 +7,9 @@ class RetencionTest < ActiveSupport::TestCase
   end
 
   test 'es válida' do
-    assert (r = build(:retencion)).valid?, r.errors.messages
+    [ :build, :build_stubbed, :create].each do |metodo|
+      assert_valid_factory metodo, :retencion
+    end
   end
 
   test "se usa para pagar facturas" do
