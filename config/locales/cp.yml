@@ -1,0 +1,8 @@
+es:
+  activerecord:
+    errors:
+      models:
+        retencion:
+          attributes:
+            factura:
+              debe_ser_un_pago: "La factura asociada debe ser un pago"
