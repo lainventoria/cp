@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140307043029) do
+ActiveRecord::Schema.define(version: 20140313231037) do
 
   create_table "cajas", force: true do |t|
     t.integer  "obra_id"
@@ -37,9 +37,11 @@ ActiveRecord::Schema.define(version: 20140307043029) do
     t.string   "banco"
     t.integer  "caja_id"
     t.string   "estado",            default: "chequera"
+    t.integer  "destino_id"
   end
 
   add_index "cheques", ["caja_id"], name: "index_cheques_on_caja_id"
+  add_index "cheques", ["destino_id"], name: "index_cheques_on_destino_id"
   add_index "cheques", ["recibo_id"], name: "index_cheques_on_recibo_id"
 
   create_table "facturas", force: true do |t|

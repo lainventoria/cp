@@ -14,5 +14,6 @@ class Obra < ActiveRecord::Base
       end
 
       cajas.create tipo: 'Caja de Ahorro', situacion: 'banco'
+      cajas.create tipo: 'Chequera', situacion: 'chequera'
     end
 end
