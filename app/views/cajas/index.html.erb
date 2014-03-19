@@ -1,27 +1,31 @@
-<h1>Listado cajas</h1>
-
-<table class="table table-hover table-condensed">
-  <thead>
-    <tr>
-      <th>Obra</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @cajas.each do |caja| %>
-      <tr>
-        <td><%= caja.obra.nombre %></td>
-        <td><%= link_to 'Ver', caja %></td>
-        <td><%= link_to 'Editar', edit_caja_path(caja) %></td>
-        <td><%= link_to 'Borrar', caja, method: :delete, data: { confirm: '¿Está seguro?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'Nueva Caja', new_caja_path %>
+<div class="row">
+  <h2>Cajas
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_caja_path(situacion: 'efectivo') %>">
+      <span class="glyphicon glyphicon-plus"></span>
+      Nueva Caja
+    </a>
+  </h2>
+</div>
+<div id="cajas" class="row">
+  <%# nested-layout: oculta columnas de bancos %>
+  <% content_for :stylesheets do %>
+    #cajas #lista_banco {display: none}
+  <% end %>
+  <%= render 'list', cajas: @cajas %>
+</div>
+<div class="row">
+  <br>
+  <h2>Cuentas
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_caja_path(situacion: 'banco') %>">
+      <span class="glyphicon glyphicon-plus"></span>
+      Nueva Cuenta
+    </a>
+  </h2>
+</div>
+<div id="cuentas" class="row">
+  <%# nested-layout: oculta columnas de bancos %>
+  <% content_for :stylesheets do %>
+    #cuentas #lista_caja {display: none}
+  <% end %>
+  <%= render 'list', cajas: @cuentas %>
+</div>

@@ -1,27 +1,28 @@
-<h1>Listado de obras</h1>
+<div class="row">
+  <h2>Listado de Obras
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_obra_path %>">
+      <span class="glyphicon glyphicon-plus"></span>
+      Nueva Obra
+    </a>
+  </h2>
+</div>
 
 <table class="table table-hover table-condensed">
   <thead>
     <tr>
+      <th></th>
       <th>Nombre</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Direccion</th>
     </tr>
   </thead>
 
   <tbody>
     <% @obras.each do |obra| %>
-      <tr>
+      <tr class="ir-a" data-uri="<%= obra_path(obra.id) %>">
+        <td><%= link_to raw('<i class="glyphicon glyphicon-eye-open" title="Ver Obra"></i>'), [obra] %></td>
         <td><%= obra.nombre %></td>
-        <td><%= link_to 'Ver', obra %></td>
-        <td><%= link_to 'Editar', edit_obra_path(obra) %></td>
-        <td><%= link_to 'Borrar', obra, method: :delete, data: { confirm: '¿Está seguro?' } %></td>
+        <td><%= obra.direccion %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'Nueva Obra', new_obra_path %>

@@ -11,15 +11,18 @@ class ObrasController < ApplicationController
   # GET /obras/1
   # GET /obras/1.json
   def show
+    @editar = false
   end
 
   # GET /obras/new
   def new
     @obra = Obra.new
+    @editar = true
   end
 
   # GET /obras/1/edit
   def edit
+    @editar = true
   end
 
   # POST /obras

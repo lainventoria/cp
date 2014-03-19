@@ -9,7 +9,7 @@ class Obra < ActiveRecord::Base
   private
 
     def crear_cajas
-      ['De obra', 'De administración', 'De seguridad'].each do |tipo|
+      ['Obra', 'Administración', 'Seguridad'].each do |tipo|
         cajas.create tipo: tipo, situacion: 'efectivo'
       end
 

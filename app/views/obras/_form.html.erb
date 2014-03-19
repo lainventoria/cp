@@ -1,8 +1,8 @@
 <%= form_for(@obra) do |f| %>
   <% if @obra.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@obra.errors.count, "error") %>. No se guardo la obra por:</h2>
-
+    <div id="error_explanation" class="alert alert-danger">
+      <% @editar = true %>
+      <strong>No se guardo la Obra. </strong>Debe corregir <%= pluralize(@obra.errors.count, "error") %>
       <ul>
       <% @obra.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,17 +11,20 @@
     </div>
   <% end %>
 
-  <div class="field form-group">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre, class: "form-control" %>
-  </div>
+  <%# (des)habilita la edicion del formulario dependiendo del valor de @editar %>
+  <fieldset <%= editar_o_bloquear %> >
+    <div class="row">
+      <div class="field form-group col-md-12">
+        <%= f.label :nombre %><br>
+        <%= f.text_field :nombre, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field form-group col-md-12">
+        <%= f.label :direccion %><br>
+        <%= f.text_field :direccion, class: "form-control" %>
+      </div>
+    </div>
+  </fieldset>
 
-  <div class="field form-group">
-    <%= f.label :direccion %><br>
-    <%= f.text_field :direccion, class: "form-control" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Guardar", class: "btn btn-primary submit"  %>
-  </div>
 <% end %>

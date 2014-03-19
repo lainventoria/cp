@@ -40,11 +40,11 @@
     <div class="row">
       <div class="field form-group col-md-8">
         <%= f.label :tercero %><br>
-        <%= collection_select(:factura, :tercero_id, Tercero.all, :id, :nombre, class: "form-control") %>
+        <%= f.collection_select(:tercero_id, Tercero.all, :id, :nombre, { prompt: "--Seleccione Tercero--" }, { class: "form-control" } ) %>
       </div>
       <div class="field form-group col-md-4">
-        <%# f.label :cuit %><br>
-        <%# f.text_field :cuit, class: "form-control" %>
+        <%= f.label '', 'CUIT' %><br>
+        <%= f.collection_select(:tercero_id, Tercero.all, :id, :cuit, { prompt: "--Seleccione CUIT--" }, { class: "form-control" } ) %>
       </div>
     </div>
 

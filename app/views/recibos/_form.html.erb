@@ -46,19 +46,6 @@
     <%# campo necesario para crear un recibo nuevo %>
     <%= f.hidden_field :factura_id, value: @factura.id %>
 
-    <%# comento estas lineas para guardar un ejemplo de dropdown no
-        logre que Bootstrap les aplique css %>
-      <% if false %>
-        <div class="field form-group">
-          <%= f.label :situacion %><br>
-          <%= collection_select(:recibo, :situacion, Recibo::SITUACIONES, :to_s, :capitalize, class: "form-control" ) %>
-        </div>
-        <div class="field form-group">
-          <%= f.label :factura_id %><br>
-          <%= collection_select(:recibo, :factura_id, Factura.all, :id,:tipo, class: "form-control" ) %>
-        </div>
-      <% end %>
-
   </fieldset>
 
 <% end %>

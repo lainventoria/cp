@@ -1,9 +1,44 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <h2>Detalles de <%= caja_o_cuenta %></h2> 
+  <% if !notice.nil? %>
+    <div id="notice" class="alert alert-success"><%= notice %></div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Obra:</strong>
-  <%= @caja.obra.nombre %>
-</p>
+<div class="row">
+  <%= render 'form' %>
+</div>
 
-<%= link_to 'Editar', edit_caja_path(@caja) %> |
-<%= link_to 'Volver', cajas_path %>
+<div class="row">
+  <a type="button" class="btn btn-success col-md-2" href="<%= cajas_path %>">
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Listar <%= caja_o_cuenta.pluralize %>
+  </a>
+  <a type="button" class="btn btn-warning col-md-2 col-md-offset-1" href="<%= edit_caja_path(@caja) %>">
+    <span class="glyphicon glyphicon-edit"></span>
+    Editar <%= caja_o_cuenta %>
+  </a>
+</div>
+
+<br>
+
+<div class="row">
+  <%# el segundo 'row' se agrega para alinear con el formulario renderizado %>
+  <div class="row">
+    <div class="field form-group col-md-2">
+      <label>Saldo en ARS</label>
+      <span class="form-control"><%= @caja.total('ARS') %></span>
+    </div>
+    <div class="field form-group col-md-2 col-md-offset-1" id="form_caja">
+      <label>Saldo en USD</label>
+      <span class="form-control"><%= @caja.total('USD') %></span>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <h4>Listado de Movimientos</h4>
+  <%# TODO crear el parcial con listado de movimientos por caja %>
+  <%# TODO crear una pestaña para cada moneda, para facilitar la lectura%>
+  <%# render 'movimientos/list', caja: @caja %>
+</div>

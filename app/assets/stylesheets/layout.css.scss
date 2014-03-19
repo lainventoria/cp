@@ -1,4 +1,10 @@
+// separa el contenido de la barra superior
 body {
-  // Separa el contenido de la barra superior
   padding-top: 4em;
 }
+
+// separacion glyphicons texto en botones
+.btn .glyphicon {
+  margin-right: 5px;
+}
+

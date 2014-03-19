@@ -25,7 +25,7 @@
 
   <tbody>
     <% @terceros.each do |tercero| %>
-      <tr id="<%= tercero_path(tercero) %>">
+      <tr class="ir-a" data-uri="<%= tercero_path(tercero) %>">
         <td><%= link_to raw('<i class="glyphicon glyphicon-eye-open" title="Ver Tercero"></i>'), [tercero] %></td>
         <td><%= tercero.nombre %></td>
         <td><%= tercero.direccion %></td>

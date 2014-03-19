@@ -1,16 +1,29 @@
-<h1><%= @obra.nombre %></h1>
+<div class="row">
+  <h2><%= @obra.nombre %></h2> 
+  <% if !notice.nil? %>
+    <div id="notice" class="alert alert-success"><%= notice %></div>
+  <% end %>
+</div>
 
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <%= render 'form' %>
+    </div>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @obra.nombre %>
-</p>
+    <div class="row">
+      <a type="button" class="btn btn-success col-md-3" href="<%= obras_path %>">
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Listar Obras
+      </a>
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= edit_obra_path(@obra) %>">
+        <span class="glyphicon glyphicon-edit"></span>
+        Editar Obra
+      </a>
+    </div>
 
-<p>
-  <strong>Dirección:</strong>
-  <%= @obra.direccion %>
-</p>
-
-<%= link_to 'Editar', edit_obra_path(@obra) %> |
-<%= link_to 'Volver', obras_path %>
+    <div class="col-md-4">
+    <%# TODO agregar informacion destacada de la obra %>
+    </div>
+  </div>
+</div>

@@ -9,10 +9,10 @@ class ObraTest < ActiveSupport::TestCase
   test 'crea sus cajas asociadas al crearse' do
     obra = create :obra
 
-    assert_equal 5, obra.cajas.count
-    assert_equal 1, obra.cajas.where(tipo: 'De obra').count
-    assert_equal 1, obra.cajas.where(tipo: 'De administración').count
-    assert_equal 1, obra.cajas.where(tipo: 'De seguridad').count
+    assert_equal 4, obra.cajas.count
+    assert_equal 1, obra.cajas.where(tipo: 'Obra').count
+    assert_equal 1, obra.cajas.where(tipo: 'Administración').count
+    assert_equal 1, obra.cajas.where(tipo: 'Seguridad').count
     assert_equal 1, obra.cajas.where(tipo: 'Caja de Ahorro').count
     assert_equal 1, obra.cajas.where(tipo: 'Chequera').count
   end

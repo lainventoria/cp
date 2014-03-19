@@ -1,6 +1,29 @@
-<h1>Editando obra</h1>
+<div class="row">
+  <h2>Editar Obra</h2>
+</div>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <%= render 'form' %>
+    </div>
 
-<%= link_to 'Ver', @obra %> |
-<%= link_to 'Volver', obras_path %>
+    <div class="row">
+      <a type="button" class="btn btn-danger col-md-3" href="<%= obra_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
+        <span class="glyphicon glyphicon-remove-circle"></span>
+        Borrar Obra
+      </a>
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= obra_path(@obra) %>">
+        <span class="glyphicon glyphicon-eye-open"></span>
+        Volver a Obra
+      </a>
+      <a type="button" class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+        <span class="glyphicon glyphicon-ok"></span>
+        Guardar Cambios
+      </a>
+    </div>
+    <div class="col-md-4">
+    <%# TODO agregar informacion destacada de la obra %>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ class Caja < ActiveRecord::Base
   has_many :cheques
 
   validates_presence_of :obra_id, :tipo
+  validates_uniqueness_of :tipo, scope: [:obra_id, :numero]
 
   # Las cajas son de efectivo o bancarias
   SITUACIONES = %w(efectivo banco chequera)
@@ -17,10 +18,12 @@ class Caja < ActiveRecord::Base
       hash_de_tipos[tipo.parameterize] = tipo and hash_de_tipos
     end
 
-    if tipos_normalizados.keys.include?(valor.parameterize)
-      tipos_normalizados[valor.parameterize]
-    else
-      valor
+    if valor.present?
+      if tipos_normalizados.keys.include?(valor.parameterize)
+        tipos_normalizados[valor.parameterize]
+      else
+        valor
+      end
     end
   end
 
