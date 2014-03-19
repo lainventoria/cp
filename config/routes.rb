@@ -4,7 +4,7 @@ Cp::Application.routes.draw do
   resources :obras
   resources :cajas
 
-  resources :facturas do
+  resources :facturas, except: [ :index ] do
   # Filtrar facturas por situacion
     collection do
       get 'cobros'
@@ -16,7 +16,7 @@ Cp::Application.routes.draw do
   end
 
   # Permitir /recibos pero no crear recibos sin facturas asociadas
-  resources :recibos, except: [ :new ] do
+  resources :recibos, except: [ :new, :index, :create ] do
     collection do
       get 'cobros'
       get 'pagos'

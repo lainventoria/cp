@@ -1,0 +1,320 @@
+
+---
+obras:
+  columns:
+  - id
+  - nombre
+  - created_at
+  - updated_at
+  - direccion
+  records: 
+  - - 1
+    - Obra 1 Test
+    - '2014-03-14 18:14:48.119548'
+    - '2014-03-14 18:14:48.119548'
+    - Roseti 113
+  - - 2
+    - Obra 2 Test
+    - '2014-03-14 18:15:00.428069'
+    - '2014-03-14 18:15:00.428069'
+    - Peralta 1526
+
+---
+recibos:
+  columns:
+  - id
+  - fecha
+  - importe_centavos
+  - importe_moneda
+  - factura_id
+  - created_at
+  - updated_at
+  - situacion
+  records: 
+  - - 1
+    - '2014-03-21 03:00:00.000000'
+    - 210000
+    - ARS
+    - 2
+    - '2014-03-14 18:53:32.365194'
+    - '2014-03-14 18:53:32.365194'
+    - pago
+  - - 2
+    - '2014-03-30 03:00:00.000000'
+    - 420000
+    - ARS
+    - 2
+    - '2014-03-14 18:54:03.838261'
+    - '2014-03-14 18:54:03.838261'
+    - pago
+  - - 3
+    - '2014-03-21 03:00:00.000000'
+    - 560000
+    - ARS
+    - 3
+    - '2014-03-14 18:54:37.718113'
+    - '2014-03-14 18:54:37.718113'
+    - pago
+  - - 4
+    - '2014-03-27 03:00:00.000000'
+    - 1200000
+    - ARS
+    - 5
+    - '2014-03-14 18:56:31.162118'
+    - '2014-03-14 18:56:31.162118'
+    - cobro
+  - - 5
+    - '2014-03-30 03:00:00.000000'
+    - 3500000
+    - ARS
+    - 6
+    - '2014-03-14 18:57:26.690183'
+    - '2014-03-14 18:57:26.690183'
+    - cobro
+
+---
+terceros:
+  columns:
+  - id
+  - nombre
+  - direccion
+  - telefono
+  - celular
+  - email
+  - iva
+  - cuit
+  - created_at
+  - updated_at
+  - relacion
+  - contacto
+  - notas
+  records: 
+  - - 1
+    - Don Quijote S.R.L.
+    - Quintita al costado del rio
+    - 11-4521-7896
+    - 15-4098-7265
+    - donquijote@correo.com
+    - 21.0
+    - 70-00004000-0
+    - '2014-03-14 18:17:47.651552'
+    - '2014-03-14 18:19:47.307153'
+    - ambos
+    - Jacinto
+    - Notas sobre don quijote y su gran aventura contra los molinos
+  - - 2
+    - Sancho Panza S.A.
+    - "Gonzalves 1500, 4to\r\nMunro"
+    - 11-4521-2100
+    - 15-4098-7000
+    - pedro@sanchopanza.com.ar
+    - 10.5
+    - 75-00000000-0
+    - '2014-03-14 18:19:33.971802'
+    - '2014-03-14 18:50:41.963692'
+    - proveedor
+    - Pedro
+    - Pedro fue el escudero y caballero de armas de un grande de las expediciones
+  - - 3
+    - Dulcinea Martinez
+    - ''
+    - ''
+    - ''
+    - dulcimar@hotmail.com
+    - 21.0
+    - 40-00007000-0
+    - '2014-03-14 18:52:47.289878'
+    - '2014-03-14 18:52:47.289878'
+    - cliente
+    - Dulcinea Martinez
+    - ''
+
+---
+facturas:
+  columns:
+  - id
+  - tipo
+  - numero
+  - descripcion
+  - importe_total_centavos
+  - importe_total_moneda
+  - fecha
+  - fecha_pago
+  - created_at
+  - updated_at
+  - situacion
+  - saldo_centavos
+  - saldo_moneda
+  - importe_neto_centavos
+  - importe_neto_moneda
+  - iva_centavos
+  - iva_moneda
+  - tercero_id
+  records: 
+  - - 2
+    - A
+    - '123456789'
+    - Movimiento de tierra
+    - 1440000
+    - ARS
+    - '2014-03-10 06:00:00.000000'
+    - '2014-03-27 06:00:00.000000'
+    - '2014-03-14 18:20:24.055654'
+    - '2014-03-17 18:29:58.083655'
+    - pago
+    - 810000
+    - ARS
+    - 1200000
+    - ARS
+    - 240000
+    - ARS
+    - 1
+  - - 3
+    - A
+    - '123456790'
+    - Adicional de Movimientos de Tierra
+    - 560000
+    - ARS
+    - '2014-03-13 03:00:00.000000'
+    - '2014-03-31 03:00:00.000000'
+    - '2014-03-14 18:20:58.101384'
+    - '2014-03-14 18:54:37.728361'
+    - pago
+    - 0
+    - ARS
+    - 500000
+    - ARS
+    - 60000
+    - ARS
+    - 1
+  - - 4
+    - C
+    - '987654321'
+    - Consumibles de oficina
+    - 130000
+    - ARS
+    - '2014-03-15 06:00:00.000000'
+    - '2014-03-15 06:00:00.000000'
+    - '2014-03-14 18:21:37.006807'
+    - '2014-03-14 18:21:50.622678'
+    - pago
+    - 130000
+    - ARS
+    - 120000
+    - ARS
+    - 10000
+    - ARS
+    - 2
+  - - 5
+    - X
+    - '00001234'
+    - Cuota 14/30, depto 5-B
+    - 3500000
+    - ARS
+    - '2014-03-20 03:00:00.000000'
+    - '2014-03-20 03:00:00.000000'
+    - '2014-03-14 18:56:18.403469'
+    - '2014-03-14 18:56:31.170978'
+    - cobro
+    - 2300000
+    - ARS
+    - 2500000
+    - ARS
+    - 1000000
+    - ARS
+    - 3
+  - - 6
+    - X
+    - '00001235'
+    - Cuota 14/30, Depto 6-B
+    - 3500000
+    - ARS
+    - '2014-03-28 03:00:00.000000'
+    - '2014-03-27 03:00:00.000000'
+    - '2014-03-14 18:57:15.906096'
+    - '2014-03-14 18:57:26.699104'
+    - cobro
+    - 0
+    - ARS
+    - 2500000
+    - ARS
+    - 1000000
+    - ARS
+    - 1
+
+---
+cajas:
+  columns:
+  - id
+  - obra_id
+  - created_at
+  - updated_at
+  - banco
+  - numero
+  - situacion
+  - tipo
+  records: 
+  - - 1
+    - 1
+    - '2014-03-14 18:14:48.640308'
+    - '2014-03-18 20:28:21.769235'
+    - ''
+    - ''
+    - efectivo
+    - Obra
+  - - 2
+    - 1
+    - '2014-03-14 18:14:48.644937'
+    - '2014-03-18 20:28:36.173545'
+    - ''
+    - ''
+    - efectivo
+    - Administracion
+  - - 3
+    - 1
+    - '2014-03-14 18:14:48.648060'
+    - '2014-03-18 20:28:49.079433'
+    - ''
+    - ''
+    - efectivo
+    - Seguridad
+  - - 4
+    - 1
+    - '2014-03-14 18:14:48.651469'
+    - '2014-03-18 20:29:43.171755'
+    - TMPomo
+    - 789-4651365
+    - banco
+    - Caja de Ahorro
+  - - 5
+    - 2
+    - '2014-03-14 18:15:00.433361'
+    - '2014-03-18 20:29:02.241475'
+    - ''
+    - ''
+    - efectivo
+    - Obra
+  - - 6
+    - 2
+    - '2014-03-14 18:15:00.436804'
+    - '2014-03-18 20:29:15.201262'
+    - ''
+    - ''
+    - efectivo
+    - Administracion
+  - - 7
+    - 2
+    - '2014-03-14 18:15:00.439954'
+    - '2014-03-18 20:29:26.832409'
+    - ''
+    - ''
+    - efectivo
+    - Seguridad
+  - - 8
+    - 2
+    - '2014-03-14 18:15:00.443029'
+    - '2014-03-18 20:29:56.645217'
+    - GarlopaBank
+    - 4560-789456
+    - banco
+    - Caja de Ahorro
