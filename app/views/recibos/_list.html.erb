@@ -18,7 +18,7 @@
         <td id="lista-corta"><%= recibo.factura.tercero.nombre.first(30) %></td>
         <td id="lista-corta"><%= recibo.factura.tipo.first(1) %>-<%= recibo.factura.numero.first(10) %>: <%= recibo.factura.descripcion.first(30) %></td>
         <td id="lista-corta"><%= formatted_date (recibo.factura.fecha) %>
-        <td><%= recibo.importe %></td>
+        <td><%= formatted_number(recibo.importe) %></td>
       </tr>
     <% end %>
   </tbody>

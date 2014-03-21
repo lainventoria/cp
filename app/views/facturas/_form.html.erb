@@ -23,15 +23,15 @@
       </div>
       <div class="field form-group col-md-3 col-md-offset-1">
         <%= f.label :fecha %><br>
-        <div class="input-group date">
-          <%= f.text_field :fecha, class: "form-control" %>
+        <div class="input-group date<%= editar_o_bloquear %>">
+          <%= f.text_field :fecha, { class: "form-control", value:formatted_date(@factura.fecha) } %>
           <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
       </div>
       <div class="field form-group col-md-3">
         <%= f.label :fecha_pago %><br>
-        <div class="input-group date">
-          <%= f.text_field :fecha_pago, class: "form-control" %>
+        <div class="input-group date<%= editar_o_bloquear %>">
+          <%= f.text_field :fecha_pago, { class: "form-control", value:formatted_date(@factura.fecha_pago) } %>
           <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
       </div>
@@ -58,15 +58,15 @@
     <div class="row">
       <div class="field form-group col-md-3 col-md-offset-4">
         <%= f.label :importe_neto %><br>
-        <%= f.text_field :importe_neto, class: "form-control" %>
+        <%= f.text_field :importe_neto, { class: "form-control calcula_total", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
       </div>
       <div class="field form-group col-md-2 ">
         <%= f.label :iva %><br>
-        <%= f.text_field :iva, class: "form-control" %>
+        <%= f.text_field :iva, { class: "form-control calcula_total", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
       </div>
       <div class="field form-group col-md-3">
         <%= f.label :importe_total %><br>
-        <%= f.text_field :importe_total, class: "form-control", disabled: "true" %>
+        <%= f.text_field :importe_total, { class: "form-control", disabled: "true", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
       </div>
     </div>
 

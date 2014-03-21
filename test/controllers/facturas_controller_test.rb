@@ -34,10 +34,17 @@ class FacturasControllerTest < ActionController::TestCase
   end
 
   test "should destroy factura" do
+    
+    ruta = if @factura.pago?
+      pagos_facturas_path
+    else
+      cobros_facturas_path
+    end
+
     assert_difference('Factura.count', -1) do
       delete :destroy, id: @factura
     end
 
-    assert_redirected_to facturas_path
+    assert_redirected_to ruta
   end
 end

@@ -1,0 +1,3 @@
+[submodule "vendor/assets/javascripts/autoNumeric"]
+	path = vendor/assets/javascripts/autoNumeric
+	url = https://github.com/BobKnothe/autoNumeric.git

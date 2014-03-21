@@ -16,4 +16,5 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
 //= require twitter/bootstrap
+//= require autoNumeric/autoNumeric
 //= require_tree .

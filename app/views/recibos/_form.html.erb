@@ -17,14 +17,14 @@
     <div class="row">
       <div class="field form-group col-md-3">
         <%= f.label :fecha %><br>
-        <div class="input-group date">
-          <%= f.text_field :fecha, class: "form-control" %>
+        <div class="input-group date<%= editar_o_bloquear %>">
+          <%= f.text_field :fecha, { class: "form-control", value:formatted_date(@recibo.fecha) } %>
           <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
       </div>
       <div class="field form-group col-md-3 pull-right">
         <%= f.label :importe %><br>
-        <%= f.text_field :importe, class: "form-control" %>
+        <%= f.text_field :importe, { class: "form-control", data: {role:'money', a_sep:'.', a_dec:',' } }  %>
       </div>
     </div>
 

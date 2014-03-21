@@ -1,8 +1,6 @@
-function parse_float (s){
-  return parseFloat (s.replace(/,/,'.'));
-};
-
 $(document).ready(function(){
+
+  $('input[data-role=money]').autoNumeric('init');
 
   // Inicializar los datepicker
   $('.input-group.date').datepicker({

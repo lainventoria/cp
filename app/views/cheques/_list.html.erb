@@ -15,7 +15,7 @@
       <tr id="<%= cheque_path(cheque.id) %>">
         <td><%= link_to '', cheque, class:"glyphicon glyphicon-eye-open" %></td>
         <td><%= formatted_date(cheque.fecha_vencimiento) %></td>
-        <td><%= cheque.monto %></td>
+        <td><%= formatted_number(cheque.monto) %></td>
         <td><%# lugar para cheque.tercero %></td>
         <td><%# lugar para helper de concepto %></td>
         <td><%# lugar para cheque.banco %></td>

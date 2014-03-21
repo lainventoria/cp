@@ -15,8 +15,9 @@ Cp::Application.routes.draw do
     resources :recibos
   end
 
-  # Permitir /recibos pero no crear recibos sin facturas asociadas
-  resources :recibos, except: [ :new, :index, :create ] do
+  # Permitir /recibos/pagos y /recibos/cobros pero no /recibos
+  # No permite crear recibos sin facturas asociadas
+  resources :recibos, only: [ :show ] do
     collection do
       get 'cobros'
       get 'pagos'

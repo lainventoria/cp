@@ -20,8 +20,8 @@
         <td id="lista_banco"><%= caja.banco %></td>
         <td><%= caja.tipo %></td>
         <td id="lista_banco"><%= caja.numero %></td>
-        <td><%= caja.total %></td>
-        <td id="lista_caja"><%= caja.total('USD') %></td>
+        <td><%= formatted_number(caja.total('ARS')) %></td>
+        <td id="lista_caja"><%= formatted_number(caja.total('USD')) %></td>
       </tr>
     <% end %>
   </tbody>

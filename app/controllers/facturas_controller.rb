@@ -71,9 +71,10 @@ class FacturasController < ApplicationController
   # DELETE /facturas/1
   # DELETE /facturas/1.json
   def destroy
+    volver_a_listado =  @factura.pago? ?  pagos_facturas_url : cobros_facturas_url
     @factura.destroy
     respond_to do |format|
-      format.html { redirect_to facturas_url }
+      format.html { redirect_to volver_a_listado }
       format.json { head :no_content }
     end
   end

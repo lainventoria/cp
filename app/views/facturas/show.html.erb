@@ -27,11 +27,11 @@
     <div class="row">
       <div class="field form-group col-md-5 col-md-offset-1">
         <label>Total Recibos</label><br>
-        <span class="form-control" disabled ><%= @factura.importe_total - @factura.saldo %></span>
+        <span class="form-control" disabled><%= formatted_number(@factura.importe_total - @factura.saldo) %></span>
       </div>
       <div class="field form-group col-md-5">
         <label>Saldo remanente</label><br>
-        <span class="form-control" disabled ><%= @factura.saldo %></span>
+        <span class="form-control" disabled><%= formatted_number(@factura.saldo) %></span>
       </div>
     </div>
 

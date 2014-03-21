@@ -5,7 +5,11 @@ gem 'rails', '4.0.2'
 
 gem 'money-rails'
 gem 'attribute_normalizer' # normaliza con varios métodos la entrada de usuario
+# permite importar y exportar datos en formato yml
 gem 'yaml_db', github: 'mauriciopasquier/yaml_db'
+
+# selector de fechas con calendario mensual
+gem 'bootstrap-datepicker-rails'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -54,6 +58,3 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
 end
-
-# selector de fechas con calendario mensual
-gem 'bootstrap-datepicker-rails'
