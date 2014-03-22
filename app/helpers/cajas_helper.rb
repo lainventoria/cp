@@ -7,17 +7,21 @@ module CajasHelper
       @caja.situacion
     end
   end
-
-  def adaptar_formulario_caja
+  
+  def opciones_formulario_caja
     if valor_situacion == "efectivo"
-      content_for :stylesheets do
-        '#form_banco {display: none}'
-      end
+      { form_caja: "", form_banco: "hidden" }
     else
-      content_for :stylesheets do
-        '#form_caja {display: none}'
-      end
+      { form_caja: "hidden", form_banco: "" }
     end
+  end
+
+  def ver_en_caja
+    @caja.efectivo? ? "" : "hidden"
+  end
+
+  def ver_en_cuenta
+    @caja.banco? ? "" : "hidden"
   end
 
   def caja_o_cuenta

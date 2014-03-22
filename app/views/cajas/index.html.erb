@@ -7,11 +7,7 @@
   </h2>
 </div>
 <div id="cajas" class="row">
-  <%# nested-layout: oculta columnas de bancos %>
-  <% content_for :stylesheets do %>
-    #cajas #lista_banco {display: none}
-  <% end %>
-  <%= render 'list', cajas: @cajas %>
+  <%= render 'list', cajas: @cajas, lista_banco: "hidden", lista_caja: "" %>
 </div>
 <div class="row">
   <br>
@@ -23,9 +19,5 @@
   </h2>
 </div>
 <div id="cuentas" class="row">
-  <%# nested-layout: oculta columnas de bancos %>
-  <% content_for :stylesheets do %>
-    #cuentas #lista_caja {display: none}
-  <% end %>
-  <%= render 'list', cajas: @cuentas %>
+  <%= render 'list', cajas: @cuentas, lista_banco: "", lista_caja: "hidden" %>
 </div>

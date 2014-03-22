@@ -6,7 +6,7 @@
 </div>
 
 <div class="row">
-  <%= render 'form' %>
+  <%= render 'form', opciones_formulario_caja %>
 </div>
 
 <div class="row">
@@ -29,7 +29,7 @@
       <label>Saldo en ARS</label>
       <span class="form-control"><%= formatted_number(@caja.total('ARS')) %></span>
     </div>
-    <div class="field form-group col-md-2 col-md-offset-1" id="form_caja">
+    <div class="field form-group col-md-2 col-md-offset-1 <%= ver_en_caja %>">
       <label>Saldo en USD</label>
       <span class="form-control"><%= formatted_number(@caja.total('USD')) %></span>
     </div>

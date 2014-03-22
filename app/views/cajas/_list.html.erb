@@ -1,13 +1,19 @@
+<%# parametros ( lista_caja, lista_banco )
+    lista_caja: oculta campos usados solo en el listado de cajas
+    lista_banco: oculta campos usados solo en el listado de cuentas
+    valor = [ "hidden", "" ]
+%>
+
 <table class="table table-hover table-condensed">
   <thead>
     <tr>
       <th></th>
       <th>Obra</th>
-      <th id="lista_banco">Banco</th>
+      <th class="<%= lista_banco %>">Banco</th>
       <th>Tipo</th>
-      <th id="lista_banco">Numero</th>
+      <th class="<%= lista_banco %>">Numero</th>
       <th>Saldo ARS</th>
-      <th id="lista_caja">Saldo USD</th>
+      <th class="<%= lista_caja %>">Saldo USD</th>
       <th></th>
     </tr>
   </thead>
@@ -17,11 +23,11 @@
       <tr class="ir-a" data-uri="<%= caja_path(caja.id)%>">
         <td><%= link_to '', [caja], class:"glyphicon glyphicon-eye-open" %></td>
         <td><%= caja.obra.nombre %></td>
-        <td id="lista_banco"><%= caja.banco %></td>
+        <td class="<%= lista_banco %>"><%= caja.banco %></td>
         <td><%= caja.tipo %></td>
-        <td id="lista_banco"><%= caja.numero %></td>
+        <td class="<%= lista_banco %>"><%= caja.numero %></td>
         <td><%= formatted_number(caja.total('ARS')) %></td>
-        <td id="lista_caja"><%= formatted_number(caja.total('USD')) %></td>
+        <td class="<%= lista_caja %>"><%= formatted_number(caja.total('USD')) %></td>
       </tr>
     <% end %>
   </tbody>

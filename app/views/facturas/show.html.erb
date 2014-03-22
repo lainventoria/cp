@@ -38,11 +38,7 @@
     <div class="row col-md-offset-1">
       <h4>Detalle de Recibos</h4>
       <% @recibos = @factura.recibos %>
-      <%# nested-layout: CSS adicional para el objeto a renderizar %>
-      <% content_for :stylesheets do %>
-        #lista-corta {display: none}
-      <% end %>
-      <%= render 'recibos/list' %>
+      <%= render 'recibos/list', lista_larga: "hidden" %>
     </div>
 
     <div class="row pull-right">

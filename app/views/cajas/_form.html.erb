@@ -1,3 +1,8 @@
+<%# parametros ( form_banco )
+    form_banco: oculta campos usados solo en el formulario de banco
+    valor = [ "hidden", "" ]
+%>
+
 <%= form_for @caja do |f| %>
   <% if @caja.errors.any? %>
     <% @editar = true %>
@@ -11,7 +16,6 @@
     </div>
   <% end %>
 
-  <% adaptar_formulario_caja %>
   <fieldset <%= editar_o_bloquear %> >
 
     <div class="row">
@@ -21,7 +25,7 @@
         <%= f.collection_select(:obra_id, Obra.all, :id, :nombre, options={ prompt: "-Seleccione Obra-" }, html_options={ class: "form-control" } ) %>
       </div>
 
-      <div class="field form-group col-md-2" id="form_banco">
+      <div class="field form-group col-md-2 <%= form_banco %>">
         <%= f.label :banco %>
         <%= f.text_field :banco, class:"form-control" %>
       </div>
@@ -31,7 +35,7 @@
         <%= f.text_field :tipo, class:"form-control" %>
       </div>
 
-      <div class="field form-group col-md-2" id="form_banco">
+      <div class="field form-group col-md-2 <%= form_banco %>">
         <%= f.label :numero %>
         <%= f.text_field :numero, class:"form-control" %>
       </div>
