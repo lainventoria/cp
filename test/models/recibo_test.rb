@@ -51,4 +51,12 @@ class ReciboTest < ActiveSupport::TestCase
     assert recibo_cobro.cobro?
   end
 
+  test 'crea recibos internos' do
+    assert_difference 'Recibo.count' do
+      recibo = Recibo.interno_nuevo
+      assert_instance_of Recibo, recibo
+      assert recibo.interno?
+      assert_equal 0, recibo.importe
+    end
+  end
 end
