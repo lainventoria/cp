@@ -73,48 +73,39 @@ class Caja < ActiveRecord::Base
     Caja.transaction do
       # Crear un recibo que agrupe todos los movimientos producto de
       # este cambio
-      recibo = self.crear_recibo_interno
+      recibo = Recibo.interno_nuevo
 
-      extraer(cantidad, true, recibo)
+      recibo.movimientos << extraer(cantidad, true)
       cantidad.bank.exchange cantidad.fractional, indice do |nuevo|
-        depositar(Money.new(nuevo, moneda), true, recibo)
+        recibo.movimientos << depositar(Money.new(nuevo, moneda), true)
       end
-    end || Money.new(0)
+
+      recibo
+    end || nil
   end
 
-  # Sólo si la caja tiene suficiente saldo devolvemos el monto convertido,
+  # Sólo si la caja tiene suficiente saldo devolvemos el movimiento realizado,
   # caso contrario no devolvemos nada, opcionalmente una excepción para frenar
   # la transacción
-  def extraer(cantidad, lanzar_excepcion = false, recibo = nil)
-    # Se arrastra el recibo si hay
+  def extraer(cantidad, lanzar_excepcion = false)
     if cantidad <= total(cantidad.currency.iso_code)
-      depositar(cantidad * -1, false, recibo)
+      depositar(cantidad * -1, false)
     else
       raise ActiveRecord::Rollback, 'Falló la extracción' if lanzar_excepcion
     end
   end
 
-  # Devolvemos cantidad para mantener consistente la API, opcionalmente una
-  # excepción para frenar la transacción
+  # Devolvemos el movimiento realizado, u opcionalmente una excepción para
+  # frenar la transacción.
   # 
   # Si el tipo de caja es banco, esto se considera una transferencia
   # bancaria
-  def depositar(cantidad, lanzar_excepcion = false, recibo = nil)
-    # Crear un recibo adhoc para este movimiento
-    recibo = crear_recibo_interno unless recibo
-    if movimientos.create(monto: cantidad, recibo: recibo)
-      recibo
+  def depositar(cantidad, lanzar_excepcion = false)
+    if movimiento = movimientos.build(monto: cantidad)
+      movimiento
     else
       raise ActiveRecord::Rollback, 'Falló el depósito' if lanzar_excepcion
     end
-
-  end
-
-  # Crear un recibo interno para una transacción específica
-  def crear_recibo_interno
-    Recibo.create(importe: 0,
-                  situacion: 'interno',
-                  fecha: Time.now)
   end
 
   def depositar_cheque(cheque)
@@ -136,11 +127,13 @@ class Caja < ActiveRecord::Base
   end
 
   # transferir un monto de una caja a otra
-  def transferir(monto, caja, recibo = nil)
+  def transferir(monto, caja)
+    recibo = nil
+
     Caja.transaction do
-      recibo = self.crear_recibo_interno if not recibo
-      self.extraer monto, true, recibo
-      caja.depositar monto, true, recibo
+      recibo = Recibo.interno_nuevo
+      recibo.movimientos << extraer(monto, true)
+      recibo.movimientos << caja.depositar(monto, true)
     end
 
     recibo

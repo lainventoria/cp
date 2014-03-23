@@ -10,6 +10,8 @@ class CajaTest < ActiveSupport::TestCase
   test 'es válida' do
     [ :build, :build_stubbed, :create].each do |metodo|
       assert_valid_factory metodo, :caja
+      assert_valid_factory metodo, :chequera
+      assert_valid_factory metodo, :banco
     end
   end
 
@@ -43,48 +45,70 @@ class CajaTest < ActiveSupport::TestCase
     assert_equal ({ 'ARS' => Money.new(0) }), @caja.totales
   end
 
-  test 'extrae si alcanza' do
+  test 'extrae si alcanza y devuelve el movimiento' do
     create :movimiento, caja: @caja, monto: Money.new(2000)
     assert_equal 1, @caja.movimientos.count
 
-    assert @caja.movimientos.where(recibo_id: @caja.extraer(Money.new(1000))).any?
-    assert_equal 2, @caja.movimientos.count
+    movimiento = @caja.extraer Money.new(1000)
 
-    assert_nil @caja.extraer(Money.new(1001))
+    assert_instance_of Movimiento, movimiento
+    assert_equal Money.new(-1000), movimiento.monto
+    assert_equal @caja, movimiento.caja
+    assert @caja.movimientos.include? movimiento
+
+    assert movimiento.update_attribute :recibo, Recibo.interno_nuevo
     assert_equal 2, @caja.movimientos.count
+  end
+
+  test 'no extrae si no alcanza' do
+    create :movimiento, caja: @caja, monto: Money.new(1000)
+
+    assert_no_difference '@caja.movimientos.count' do
+      assert_nil @caja.extraer(Money.new(1001))
+    end
   end
 
   test 'extrae en cualquier moneda si alcanza' do
     create :movimiento, caja: @caja, monto: Money.new(2000, 'USD')
 
-    assert @caja.movimientos.where(recibo_id: @caja.extraer(Money.new(1000, 'USD'))).any?
+    movimiento = @caja.extraer Money.new(1000, 'USD')
+
+    assert_equal Money.new(-1000, 'USD'), movimiento.monto
+    assert_equal @caja, movimiento.caja
+    assert @caja.movimientos.include? movimiento
+    assert movimiento.update_attribute :recibo, Recibo.interno_nuevo
     assert_equal 2, @caja.movimientos.count
 
     assert_nil @caja.extraer(Money.new(500))
-    assert_equal 2, @caja.movimientos.count
   end
 
   test 'deposita' do
-    assert @caja.movimientos.where(recibo_id: @caja.depositar(Money.new(100))).any?
-    assert @caja.movimientos.where(recibo_id: @caja.depositar(Money.new(100))).any?
-    assert_equal 2, @caja.movimientos.count
-    assert_equal Money.new(200), @caja.total
+    movimiento = @caja.depositar(Money.new(100))
+    assert_instance_of Movimiento, movimiento
+    assert_equal Money.new(100), movimiento.monto
+    assert @caja.movimientos.include? movimiento
+    assert movimiento.update_attribute :recibo, Recibo.interno_nuevo
+    assert_equal 1, @caja.movimientos.count
   end
 
   test 'deposita en cualquier moneda' do
-    assert @caja.movimientos.where(recibo_id: @caja.depositar(Money.new(100, 'USD'))).any?
+    movimiento = @caja.depositar(Money.new(100, 'USD'))
+    assert_instance_of Movimiento, movimiento
+    assert_equal Money.new(100, 'USD'), movimiento.monto
+    assert @caja.movimientos.include? movimiento
+    assert movimiento.update_attribute :recibo, Recibo.interno_nuevo
     assert_equal 1, @caja.movimientos.count
-    assert_equal Money.new(100, 'USD'), @caja.total('USD')
   end
 
   test 'cambia moneda manteniendo el historial en forma de movimientos' do
     create :movimiento, caja: @caja, monto: Money.new(500, 'EUR')
 
     assert_difference 'Movimiento.count', 2 do
-      @salida = @caja.cambiar(Money.new(200, 'EUR'), 'ARS', 1.5)
+      @recibo_interno = @caja.cambiar(Money.new(200, 'EUR'), 'ARS', 1.5)
     end
 
-    assert @caja.movimientos.where(recibo_id: @salida).any?
+    assert_equal 2, @caja.movimientos.where(recibo_id: @recibo_interno).count
+    assert_equal 2, @recibo_interno.movimientos.count
 
     # Historial de movimientos
     assert @caja.movimientos.collect(&:monto).include?(Money.new(500, 'EUR'))
@@ -99,8 +123,8 @@ class CajaTest < ActiveSupport::TestCase
   end
 
   test 'depositar lanza excepciones opcionalmente' do
-    # fingimos una falla en movimientos.create
-    no_movimientos = MiniTest::Mock.new.expect :create, false, [Hash]
+    # fingimos una falla en movimientos.build
+    no_movimientos = MiniTest::Mock.new.expect :build, false, [Hash]
 
     @caja.stub :movimientos, no_movimientos do
       assert_raise ActiveRecord::Rollback do
@@ -113,10 +137,10 @@ class CajaTest < ActiveSupport::TestCase
     create :movimiento, caja: @caja, monto: Money.new(100, 'EUR')
 
     assert_no_difference 'Movimiento.count' do
-      @salida = @caja.cambiar(Money.new(200, 'EUR'), 'ARS', 1.5)
+      @recibo_interno = @caja.cambiar(Money.new(200, 'EUR'), 'ARS', 1.5)
     end
 
-    assert_equal Money.new(0), @salida
+    assert_nil @recibo_interno
   end
 
   test 'unifica los tipos prefiriendo el existente' do
@@ -129,22 +153,22 @@ class CajaTest < ActiveSupport::TestCase
   end
 
   test 'transferir dineros de una caja a otra' do
-    caja1 = create :caja
-    caja2 = create :caja
-    dineros = Money.new(rand(1000))
+    origen = create :caja, :con_fondos
+    destino = create :caja
 
-    assert caja1.depositar dineros, caja1.errors.messages
-    assert_equal dineros, caja1.total
+    dineros = origen.total
 
-    assert (recibo = caja1.transferir(dineros, caja2))
+    recibo = origen.transferir(dineros, destino)
+
+    assert_instance_of Recibo, recibo
     assert_equal 2, recibo.movimientos.count
-    assert_equal dineros, caja2.total
-    assert_equal 0, caja1.total
+    assert_equal dineros, destino.total
+    assert_equal 0, origen.total
   end
 
   test 'no permite tipos iguales en una misma obra y con el mismo numero' do
     caja1 = create :caja, tipo: 'Personal', obra_id: '1234', numero: ''
-    
+
     # no permite cajas con mismo tipo
     assert_raise ActiveRecord::RecordInvalid do
       create :caja, tipo: 'Personal', obra_id: '1234', numero: ''
@@ -153,5 +177,4 @@ class CajaTest < ActiveSupport::TestCase
     # a menos que tengan numeros diferentes
     assert create :caja, tipo: 'Personal', obra_id: '1234', numero:'1'
   end
-
 end
