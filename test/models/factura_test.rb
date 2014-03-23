@@ -68,9 +68,12 @@ class FacturaTest < ActiveSupport::TestCase
     monto = factura.importe_total
 
     assert factura.recibos.empty?
+
     recibo = factura.pagar monto
-    assert_equal monto, recibo.importe
+
     assert_equal 1, factura.recibos.count
+    assert_instance_of Recibo, recibo
+    assert_equal monto, recibo.importe
   end
 
   test "no se puede pagar de más" do
@@ -78,7 +81,9 @@ class FacturaTest < ActiveSupport::TestCase
     monto = 2 * factura.importe_total
 
     assert factura.recibos.empty?
+
     recibo = factura.pagar monto
+
     assert_nil recibo
     assert_equal 0, factura.recibos.count
   end

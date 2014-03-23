@@ -4,7 +4,6 @@ class Factura < ActiveRecord::Base
 
   # Las facturas pertenecen a un tercero
   belongs_to :tercero, inverse_of: :facturas
-
   # Las facturas se pueden cancelar con muchos recibos
   has_many :recibos, inverse_of: :factura
 
@@ -25,7 +24,7 @@ class Factura < ActiveRecord::Base
   # una modificación
   before_create :calcular_importe_total, :calcular_saldo
   before_update :calcular_importe_total, :calcular_saldo
-  
+
   # Chequea si la situación es pago
   def pago?
     self.situacion == 'pago'
@@ -58,7 +57,7 @@ class Factura < ActiveRecord::Base
   # Cuánto se adeuda de esta factura en base a todos los recibos
   # NOTA esto asume que los recibos se hacen en la misma moneda de la
   # factura (y no que se está pagando una parte en una y otra en otra)
-  # 
+  #
   # Antes de guardar un recibo se tiene que hacer la conversión a la
   # moneda de la factura
   def calcular_saldo
@@ -84,7 +83,7 @@ class Factura < ActiveRecord::Base
   end
 
   # Devuelve nil si no pudo pagar por alguna razón
-  # FIXME null object?
+  # FIXME Pasar a build
   def pagar(importe)
     nuevo = recibos.create(importe: importe)
 

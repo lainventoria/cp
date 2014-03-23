@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140318051816) do
+ActiveRecord::Schema.define(version: 20140322171550) do
 
   create_table "cajas", force: true do |t|
     t.integer  "obra_id"
@@ -73,7 +73,11 @@ ActiveRecord::Schema.define(version: 20140318051816) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "recibo_id"
+    t.integer  "causa_id"
+    t.string   "causa_type"
   end
+
+  add_index "movimientos", ["causa_id", "causa_type"], name: "index_movimientos_on_causa_id_and_causa_type"
 
   create_table "obras", force: true do |t|
     t.string   "nombre"
