@@ -1,7 +1,7 @@
 # encoding: utf-8
 # Los cheques son promesas de cobro o pago, es decir que son movimientos
 # futuros
-# Solo se pueden depositar cuando están vencidos 
+# Solo se pueden depositar cuando están vencidos
 # Solo cuando se depositan generan un movimiento (positivo o negativo)
 # en el recibo al que pertenecen
 class Cheque < ActiveRecord::Base
@@ -33,6 +33,7 @@ class Cheque < ActiveRecord::Base
 
   # Trae todos los cheques vencidos, si se le pasa una fecha trae los
   # vencidos a ese momento
+  # TODO testear
   scope :vencidos, lambda { |time = nil|
     time = Time.now if not time
     where("fecha_vencimiento < ?", time)
@@ -82,7 +83,7 @@ class Cheque < ActiveRecord::Base
     return nil if caja_destino.chequera?
 
     # El cheque se saca de una caja y se deposita en otra, como todavía
-    # no lo cobramos, se registra como una salida 
+    # no lo cobramos, se registra como una salida
     Cheque.transaction do
       self.destino = self.caja.extraer(self.monto)
       self.caja = caja_destino
