@@ -10,7 +10,7 @@ module MedioDePago
   end
 
   # Cada medio de pago tiene que implementar su propio proceso de pago
-  def pagar(recibo)
-    raise NotImplementedError, 'Cada medio de pago debe definir `pagar`'
+  def usar_para_pagar(recibo)
+    raise NotImplementedError, 'Cada medio de pago debe definir `usar_para_pagar`'
   end
 end
