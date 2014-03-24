@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140318051816) do
+ActiveRecord::Schema.define(version: 20140324150035) do
 
   create_table "cajas", force: true do |t|
     t.integer  "obra_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tipo",       null: false
     t.string   "banco"
     t.string   "numero"
     t.string   "situacion"
-    t.string   "tipo",       null: false
   end
 
   create_table "cheques", force: true do |t|
@@ -62,8 +62,10 @@ ActiveRecord::Schema.define(version: 20140318051816) do
     t.integer  "iva_centavos",           default: 0,      null: false
     t.string   "iva_moneda",             default: "ARS",  null: false
     t.integer  "tercero_id"
+    t.integer  "obra_id"
   end
 
+  add_index "facturas", ["obra_id"], name: "index_facturas_on_obra_id"
   add_index "facturas", ["tercero_id"], name: "index_facturas_on_tercero_id"
 
   create_table "movimientos", force: true do |t|

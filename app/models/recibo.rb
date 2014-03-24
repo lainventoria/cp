@@ -9,11 +9,7 @@ class Recibo < ActiveRecord::Base
   # Por eso cada recibo tiene que estar asociado a una factura
   # a menos que sea un recibo interno (burocracia!)
   validates_presence_of :factura, unless: :interno?
-  validate :validate_cancelacion, :validate_saldo, unless: :interno?
-
-  # Actualiza el saldo de la factura cuando guardamos un valor
-  after_save :actualizar_saldo, unless: :interno?
-  after_destroy :actualizar_saldo, unless: :interno?
+  validate :validate_saldo, unless: :interno?
 
   before_save :actualizar_situacion, unless: :interno?
 
@@ -37,32 +33,17 @@ class Recibo < ActiveRecord::Base
     situacion == 'interno'
   end
 
-  # Eso mismo
-  def validate_cancelacion
-    errors[:base] << "La factura ya fue cancelada" if self.factura.cancelada?
-  end
-
-  # Valida el saldo de la factura
-  def validate_saldo
-    # Si el registro es nuevo, para saber el saldo real antes de
-    # insertar tenemos que restar el importe actual
-    if self.new_record?
-      saldo = factura.saldo - importe
-    # Cuando ya está en la base directamente comprobamos el saldo
-    else
-      saldo = factura.saldo
-    end
-
-    errors[:base] << "El importe es mayor al saldo #{saldo}" if saldo < 0
-  end
-
-  def actualizar_saldo
-    self.factura.calcular_saldo
-    self.factura.save
-  end
-
   def actualizar_situacion
     self.situacion = self.factura.situacion
+  end
+
+  # Si el recibo es nuevo, se resta del saldo de la factura, sino ya
+  # estaba restado
+  def validate_saldo
+    if self.new_record?
+      s = self.factura.saldo - self.importe
+      errors[:base] << "El recibo no puede superar el saldo de la factura #{s}" if s < 0
+    end
   end
 
 end
