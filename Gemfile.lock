@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/kossnocorp/jquery.turbolinks.git
+  revision: 76c7a4ab18f64239896c4899b1fac78d84f0aac2
+  specs:
+    jquery-turbolinks (2.0.2)
+      railties (>= 3.1.0)
+      turbolinks
+
+GIT
   remote: git://github.com/mauriciopasquier/yaml_db.git
   revision: 453df1cbdde28303d8b9753babb5120f6ee6ef9d
   specs:
@@ -180,6 +188,7 @@ DEPENDENCIES
   inflections (= 0.0.5)
   jbuilder (~> 1.2)
   jquery-rails
+  jquery-turbolinks!
   money-rails
   pry-rails
   rails (= 4.0.2)
