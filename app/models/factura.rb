@@ -4,6 +4,7 @@ class Factura < ActiveRecord::Base
 
   # Las facturas pertenecen a un tercero
   belongs_to :tercero, inverse_of: :facturas
+  belongs_to :obra, inverse_of: :facturas
 
   # Las facturas se pueden cancelar con muchos recibos
   has_many :recibos, inverse_of: :factura
@@ -25,7 +26,7 @@ class Factura < ActiveRecord::Base
   # una modificación
   before_create :calcular_importe_total, :calcular_saldo
   before_update :calcular_importe_total, :calcular_saldo
-  
+
   # Chequea si la situación es pago
   def pago?
     self.situacion == 'pago'

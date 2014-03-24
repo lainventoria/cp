@@ -25,12 +25,12 @@
             <li class="dropdown-header">Operacion</li>
             <%# nota de diseño: los links no son definitivos ya que en este momento no existen las vistas.
                 Necesitamos vistas que filtren las facturas/recibos por tipo cobro/pago %>
-            <li><a href="<%= pagos_facturas_path %>">Facturas por Pagar</a></li>
-            <li><a href="<%= pagos_recibos_path %>">Recibos de Pagos</a></li>
+            <li><a href="<%= con_obra? pagos_facturas_path %>">Facturas por Pagar</a></li>
+            <li><a href="<%= con_obra? pagos_recibos_path %>">Recibos de Pagos</a></li>
             <%# duda: existe un divider de linea discontinuada o diferente del utilizado mas abajo? %>
             <li class="divider"></li>
-            <li><a href="<%= cobros_facturas_path %>">Facturas por Cobrar</a></li>
-            <li><a href="<%= cobros_recibos_path %>">Recibos de Cobros</a></li>
+            <li><a href="<%= con_obra? cobros_facturas_path %>">Facturas por Cobrar</a></li>
+            <li><a href="<%= con_obra? cobros_recibos_path %>">Recibos de Cobros</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Reportes</li>
             <%# Reporte donde se muestre semana a semana las obligaciones de pago y cobro conocidas %>
@@ -42,9 +42,9 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cajas y Bancos <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li class="dropdown-header">Operacion</li>
-            <li><a href="<%= cajas_path %>">Cajas y Cuentas</a></li>
-            <li><a href="<%= propios_cheques_path %>">Cheques Propios</a></li>
-            <li><a href="<%= terceros_cheques_path %>">Cheques de Terceros</a></li>
+            <li><a href="<%= con_obra? cajas_path %>">Cajas y Cuentas</a></li>
+            <li><a href="<%= con_obra? propios_cheques_path %>">Cheques Propios</a></li>
+            <li><a href="<%= con_obra? terceros_cheques_path %>">Cheques de Terceros</a></li>
             <li><a href="#">Retenciones</a></li>
             <li><a href="#">Transferencias</a></li>
             <li><a href="#">Cambios de Moneda</a></li>
@@ -67,7 +67,7 @@
           <ul class="dropdown-menu">
             <li class="dropdown-header">Maestros</li>
             <li><a href="<%= obras_path %>">Obras</a></li>
-            <li><a href="<%= terceros_path %>">Terceros</a></li>
+            <li><a href="<%= con_obra? terceros_path %>">Terceros</a></li>
             <li><a href="#">Tipos de Retención</a></li>
             <li class="divider"></li>
           </ul>

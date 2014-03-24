@@ -2,10 +2,11 @@
 class CajasController < ApplicationController
   before_action :set_caja, only: [:show, :edit, :update, :destroy]
   before_action :set_movimientos, only: [:show]
+  before_action :set_obra
 
   def index
-    @cajas = Caja.where(situacion: 'efectivo')
-    @cuentas = Caja.where(situacion: 'banco')
+    @cajas = @obra ? @obra.cajas.where(situacion: 'efectivo') : Caja.where(situacion: 'efectivo')
+    @cuentas = @obra ? @obra.cajas.where(situacion: 'banco') : Caja.where(situacion: 'banco')
   end
 
   def show

@@ -9,7 +9,7 @@
     </div>
 
     <div class="row">
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= factura_path (@factura) %>">
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= con_obra? factura_path (@factura) %>">
         <span class="glyphicon glyphicon-eye-open"></span>
         Volver a Factura
       </a>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="row">
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= recibos_por_tipo_path %>">
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= con_obra? recibos_por_tipo_path %>">
         <span class="glyphicon glyphicon-list"></span>
         Listar Recibos
       </a>

@@ -1,6 +1,6 @@
 <div class="row">
   <h2><%= titulo_lista_facturas %>
-    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_factura_path(situacion: @situacion ) %>">
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= con_obra? new_factura_path(situacion: @situacion ) %>">
       <span class="glyphicon glyphicon-plus"></span>
       Nueva Factura
     </a>
@@ -40,7 +40,7 @@
           ] 
         %>
         <% @campos.each do |campo| %>
-          <td class="ir-a" data-uri="<%= factura_path(factura.id) %>"><%= campo %></td>
+          <td class="ir-a" data-uri="<%= con_obra? factura_path(factura.id) %>"><%= campo %></td>
         <% end %>
         <td>
           <span class="pull-right">

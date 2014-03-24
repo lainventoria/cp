@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :factura do
+    obra
     tercero
     tipo "MyString"
     numero "MyString"

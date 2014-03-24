@@ -9,11 +9,11 @@
     </div>
 
     <div class="row">
-      <a type="button" class="btn btn-danger col-md-3" href="<%= factura_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
+      <a type="button" class="btn btn-danger col-md-3" href="<%= con_obra? factura_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
         <span class="glyphicon glyphicon-remove-circle"></span>
         Borrar Factura
       </a>
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= factura_path(@factura) %>">
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= con_obra? factura_path(@factura) %>">
         <span class="glyphicon glyphicon-eye-open"></span>
         Volver a Factura
       </a>

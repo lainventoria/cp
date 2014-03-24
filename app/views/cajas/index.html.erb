@@ -1,6 +1,6 @@
 <div class="row">
   <h2>Cajas
-    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_caja_path(situacion: 'efectivo') %>">
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= con_obra? new_caja_path(situacion: 'efectivo') %>">
       <span class="glyphicon glyphicon-plus"></span>
       Nueva Caja
     </a>
@@ -12,7 +12,7 @@
 <div class="row">
   <br>
   <h2>Cuentas
-    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_caja_path(situacion: 'banco') %>">
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= con_obra? new_caja_path(situacion: 'banco') %>">
       <span class="glyphicon glyphicon-plus"></span>
       Nueva Cuenta
     </a>

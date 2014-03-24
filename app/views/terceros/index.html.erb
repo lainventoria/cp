@@ -1,7 +1,7 @@
 <div class="row">
   <h2>
     Listado de Terceros
-    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_tercero_path %>">
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= con_obra? new_tercero_path %>">
       <span class="glyphicon glyphicon-plus"></span>
       Nuevo Tercero
     </a>
@@ -25,7 +25,7 @@
 
   <tbody>
     <% @terceros.each do |tercero| %>
-      <tr class="ir-a" data-uri="<%= tercero_path(tercero) %>">
+      <tr class="ir-a" data-uri="<%= con_obra? tercero_path(tercero) %>">
         <td><%= link_to raw('<i class="glyphicon glyphicon-eye-open" title="Ver Tercero"></i>'), [tercero] %></td>
         <td><%= tercero.nombre %></td>
         <td><%= tercero.direccion %></td>

@@ -17,7 +17,7 @@
 
   <tbody>
     <% @recibos.each do |recibo| %>
-      <tr class="ir-a" data-uri="<%= factura_recibo_path(recibo.factura, recibo) %>">
+      <tr class="ir-a" data-uri="<%= con_obra? factura_recibo_path(recibo.factura, recibo) %>">
         <td><%= link_to '', [recibo.factura, recibo], class:"glyphicon glyphicon-eye-open" %></td>
         <td><%= formatted_date(recibo.fecha) %></td>
         <td class="<%= lista_larga %>"><%= recibo.factura.tercero.nombre.first(30) %></td>

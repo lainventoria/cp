@@ -9,11 +9,11 @@
   <%= render 'form' %>
 
   <div class="row">
-    <a type="button" class="btn btn-success col-md-2" href="<%= terceros_path %>">
+    <a type="button" class="btn btn-success col-md-2" href="<%= con_obra? terceros_path %>">
       <span class="glyphicon glyphicon-eye-open"></span>
       Listar Terceros
     </a>
-    <a type="button" class="btn btn-warning col-md-2 col-md-offset-1" href="<%= edit_tercero_path(@tercero) %>">
+    <a type="button" class="btn btn-warning col-md-2 col-md-offset-1" href="<%= con_obra? edit_tercero_path(@tercero) %>">
       <span class="glyphicon glyphicon-edit"></span>
       Editar Tercero
     </a>

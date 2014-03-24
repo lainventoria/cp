@@ -2,23 +2,36 @@
 class RecibosController < ApplicationController
   before_action :set_recibo, only: [:show, :edit, :update, :destroy]
   before_action :set_factura, only: [:show, :edit, :update, :destroy, :index, :create, :new]
+  before_action :set_obra
+  before_action :set_facturas, only: [ :index, :cobros, :pagos ]
 
   # GET /recibos
   # GET /recibos.json
   def index
-    if params[:factura_id]
-      @recibos = Recibo.where(factura_id: params[:factura_id])
+    if @facturas
+      @recibos = Recibo.where(factura_id: @facturas)
+    else
+      @recibos = @factura ? @factura.recibos : Recibo.all
     end
   end
 
   def cobros
-    @recibos = Recibo.where(situacion: "cobro")
+    if @facturas
+      @recibos = Recibo.where(factura_id: @facturas).where(situacion: 'cobro')
+    else
+      @recibos = @factura ? @factura.recibos.where(situacion: 'cobro') : Recibo.where(situacion: "cobro")
+    end
     @situacion = "Cobros"
     render "index"
   end
 
   def pagos
-    @recibos = Recibo.where(situacion: "pago")
+    if @facturas
+      @recibos = Recibo.where(factura_id: @facturas).where(situacion: 'pago')
+    else
+      @recibos = @factura ? @factura.recibos.where(situacion: 'pago') : Recibo.where(situacion: "pago")
+    end
+
     @situacion = "Pagos"
     render "index"
   end
@@ -93,9 +106,13 @@ class RecibosController < ApplicationController
         @factura = Factura.find(params[:factura_id])
       end
 
-      if ( ! @factura.nil? && ! @recibo.nil? ) 
+      if ( ! @factura.nil? && ! @recibo.nil? )
         @recibo.factura = @factura
       end
+    end
+
+    def set_facturas
+      @facturas = @obra ? @obra.facturas : nil
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

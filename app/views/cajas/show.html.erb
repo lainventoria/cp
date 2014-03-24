@@ -10,11 +10,11 @@
 </div>
 
 <div class="row">
-  <a type="button" class="btn btn-success col-md-2" href="<%= cajas_path %>">
+  <a type="button" class="btn btn-success col-md-2" href="<%= con_obra? cajas_path %>">
     <span class="glyphicon glyphicon-list-alt"></span>
     Listar <%= caja_o_cuenta.pluralize %>
   </a>
-  <a type="button" class="btn btn-warning col-md-2 col-md-offset-1" href="<%= edit_caja_path(@caja) %>">
+  <a type="button" class="btn btn-warning col-md-2 col-md-offset-1" href="<%= con_obra? edit_caja_path(@caja) %>">
     <span class="glyphicon glyphicon-edit"></span>
     Editar <%= caja_o_cuenta %>
   </a>

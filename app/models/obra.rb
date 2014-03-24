@@ -1,6 +1,7 @@
 # encoding: utf-8
 class Obra < ActiveRecord::Base
   has_many :cajas
+  has_many :facturas
 
   after_create :crear_cajas
 
