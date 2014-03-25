@@ -95,9 +95,18 @@ class Caja < ActiveRecord::Base
     end
   end
 
+  # Carga una extracción en esta caja respaldada con un recibo interno
+  def extraer!(cantidad)
+    Caja.transaction do
+      recibo = Recibo.interno_nuevo
+      recibo.movimientos << extraer(cantidad, true)
+      recibo
+    end
+  end
+
   # Devolvemos el movimiento realizado, u opcionalmente una excepción para
   # frenar la transacción.
-  # 
+  #
   # Si el tipo de caja es banco, esto se considera una transferencia
   # bancaria
   def depositar(cantidad, lanzar_excepcion = false)
@@ -105,6 +114,15 @@ class Caja < ActiveRecord::Base
       movimiento
     else
       raise ActiveRecord::Rollback, 'Falló el depósito' if lanzar_excepcion
+    end
+  end
+
+  # Carga un depósito en esta caja respaldado con un recibo interno
+  def depositar!(cantidad)
+    Caja.transaction do
+      recibo = Recibo.interno_nuevo
+      recibo.movimientos << depositar(cantidad, true)
+      recibo
     end
   end
 
