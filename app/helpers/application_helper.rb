@@ -7,7 +7,7 @@ module ApplicationHelper
   # Por defecto, no se usa nada. Cada helper específico redefine este método si
   # quiere un título específico
   def titulo
-    @obra ? @obra.nombre : nil
+    nil
   end
 
 	def formatted_date(date)
@@ -66,7 +66,9 @@ module ApplicationHelper
   # genera un link a la url actual en otra obra (o al listado
   # correspondiente en otra obra)
   def link_to_obra(obra)
-    if params[:action] == 'show'
+    if params[:controller] == 'obras' # and params[:action] == 'index'
+      url = url_for(params.merge(id: obra.id, action: 'show'))
+    elsif params[:action] == 'show'
       # al dessetear el id se corrige el ?id=X flotante
       url = url_for(params.merge(obra_id: obra.id, id: nil, action: 'index'))
     else
