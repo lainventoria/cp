@@ -11,7 +11,8 @@
       <th class="<%= lista_larga %>">Tercero</th>
       <th class="<%= lista_larga %>">Factura</th>
       <th class="<%= lista_larga %>">Fecha Factura</th>
-      <th>Importe</th>
+      <th class="text-right">Moneda</th>
+      <th class="text-right">Importe</th>
     </tr>
   </thead>
 
@@ -22,8 +23,9 @@
         <td><%= formatted_date(recibo.fecha) %></td>
         <td class="<%= lista_larga %>"><%= recibo.factura.tercero.nombre.first(30) %></td>
         <td class="<%= lista_larga %>"><%= recibo.factura.tipo.first(1) %>-<%= recibo.factura.numero.first(10) %>: <%= recibo.factura.descripcion.first(30) %></td>
-        <td class="<%= lista_larga %>"><%= formatted_date (recibo.factura.fecha) %>
-        <td><%= formatted_number(recibo.importe) %></td>
+        <td class="<%= lista_larga %>"><%= formatted_date (recibo.factura.fecha) %></td>
+        <td class="text-right"><%= recibo.importe_moneda %></td> 
+        <td class="text-right"><%= formatted_number(recibo.importe) %></td>
       </tr>
     <% end %>
   </tbody>

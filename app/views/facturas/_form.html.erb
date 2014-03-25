@@ -56,17 +56,20 @@
     </div>
 
     <div class="row">
-      <div class="field form-group col-md-3 col-md-offset-4">
+      <div class="field form-group col-md-2 col-md-offset-2">
+        <%= render 'layouts/selector_moneda', moneda: moneda_factura %> 
+      </div>
+      <div class="field form-group col-md-3">
         <%= f.label :importe_neto %><br>
-        <%= f.text_field :importe_neto, { class: "form-control calcula_total", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
+        <%= f.text_field :importe_neto, { class: "form-control calcula_total text-right", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
       </div>
       <div class="field form-group col-md-2 ">
         <%= f.label :iva %><br>
-        <%= f.text_field :iva, { class: "form-control calcula_total", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
+        <%= f.text_field :iva, { class: "form-control calcula_total text-right", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
       </div>
       <div class="field form-group col-md-3">
         <%= f.label :importe_total %><br>
-        <%= f.text_field :importe_total, { class: "form-control", disabled: "true", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
+        <%= f.text_field :importe_total, { class: "form-control text-right", disabled: "true", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
       </div>
     </div>
 
@@ -76,6 +79,9 @@
 
     <%# campo necesario para crear/editar facturas %>
     <%= f.hidden_field :situacion, value: determina_situacion %>
+    <%= f.hidden_field :importe_neto_moneda, class: "actualizar_moneda" %>
+    <%= f.hidden_field :iva_moneda, class: "actualizar_moneda" %>
+    <%= f.hidden_field :importe_total_moneda, class: "actualizar_moneda" %>
 
   </fieldset>
 

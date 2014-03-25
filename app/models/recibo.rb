@@ -17,7 +17,7 @@ class Recibo < ActiveRecord::Base
   SITUACIONES = %w(cobro pago interno)
   validates_inclusion_of :situacion, in: SITUACIONES
 
-  monetize :importe_centavos
+  monetize :importe_centavos, with_model_currency: :importe_moneda
 
   # Es un recibo de pago?
   def pago?

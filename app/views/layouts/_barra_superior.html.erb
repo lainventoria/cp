@@ -32,10 +32,6 @@
             <li class="divider"></li>
             <li><a href="<%= con_obra? cobros_facturas_path %>">Facturas por Cobrar</a></li>
             <li><a href="<%= con_obra? cobros_recibos_path %>">Recibos de Cobros</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">Reportes</li>
-            <%# Reporte donde se muestre semana a semana las obligaciones de pago y cobro conocidas %>
-            <li><a href="#">Proyección Semanal de Cobros y Pagos</a></li>
           </ul>
         </li>
 
@@ -49,17 +45,6 @@
             <li><a href="#">Retenciones</a></li>
             <li><a href="#">Transferencias</a></li>
             <li><a href="#">Cambios de Moneda</a></li>
-            <%# Nos referimos por Arqueo a la carga de un movimiento que contenga un saldo paralelo al del sistema
-                Se utiliza para cargar el saldo de la caja/cuenta a una cierta fecha, resultado de una cuenta de dinero
-                o del saldo reportado por el banco en la web/correo %>
-            <li><a href="#">Arqueos de Cajas y Bancos</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">Reportes</li>
-            <%# El Reporte de Liquidez busca dar una idea de la disponibilidad financiera de la obra
-                liquidez bruta = cajas + bancos + cheques de 3ros - cheques propios
-                liquidez neta = liquidez bruta - recibos por pagar + recibos por cobrar
-                liquidez acida = liquidez neta - recibos por cobrar %>
-            <li><a href="#">Reporte de Liquidez</a></li>
           </ul>
         </li>
 
@@ -69,8 +54,6 @@
             <li class="dropdown-header">Maestros</li>
             <li><a href="<%= obras_path %>">Obras</a></li>
             <li><a href="<%= con_obra? terceros_path %>">Terceros</a></li>
-            <li><a href="#">Tipos de Retención</a></li>
-            <li class="divider"></li>
           </ul>
         </li>
 

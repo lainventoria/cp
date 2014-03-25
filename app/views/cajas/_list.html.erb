@@ -12,8 +12,8 @@
       <th class="<%= lista_banco %>">Banco</th>
       <th>Tipo</th>
       <th class="<%= lista_banco %>">Numero</th>
-      <th>Saldo ARS</th>
-      <th class="<%= lista_caja %>">Saldo USD</th>
+      <th class="text-right">Saldo ARS</th>
+      <th class="text-right <%= lista_caja %>">Saldo USD</th>
       <th></th>
     </tr>
   </thead>
@@ -26,8 +26,8 @@
         <td class="<%= lista_banco %>"><%= caja.banco %></td>
         <td><%= caja.tipo %></td>
         <td class="<%= lista_banco %>"><%= caja.numero %></td>
-        <td><%= formatted_number(caja.total('ARS')) %></td>
-        <td class="<%= lista_caja %>"><%= formatted_number(caja.total('USD')) %></td>
+        <td class="text-right"><%= formatted_number(caja.total('ARS')) %> ARS</td>
+        <td class="text-right <%= lista_caja %>"><%= formatted_number(caja.total('USD')) %> USD</td>
       </tr>
     <% end %>
   </tbody>

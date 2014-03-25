@@ -29,7 +29,7 @@ class Cheque < ActiveRecord::Base
   # TODO validar que el destino no desaparezca cuando se cobra el cheque
   validates_presence_of :destino_id, if: :depositado?
 
-  monetize :monto_centavos
+  monetize :monto_centavos, with_model_currency: :monto_moneda
 
   # Trae todos los cheques vencidos, si se le pasa una fecha trae los
   # vencidos a ese momento

@@ -13,6 +13,9 @@
       <th></th>
       <th>Nombre</th>
       <th>Direccion</th>
+      <th>Saldo General</th>
+      <th>Saldo de Pagos</th>
+      <th>Saldo de Cobros</th>
     </tr>
   </thead>
 
@@ -22,6 +25,9 @@
         <td><%= link_to raw('<i class="glyphicon glyphicon-eye-open" title="Ver Obra"></i>'), [obra] %></td>
         <td><%= obra.nombre %></td>
         <td><%= obra.direccion %></td>
+        <td><%= obra.saldo_general %></td>
+        <td><%= obra.saldo_de_pago %></td>
+        <td><%= obra.saldo_de_cobro %></td>
       </tr>
     <% end %>
   </tbody>

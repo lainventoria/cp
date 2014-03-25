@@ -17,8 +17,9 @@
       <th>Vence</th>
       <th>Tercero</th>
       <th>Descripción</th>
-      <th>Importe total</th>
-      <th>Saldo</th>
+      <th class="text-right">Moneda</th>
+      <th class="text-right">Importe total</th>
+      <th class="text-right">Saldo</th>
       <th></th>
     </tr>
   </thead>
@@ -34,13 +35,19 @@
             formatted_date(factura.fecha),
             formatted_date(factura.fecha_pago),
             factura.tercero.nombre.first(20),
-            factura.descripcion.first(40),
+            factura.descripcion.first(40)
+          ]
+          @campos_numeros = [
+            factura.importe_neto_moneda,
             formatted_number(factura.importe_total),
             formatted_number(factura.saldo)
           ] 
         %>
         <% @campos.each do |campo| %>
           <td class="ir-a" data-uri="<%= con_obra? factura_path(factura.id) %>"><%= campo %></td>
+        <% end %>
+        <% @campos_numeros.each do |campo| %>
+          <td class="ir-a text-right" data-uri="<%= con_obra? factura_path(factura.id) %>"><%= campo %></td>
         <% end %>
         <td>
           <span class="pull-right">

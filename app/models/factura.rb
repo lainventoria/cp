@@ -18,9 +18,9 @@ class Factura < ActiveRecord::Base
 
   validate :validate_saldo
 
-  monetize :importe_neto_centavos
-  monetize :importe_total_centavos
-  monetize :iva_centavos
+  monetize :importe_neto_centavos, with_model_currency: :importe_neto_moneda
+  monetize :importe_total_centavos, with_model_currency: :importe_total_moneda
+  monetize :iva_centavos, with_model_currency: :iva_moneda
 
   # Mantener actualizados los valores calculados cada vez que se hace
   # una modificación

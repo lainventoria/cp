@@ -1,0 +1,12 @@
+<%# este partial requiere los siguientes parametros
+  moneda: [valores existentes]
+%>
+
+<% monedas = ['ARS', 'USD'] %>
+
+<label>Moneda</label>
+<select id="selector_moneda" class="form-control">
+  <% monedas.each do |m| %>
+    <option value="<%= m %>" <%= moneda_seleccionada(m, moneda) %>><%= m %></option>
+  <% end %>
+</select>

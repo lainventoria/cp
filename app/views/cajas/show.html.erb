@@ -27,11 +27,11 @@
   <div class="row">
     <div class="field form-group col-md-2">
       <label>Saldo en ARS</label>
-      <span class="form-control"><%= formatted_number(@caja.total('ARS')) %></span>
+      <span class="form-control text-right"><%= formatted_number(@caja.total('ARS')) %></span>
     </div>
     <div class="field form-group col-md-2 col-md-offset-1 <%= ver_en_caja %>">
       <label>Saldo en USD</label>
-      <span class="form-control"><%= formatted_number(@caja.total('USD')) %></span>
+      <span class="form-control text-right"><%= formatted_number(@caja.total('USD')) %></span>
     </div>
   </div>
 </div>

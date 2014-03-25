@@ -32,4 +32,11 @@ module FacturasHelper
     end
   end
 
+  def moneda_factura
+    if @factura.new_record?
+      "ARS"
+    else
+      @factura.importe_neto_moneda
+    end
+  end
 end
