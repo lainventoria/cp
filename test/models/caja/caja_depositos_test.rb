@@ -25,12 +25,6 @@ class CajaDepositosTest < ActiveSupport::TestCase
     assert_equal 1, @caja.movimientos.count
   end
 
-  test 'extraer lanza excepciones opcionalmente' do
-    assert_raise ActiveRecord::Rollback do
-      @caja.extraer(Money.new(100), true)
-    end
-  end
-
   test 'depositar lanza excepciones opcionalmente' do
     # fingimos una falla en movimientos.build
     no_movimientos = MiniTest::Mock.new.expect :build, false, [Hash]

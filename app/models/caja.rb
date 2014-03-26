@@ -88,11 +88,11 @@ class Caja < ActiveRecord::Base
     end || nil
   end
 
-  # Sólo si la caja tiene suficiente saldo devolvemos el movimiento realizado,
-  # caso contrario no devolvemos nada, opcionalmente una excepción para frenar
-  # la transacción
+  # Sólo si la caja tiene suficiente saldo o es una chequera, devolvemos el
+  # movimiento realizado, caso contrario no devolvemos nada, opcionalmente una
+  # excepción para frenar la transacción
   def extraer(cantidad, lanzar_excepcion = false)
-    if cantidad <= total(cantidad.currency.iso_code)
+    if cantidad <= total(cantidad.currency.iso_code) || chequera?
       depositar(cantidad * -1, false)
     else
       raise ActiveRecord::Rollback, 'Falló la extracción' if lanzar_excepcion

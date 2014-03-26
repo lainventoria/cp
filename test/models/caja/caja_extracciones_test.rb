@@ -30,6 +30,17 @@ class CajaExtraccionesTest < ActiveSupport::TestCase
     end
   end
 
+  test 'las chequeras pueden quedar en negativo' do
+    chequera = create :chequera
+    assert_equal Money.new(0), chequera.total
+
+    movimiento = chequera.extraer Money.new(1000)
+
+    assert_instance_of Movimiento, movimiento
+    assert_equal Money.new(-1000), movimiento.monto
+    assert chequera.movimientos.include? movimiento
+  end
+
   test 'extrae en cualquier moneda si alcanza' do
     create :movimiento, caja: @caja, monto: Money.new(2000, 'USD')
 
@@ -54,5 +65,11 @@ class CajaExtraccionesTest < ActiveSupport::TestCase
     assert_equal Money.new(500), @caja.total
     assert @caja.movimientos.collect(&:monto).include?(Money.new(-500))
     assert respaldo.movimientos.collect(&:monto).include?(Money.new(-500))
+  end
+
+  test 'extraer lanza excepciones opcionalmente' do
+    assert_raise ActiveRecord::Rollback do
+      @caja.extraer(Money.new(100), true)
+    end
   end
 end
