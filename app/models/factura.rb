@@ -74,14 +74,6 @@ class Factura < ActiveRecord::Base
     self.importe_total = self.importe_neto + self.iva
   end
 
-  def nombre_y_numero
-    "[#{numero}] #{nombre}"
-  end
-
-  def to_s
-    nombre_y_numero
-  end
-
   # Devuelve nil si no pudo pagar por alguna razón
   # FIXME Pasar a build
   def pagar(importe)
