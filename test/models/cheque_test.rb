@@ -4,6 +4,7 @@ class ChequeTest < ActiveSupport::TestCase
   test "es válido" do
     [ :build, :build_stubbed, :create].each do |metodo|
       assert_valid_factory metodo, :cheque
+      assert_valid_factory metodo, :cheque_de_terceros
     end
   end
 
@@ -20,61 +21,70 @@ class ChequeTest < ActiveSupport::TestCase
   end
 
   test "algunos cheques se vencen" do
-    cheque = create :cheque
-    cheque2 = create :cheque, fecha_vencimiento: Time.now - rand(36000)
+    create :cheque # no vencido
+    cheque_vencido = create :cheque, fecha_vencimiento: Time.now - rand(36000)
 
-    assert cheque2.vencido?, cheque2.errors.messages
+    assert cheque_vencido.vencido?, cheque_vencido.errors.messages
 
     assert_equal Cheque.count, 2
     assert_equal Cheque.vencidos.count, 1
-
   end
 
   test "los cheques propios no se depositan" do
     cheque = create :cheque, situacion: 'propio', estado: 'chequera'
-    caja = create :caja, situacion: 'banco'
+    cuenta = create :cuenta
 
-    assert_not cheque.depositar(caja)
+    assert_not cheque.depositar(cuenta)
   end
 
   test "los cheques de terceros no se pagan si estan en chequera" do
-    cheque = create :cheque, situacion: 'terceros', estado: 'chequera'
+    cheque = create :cheque_de_terceros, estado: 'chequera'
     assert_not cheque.pagar, cheque.errors.messages
-
   end
 
-  test 'pagar un cheque genera movimientos en negativo' do
-    cheque = create :cheque, situacion: 'propio'
-    # asegurarse que haya algo en la caja
-    assert cheque.caja.depositar(Money.new(2000, 'ARS'))
-    monto = cheque.monto
+  test 'pagar con un cheque extrae de la chequera' do
+    cheque = build :cheque, monto: Money.new(100)
+    recibo = create :recibo, situacion: 'pago', importe: Money.new(200)
 
-    assert cheque.pagar, cheque.errors.messages
-    assert cheque.recibo.movimientos.
-             where(monto_centavos: cheque.monto_centavos * -1).
-             where(monto_moneda: cheque.monto_moneda).any?
-
+    assert cheque.usar_para_pagar(recibo).persisted?
+    assert_equal Money.new(-100), cheque.chequera.total
+    assert recibo.movimientos.collect(&:monto).include? Money.new(-100)
   end
 
-  test 'cobrar un cheque genera una transferencia en otra caja' do
-    otra_caja = create :caja, situacion: 'efectivo'
-    caja = create :caja, situacion: 'chequera'
-    # recordatorio: estuve una hora probando un monton de giladas solo
-    # porque me habia olvidado de asignar la caja creada entonces estaba
-    # tratando de transferir desde cualquier otra cosa!!!
-    cheque = create :cheque, situacion: 'terceros', caja: caja # <= estupido fauno
+  test 'pagar un cheque extrae de su cuenta y salda la chequera' do
+    cuenta = create :cuenta, :con_fondos
+    chequera = cuenta.obra.chequera_propia
+    cheque = cuenta.emitir_cheque(attributes_for(:cheque, monto: Money.new(100)))
+    cheque.usar_para_pagar create(:recibo, importe: Money.new(100))
+
+    assert cheque.pagar.persisted?, cheque.errors.messages
+
+    assert cuenta.movimientos.collect(&:monto).include?(Money.new(-100))
+
+    assert chequera.movimientos.collect(&:monto).include?(Money.new(100))
+    assert_equal Money.new(0), chequera.total
+  end
+
+  test 'depositar un cheque extrae de la chequera' do
+    otra_caja = create :cuenta
+    cheque = create :cheque_de_terceros
 
     # asegurar que haya dinero disponible en la caja
-    assert caja.depositar(cheque.monto)
-    assert_equal cheque.monto, caja.total
+    assert_nil cheque.cuenta
+
+    resultado = cheque.depositar(otra_caja)
 
     # al depositar un cheque, se asocia a una caja diferente
-    assert cheque.depositar(otra_caja), cheque.errors.messages
+    assert resultado.valid?, resultado.errors.messages
+    assert_instance_of Cheque, resultado
     assert_equal 'depositado', cheque.estado
-    assert_equal otra_caja, cheque.caja
+    assert_equal otra_caja, cheque.cuenta
+    assert_equal cheque.monto, -1 * cheque.chequera.total
+  end
 
-    assert cheque.save, cheque.errors.messages
-    assert cheque.reload
+  test 'cobrar un cheque de terceros genera una transferencia en otra caja' do
+    caja = create :caja, situacion: 'efectivo'
+    cheque = create :cheque_de_terceros, estado: 'depositado', cuenta: cuenta
 
     # al cobrar un cheque, se devuelve un recibo interno y el cheque se
     # marca como cobrado
@@ -95,8 +105,6 @@ class ChequeTest < ActiveSupport::TestCase
 
     # deberia haber una salida de una caja y una entrada en otra
     assert_equal 0, caja.total
-    assert_equal cheque.monto, otra_caja.total
-
   end
 
   test 'pasar un cheque de manos y despues pagarlo' do

@@ -1,6 +1,7 @@
 # encoding: utf-8
 # Representa la interfaz que debe proveer un medio de pago para ser usado por
 # el sistema
+# TODO renombrar a CausaDeMovimientos, porque sirve cuando no son pagos también
 module MedioDePago
   extend ActiveSupport::Concern
 

@@ -15,5 +15,6 @@ class Movimiento < ActiveRecord::Base
 
   monetize :monto_centavos, with_model_currency: :monto_moneda
 
+  # TODO exigir causa
   validates_presence_of :caja, :recibo, :monto
 end
