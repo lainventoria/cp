@@ -13,6 +13,13 @@ class Cheque < ActiveRecord::Base
   belongs_to :chequera, ->{ where(situacion: 'chequera') },
     class_name: 'Caja'
 
+  has_many :recibos, through: :movimientos do
+    # TODO hay casos donde haya más de un recibo interno?
+    def interno
+      where(situacion: 'interno').first
+    end
+  end
+
   SITUACIONES = %w(propio terceros)
   validates_inclusion_of :situacion, in: SITUACIONES
 
@@ -109,7 +116,10 @@ class Cheque < ActiveRecord::Base
     Cheque.transaction do
       # terminar de transferir el monto del cheque de la chequera a la
       # caja destino
-      caja.depositar(monto, true, destino)
+      movimiento = cuenta.depositar(monto, true)
+      movimiento.causa = self
+      recibos.interno.movimientos << movimiento
+
       # marcar el cheque como cobrado
       self.estado = 'cobrado'
       save
