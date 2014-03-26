@@ -6,3 +6,11 @@ es:
           attributes:
             factura:
               debe_ser_un_pago: "La factura asociada debe ser un pago"
+        cheque:
+          attributes:
+            situacion:
+              debe_ser_de_terceros: "Sólo se cobran cheques de terceros"
+            chequera_id:
+              debe_ser_una_chequera: "La caja asociada debe ser de tipo chequera"
+            cuenta_id:
+              debe_ser_una_cuenta_de_banco: "La caja asociada debe ser de tipo banco"

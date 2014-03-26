@@ -2,12 +2,15 @@
 class Caja < ActiveRecord::Base
   belongs_to :obra
   has_many :movimientos
-  has_many :cheques
+  has_many :cheques_propios, ->{ where(situacion: 'propio') },
+    foreign_key: 'cuenta_id', class_name: 'Cheque'
+  has_many :cheques_de_terceros, ->{ where(situacion: 'terceros') },
+    foreign_key: 'chequera_id', class_name: 'Cheque'
 
   validates_presence_of :obra_id, :tipo
   validates_uniqueness_of :tipo, scope: [:obra_id, :numero]
 
-  # Las cajas son de efectivo o bancarias
+  # Las cajas son de efectivo, bancarias o chequeras
   SITUACIONES = %w(efectivo banco chequera)
   validates_inclusion_of :situacion, in: SITUACIONES
 
@@ -75,6 +78,7 @@ class Caja < ActiveRecord::Base
       # este cambio
       recibo = Recibo.interno_nuevo
 
+      # FIXME agregar causa los movimientos
       recibo.movimientos << extraer(cantidad, true)
       cantidad.bank.exchange cantidad.fractional, indice do |nuevo|
         recibo.movimientos << depositar(Money.new(nuevo, moneda), true)
@@ -99,6 +103,7 @@ class Caja < ActiveRecord::Base
   def extraer!(cantidad)
     Caja.transaction do
       recibo = Recibo.interno_nuevo
+      # FIXME agregar causa al movimiento
       recibo.movimientos << extraer(cantidad, true)
       recibo
     end
@@ -121,25 +126,36 @@ class Caja < ActiveRecord::Base
   def depositar!(cantidad)
     Caja.transaction do
       recibo = Recibo.interno_nuevo
+      # FIXME agregar causa al movimiento
       recibo.movimientos << depositar(cantidad, true)
       recibo
     end
   end
 
+  # TODO revisar necesidad
   def depositar_cheque(cheque)
     cheque.depositar self
   end
 
+  # TODO revisar necesidad
   def cobrar_cheque(cheque)
     cheque.cobrar
   end
 
-  # emitir un cheque acepta todos los argumentos de un cheque normal y
-  # devuelve uno
-  def emitir_cheque(*args)
-    Cheque.create(*args)
+  # Devuelve un cheque nuevo que puede usarse para pagar algún recibo.
+  # Recién cuando se usa se extrae el monto de la chequera. Recién cuando se
+  # paga se extrae el monto de la cuenta y se salda la chequera
+  # TODO validar que self sea una cuenta
+  # TODO validar parametros?
+  def emitir_cheque(parametros = {})
+    # Siempre emitimos desde la chequera de la obra
+    parametros.merge!(chequera: obra.chequera_propia)
+    # y cuando corresponda sacaremos el monto de esta cuenta
+    cheques_propios.create parametros
   end
 
+  # TODO revisar necesidad. puede ser que complete el ciclo de movimientos pero
+  # mejor haría un 'pagar_todo'
   def pagar_cheque(cheque)
     cheque.pagar
   end
@@ -150,6 +166,7 @@ class Caja < ActiveRecord::Base
 
     Caja.transaction do
       recibo = Recibo.interno_nuevo
+      # FIXME agregar causa los movimientos
       recibo.movimientos << extraer(monto, true)
       recibo.movimientos << caja.depositar(monto, true)
     end

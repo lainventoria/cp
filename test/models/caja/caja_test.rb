@@ -11,7 +11,7 @@ class CajaTest < ActiveSupport::TestCase
     [ :build, :build_stubbed, :create].each do |metodo|
       assert_valid_factory metodo, :caja
       assert_valid_factory metodo, :chequera
-      assert_valid_factory metodo, :banco
+      assert_valid_factory metodo, :cuenta
     end
   end
 
@@ -34,5 +34,16 @@ class CajaTest < ActiveSupport::TestCase
 
     # a menos que tengan numeros diferentes
     assert create :caja, tipo: 'Personal', obra_id: '1234', numero:'1'
+  end
+
+  test 'emite cheques propios' do
+    cheque = @caja.emitir_cheque(
+      attributes_for(:cheque, monto: Money.new(100))
+    )
+
+    assert_instance_of Cheque, cheque
+    assert cheque.propio?
+    assert_equal Money.new(100), cheque.monto
+    assert_equal @caja.obra.chequera_propia, cheque.chequera
   end
 end

@@ -5,7 +5,11 @@
 # Solo cuando se depositan generan un movimiento (positivo o negativo)
 # en el recibo al que pertenecen
 class Cheque < ActiveRecord::Base
-  belongs_to :caja
+  # Los cheques tienen una cuenta sólo si son propios o han sido depositados
+  belongs_to :cuenta, ->{ where(situacion: 'banco') },
+    class_name: 'Caja'
+  belongs_to :chequera, ->{ where(situacion: 'chequera') },
+    class_name: 'Caja'
 
   SITUACIONES = %w(propio terceros)
   validates_inclusion_of :situacion, in: SITUACIONES
@@ -16,9 +20,12 @@ class Cheque < ActiveRecord::Base
   # campos requeridos
   validates_presence_of :fecha_emision, :fecha_vencimiento, :monto,
                         :beneficiario
-  # Todos los cheques tienen una caja, los de terceros una chequera, los
-  # propios un banco
-  validates_presence_of :caja_id
+
+  # Todos los cheques pertenecen a una chequera, si son de terceros es donde se
+  # contabiliza el pago, si son propios es de donde se contabiliza la emisión
+  # del cheque
+  validates_presence_of :chequera
+  validate :tipo_de_chequera, :tipo_de_cuenta
 
   monetize :monto_centavos
 
@@ -150,4 +157,16 @@ class Cheque < ActiveRecord::Base
 
     self.destino
   end
+
+  private
+
+    def tipo_de_chequera
+      errors.add(:chequera_id, :debe_ser_una_chequera) unless chequera.chequera?
+    end
+
+    def tipo_de_cuenta
+      if cuenta.present?
+        errors.add(:cuenta_id, :debe_ser_una_cuenta_de_banco) unless cuenta.banco?
+      end
+    end
 end
