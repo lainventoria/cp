@@ -22,7 +22,7 @@ FactoryGirl.define do
       situacion 'chequera'
     end
 
-    factory :banco do
+    factory :cuenta do
       situacion 'banco'
     end
   end

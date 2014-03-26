@@ -2,12 +2,16 @@
 
 FactoryGirl.define do
   factory :cheque do
-    caja
-    recibo
+    chequera
 
     beneficiario "pepe honguito"
     monto { Money.new rand(10) }
     fecha_emision { Time.now }
     fecha_vencimiento { Time.now + rand(360000) }
+
+    factory :cheque_de_terceros do
+      situacion 'terceros'
+      estado 'chequera'
+    end
   end
 end

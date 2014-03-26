@@ -6,9 +6,6 @@
 # en el recibo al que pertenecen
 class Cheque < ActiveRecord::Base
   belongs_to :caja
-  belongs_to :recibo, inverse_of: :cheques
-  # aca van recibos internos!
-  belongs_to :destino, class_name: 'Recibo', inverse_of: :cheques
 
   SITUACIONES = %w(propio terceros)
   validates_inclusion_of :situacion, in: SITUACIONES
@@ -22,12 +19,6 @@ class Cheque < ActiveRecord::Base
   # Todos los cheques tienen una caja, los de terceros una chequera, los
   # propios un banco
   validates_presence_of :caja_id
-
-  # todos los cheques tiene un recibo
-  validates_presence_of :recibo_id
-  # solo tiene un destino luego de depositado
-  # TODO validar que el destino no desaparezca cuando se cobra el cheque
-  validates_presence_of :destino_id, if: :depositado?
 
   monetize :monto_centavos
 

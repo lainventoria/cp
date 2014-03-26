@@ -1,5 +1,4 @@
 module ChequesHelper
-
   def titulo_vista_cheque
     if @cheque.propio?
       "Detalles de Cheque Propio"
@@ -23,9 +22,4 @@ module ChequesHelper
       terceros_cheques_path
     end
   end
-
-  def path_a_recibo
-    recibo_path(@cheque.recibo)
-  end
-
 end
