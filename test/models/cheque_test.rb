@@ -97,20 +97,4 @@ class ChequeTest < ActiveSupport::TestCase
     assert_equal cheque.monto, cheque.chequera.total * -1
     assert_equal cheque.monto, cuenta.total
   end
-
-  test 'pasar un cheque de manos y despues pagarlo' do
-    chequera = create :caja, situacion: 'chequera'
-    cheque = create :cheque, situacion: 'terceros', caja: chequera
-    recibo_de_pago = create :recibo, situacion: 'pago'
-
-    assert chequera.depositar(cheque.monto)
-    assert_equal recibo_de_pago, cheque.pasamanos(recibo_de_pago)
-    assert_equal recibo_de_pago, cheque.destino
-    assert recibo_de_pago.movimientos.where(caja_id: chequera).any?
-
-    assert_equal 0, chequera.total
-    assert recibo_de_pago.movimientos.
-             where(monto_centavos: cheque.monto_centavos * -1).
-             where(monto_moneda: cheque.monto_moneda).any?
-  end
 end
