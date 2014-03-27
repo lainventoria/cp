@@ -46,7 +46,7 @@ class FacturasController < ApplicationController
 
     respond_to do |format|
       if @factura.save
-        format.html { redirect_to @factura, notice: 'Factura creada con éxito.' }
+        format.html { redirect_to [@factura.obra, @factura], notice: 'Factura creada con éxito.' }
         format.json { render action: 'show', status: :created, location: @factura }
       else
         format.html { render action: 'new' }

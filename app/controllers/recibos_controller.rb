@@ -60,7 +60,7 @@ class RecibosController < ApplicationController
 
     respond_to do |format|
       if @recibo.save
-        format.html { redirect_to [@recibo.factura, @recibo], notice: 'Recibo creado con éxito.' }
+        format.html { redirect_to [@recibo.factura.obra, @recibo.factura, @recibo], notice: 'Recibo creado con éxito.' }
         format.json { render action: 'show', status: :created, location: [@recibo.factura,@recibo] }
       else
         format.html { render action: 'new' }
