@@ -22,8 +22,58 @@
       </a>
     </div>
 
-    <div class="col-md-4">
-    <%# TODO agregar informacion destacada de la obra %>
+    <div>
+      <h3>Balances</h3>
+
+      <h4>Saldo General
+          <span class="pull-right label label-<%= alert_range @obra.saldo_general %>">
+          ARS <%= formatted_number @obra.saldo_general %>
+          </span>
+          <span class="pull-right label label-<%= alert_range @obra.saldo_general('USD') %>">
+          USD <%= formatted_number @obra.saldo_general('USD') %>
+          </span>
+      </h4>
+      <p>El saldo general es la suma de todos los saldos.</p>
+
+      <h4>Saldo de pagos
+          <span class="pull-right label label-<%= alert_range @obra.saldo_de_pago %>">
+          ARS <%= formatted_number @obra.saldo_de_pago %>
+          </span>
+          <span class="pull-right label label-<%= alert_range @obra.saldo_de_pago('USD') %>">
+          USD <%= formatted_number @obra.saldo_de_pago('USD') %>
+          </span>
+      </h4>
+      <p>El saldo de pagos es la suma de todos los saldos de
+        <%= link_to 'facturas de pago', pagos_obra_facturas_path(@obra) %></p>
+
+      <h4>Saldo de cobros
+          <span class="pull-right label label-<%= alert_range @obra.saldo_de_cobro %>">
+          ARS <%= formatted_number @obra.saldo_de_cobro %>
+          </span>
+          <span class="pull-right label label-<%= alert_range @obra.saldo_de_cobro('USD') %>">
+          USD <%= formatted_number @obra.saldo_de_cobro('USD') %>
+          </span>
+      </h4>
+      <p>El saldo de cobros es la suma de todos los saldos de
+        <%= link_to 'facturas de cobro', cobros_obra_facturas_path(@obra) %></p>
+
+      <h4>Cajas en efectivo
+          <span class="pull-right label label-<%= alert_range(@obra.total_general('ARS')) %>">
+          ARS <%= @obra.total_general('ARS', { situacion: 'efectivo' }) %>
+          </span>
+          <span class="pull-right label label-<%= alert_range(@obra.total_general('USD')) %>">
+          USD <%= @obra.total_general('USD', { situacion: 'efectivo' }) %>
+          </span></h4>
+
+      <h4>Cuentas bancarias
+          <span class="pull-right label label-<%= alert_range(@obra.total_general('ARS')) %>">
+          ARS <%= @obra.total_general('ARS', { situacion: 'banco' }) %>
+          </span></h4>
+
+      <h4>Chequeras
+          <span class="pull-right label label-<%= alert_range(@obra.total_general('ARS')) %>">
+          ARS <%= @obra.total_general('ARS', { situacion: 'chequera' }) %>
+          </span></h4>
     </div>
   </div>
 </div>

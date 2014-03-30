@@ -1,9 +1,17 @@
 module RecibosHelper
   def recibos_por_tipo_path
-    if @recibo.pago?
+    if determina_situacion_recibo == 'pago'
       pagos_recibos_path
     else
       cobros_recibos_path
+    end
+  end
+
+  def determina_situacion_recibo
+    if @recibo.new_record?
+      @factura.situacion
+    else
+      @recibo.situacion
     end
   end
 

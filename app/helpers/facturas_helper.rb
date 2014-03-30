@@ -17,16 +17,16 @@ module FacturasHelper
   end
 
   def facturas_por_tipo_path
-    if @factura.pago?
+    if determina_situacion_factura == 'pago'
       pagos_facturas_path
     else
       cobros_facturas_path
     end
   end
 
-  def determina_situacion
+  def determina_situacion_factura
     if @factura.new_record?
-      params[:situacion] 
+      params[:situacion]
     else
       @factura.situacion
     end

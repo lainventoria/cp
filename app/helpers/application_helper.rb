@@ -74,10 +74,26 @@ module ApplicationHelper
       extra_params.merge!({obra_id: obra.id})
     end
 
-    # capoooo
-    extra_params.merge!({action: @factura.situacion + 's', id: nil}) if @factura and not @factura.new_record?
-    extra_params.merge!({action: @recibo.situacion + 's', factura_id: nil, id: nil}) if @recibo and not @recibo.new_record?
+    # capoooo -- correccion: usa situacion solo cuando se vuelve a un
+    # listado de facturas/recibos, desde una vista de ese controlador
+    if params[:controller] == 'facturas' && ( params[:action] != 'pagos' && params[:action] != 'cobros' )
+      extra_params.merge!({action: @factura.situacion + 's', id: nil}) if ! @factura.new_record?
+    end
+
+    if params[:controller] == 'recibos' && ( params[:action] != 'pagos' && params[:action] != 'cobros' )
+      extra_params.merge!({action: @recibo.situacion + 's', factura_id: nil, id: nil}) if ! @recibo.new_record?
+    end
 
     link_to nombre, url_for(params.merge(extra_params))
+  end
+
+  def alert_range(num)
+    if num == 0
+      'info'
+    elsif num > 0
+      'success'
+    elsif num < 0
+      'danger'
+    end
   end
 end
