@@ -72,7 +72,7 @@ class RetencionesController < ApplicationController
         @factura = Factura.find(@retencion.factura_id)
       end
 
-      @retencion.factura = @factura if ! @retencion.new_record?
+      @retencion.factura = @factura if @retencion.present?
     end
 
     def set_facturas
