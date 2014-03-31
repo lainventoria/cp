@@ -49,6 +49,7 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-datepicker-rails (1.3.0.1)
       railties (>= 3.0)
+    bootstrap-filestyle-rails (1.0.3)
     bootstrap-sass (3.1.0.2)
       sass (~> 3.2)
     bootstrap-sass-rails (3.1.0.0)
@@ -198,6 +199,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-datepicker-rails
+  bootstrap-filestyle-rails
   bootstrap-sass-rails
   coffee-rails (~> 4.0.0)
   dummy_data

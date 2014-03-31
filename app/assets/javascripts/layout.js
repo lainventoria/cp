@@ -38,4 +38,13 @@ $(document).ready(function(){
     });
   });
 
+  // inicializa los bootstrap-filestyle
+  $("form :file").filestyle({
+    buttonText: 'Adjuntar',
+    classInput: 'filestyle form-control',
+    classButton: 'filestyle btn btn-primary',
+    classIcon: 'glyphicon glyphicon-paperclip',
+    input: false
+  });
+
 });

@@ -36,16 +36,25 @@
     </div>
 
     <div class="row col-md-offset-1">
-      <h4>Detalle de Recibos</h4>
+      <h4>Detalle de Recibos
+        <a type="button" class="btn btn-sm btn-primary pull-right" href="<%= con_obra? new_factura_recibo_path(@factura) %>">
+          <span class="glyphicon glyphicon-plus"></span>
+          Nuevo Recibo
+        </a>
+      </h4>
       <% @recibos = @factura.recibos %>
       <%= render 'recibos/list', lista_larga: "hidden" %>
     </div>
 
-    <div class="row pull-right">
-      <a type="button" class="btn btn-primary" href="<%= con_obra? new_factura_recibo_path(@factura) %>">
-        <span class="glyphicon glyphicon-plus"></span>
-        Nuevo Recibo
-      </a>
+    <div class="row col-md-offset-1">
+      <h4>Detalle de Retenciones
+        <a type="button" class="btn btn-sm btn-primary pull-right" href="<%= con_obra? new_factura_retencion_path(@factura) %>">
+          <span class="glyphicon glyphicon-plus"></span>
+          Nueva Retencion
+        </a>
+      </h4>
+      <% @retenciones = @factura.retenciones %>
+      <%= render 'retenciones/list', lista_larga: 'hidden' %>
     </div>
 
   </div>

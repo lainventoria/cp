@@ -1,0 +1,47 @@
+<div class="row">
+  <h2>Detalles de Retención</h2>
+  <% if !notice.nil? %>
+    <div id="notice" class="alert alert-success"><%= notice %></div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <%= render 'form' %>
+    </div>
+
+    <div class="row">
+      <a type="button" class="btn btn-success col-md-3" href="<%= con_obra? factura_path (@retencion.factura) %>">
+        <span class="glyphicon glyphicon-eye-open"></span>
+        Volver a Factura
+      </a>
+      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= con_obra? edit_factura_retencion_path(@retencion.factura, @retencion) %>">
+        <span class="glyphicon glyphicon-edit"></span>
+        Editar Retención
+      </a>
+    </div>
+
+    <div class="row">
+      <br>
+    </div>
+
+    <div class="row">
+      <a type="button" class="btn btn-success col-md-3" href="<%= con_obra? retenciones_path %>">
+        <span class="glyphicon glyphicon-list"></span>
+        Listar Retenciones
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="row">
+      <div class="field form-group col-md-5 pull-right">
+        <label>Saldo de la Factura</label><br>
+        <span class="form-control text-right" disabled ><%= formatted_number(@factura.saldo) %></span>
+      </div>
+    </div>
+
+  </div>
+
+</div>

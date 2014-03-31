@@ -1,0 +1,69 @@
+<%= form_for([@factura, @retencion], { multipart: true } ) do |f| %>
+  <% if @retencion.errors.any? %>
+    <% @editar = true %>
+    <div id="error_explanation" class="alert alert-danger">
+      <strong>No se guardo la Retencion. </strong>Debe corregir <%= pluralize(@retencion.errors.count, "error") %>
+      <ul>
+      <% @retencion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%# (des)habilita la edicion del formulario dependiendo del valor de @editar %>
+  <fieldset <%= editar_o_bloquear %> >
+
+    <div class="row">
+      <div class="field form-group col-md-7">
+        <% if @retencion.documento.present? %>
+          <label>Comprobante de Retencion</label><br>
+          <%= link_to @retencion.documento_file_name.first(55), @retencion.documento.url, { class: 'form-control' } %>
+        <% end %>
+      </div>
+      <div class="field form-group col-md-2">
+        <br>
+        <%= f.file_field :documento, { class: 'filestyle' } %>
+      </div>
+      <div class="field form-group col-md-3">
+        <%= f.label :fecha_vencimiento %><br>
+        <div class="input-group date<%= editar_o_bloquear %>">
+          <%= f.text_field :fecha_vencimiento, { class: "form-control", value:formatted_date(@retencion.fecha_vencimiento) } %>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field form-group col-md-6">
+        <label>Tercero</label>
+        <span class="form-control" disabled><%= @factura.tercero.cuit %>: <%= @factura.tercero.nombre.first(40) %></span>
+      </div>
+      <div class="field form-group col-md-2 col-md-offset-1">
+        <label>Moneda</label>
+        <%= f.text_field :monto_moneda, { class: "form-control", disabled:"disabled" } %>
+      </div>
+      <div class="field form-group col-md-3">
+        <%= f.label :monto %><br>
+        <%= f.text_field :monto, { class: "form-control text-right", data: {role:'money', a_sep:'.', a_dec:',' } }  %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field form-group col-md-6" >
+        <label>Nro. Factura</label>
+        <span class="form-control" disabled><%= @factura.tipo.first(1) %>-<%= @factura.numero.first(10) %>: <%= @factura.descripcion.first(40) %></span>
+      </div>
+    </div>
+
+    <%# campo necesario para crear un recibo nuevo %>
+    <%= f.hidden_field :factura_id, value: @factura.id %>
+
+    <div class="row">
+      <br>
+    </div>
+
+  </fieldset>
+
+<% end %>
+

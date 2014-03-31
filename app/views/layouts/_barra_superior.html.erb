@@ -42,7 +42,7 @@
             <li><a href="<%= con_obra? cajas_path %>">Cajas y Cuentas</a></li>
             <li><a href="<%= con_obra? propios_cheques_path %>">Cheques Propios</a></li>
             <li><a href="<%= con_obra? terceros_cheques_path %>">Cheques de Terceros</a></li>
-            <li><a href="#">Retenciones</a></li>
+            <li><a href="<%= con_obra? retenciones_path %>">Retenciones</a></li>
             <li><a href="#">Transferencias</a></li>
             <li><a href="#">Cambios de Moneda</a></li>
           </ul>
@@ -54,8 +54,6 @@
             <li class="dropdown-header">Maestros</li>
             <li><a href="<%= obras_path %>">Obras</a></li>
             <li><a href="<%= terceros_path %>">Terceros</a></li>
-            <li><a href="#">Tipos de Retención</a></li>
-            <li class="divider"></li>
           </ul>
         </li>
 

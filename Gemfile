@@ -17,6 +17,9 @@ gem 'rails3-jquery-autocomplete'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
 
+# selector de archivos bootstrapeado
+gem 'bootstrap-filestyle-rails'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
