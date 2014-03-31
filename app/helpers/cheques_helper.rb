@@ -1,25 +1,17 @@
 module ChequesHelper
   def titulo_vista_cheque
-    if @cheque.propio?
-      "Detalles de Cheque Propio"
-    else
-      "Detalles de Cheque de Tercero"
-    end
+    @cheque.propio? ? "Detalles de Cheque Propio" : "Detalles de Cheque de Tercero"
   end
 
   def titulo_listado_cheques
-    if @situacion == 'propios'
-      "Listado de Cheques Propios"
-    else
-      "Listado de Cheques de Terceros"
-    end
+    @situacion == 'propio' ? "Listado de Cheques Propios" : "Listado de Cheques de Terceros"
   end
 
   def path_a_listado
-    if @cheque.propio?
-      propios_cheques_path
-    else
-      terceros_cheques_path
-    end
+    @cheque.propio? ? propios_cheques_path : terceros_cheques_path
+  end
+
+  def actualiza_situacion
+    params[:situacion] ? @cheque.situacion = params[:situacion] : ''
   end
 end

@@ -4,32 +4,22 @@
       <th></th>
       <th>Vencimiento</th>
       <th>Monto</th>
-      <th>Tercero</th>
-      <th>Concepto</th>
+      <th>Beneficiario</th>
+      <th>Chequera</th>
       <th>Banco</th>
     </tr>
   </thead>
 
   <tbody>
     <% @cheques.each do |cheque| %>
-      <tr id="<%= con_obra? cheque_path(cheque.id) %>">
+      <tr class="ir-a" data-uri="<%= con_obra? cheque_path(cheque.id) %>">
         <td><%= link_to '', cheque, class:"glyphicon glyphicon-eye-open" %></td>
         <td><%= formatted_date(cheque.fecha_vencimiento) %></td>
         <td><%= formatted_number(cheque.monto) %></td>
-        <td><%# lugar para cheque.tercero %></td>
-        <td><%# lugar para helper de concepto %></td>
-        <td><%# lugar para cheque.banco %></td>
+        <td><%= cheque.beneficiario %></td>
+        <td><%= cheque.chequera.tipo %></td>
+        <td><%= cheque.banco %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
-<%# script: al hacer click en un renglon, redirige a la vista detallada
-    el id de cada renglon de la lista tiene que contener el path de destino %>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('tr').on('click', function() { window.location = this.id});
-  });
-</script>

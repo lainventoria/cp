@@ -7,6 +7,7 @@ class CajasController < ApplicationController
   def index
     @cajas = @obra ? @obra.cajas.where(situacion: 'efectivo') : Caja.where(situacion: 'efectivo')
     @cuentas = @obra ? @obra.cajas.where(situacion: 'banco') : Caja.where(situacion: 'banco')
+    @chequeras = @obra ? @obra.cajas.where(situacion: 'chequera') : Caja.where(situacion: 'chequera')
   end
 
   def show

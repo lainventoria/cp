@@ -1,5 +1,10 @@
 <div class="row">
-  <h2><%= titulo_listado_cheques %></h2>
+  <h2><%= titulo_listado_cheques %>
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= con_obra? new_cheque_path(situacion: @situacion ) %>">
+      <span class="glyphicon glyphicon-plus"></span>
+      Nuevo Cheque
+    </a>
+  </h2>
 </div>
 
 <%= render 'list' %>

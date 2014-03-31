@@ -1,0 +1,73 @@
+<%= form_for(@cheque) do |f| %>
+  <% if @cheque.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <strong>No se guardo el Cheque. </strong>Debe corregir <%= pluralize(@cheque.errors.count, "error") %>
+      <ul>
+      <% @cheque.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset <%= editar_o_bloquear %> >
+
+    <div class="row">
+      <div class="field form-group col-md-3">
+        <label>Chequera</label>
+        <%= f.collection_select :chequera_id, Caja.chequeras, :id, :tipo, {}, { class: 'form-control' } %>
+      </div>
+      <div class="field form-group col-md-3 col-md-offset-3">
+        <%= f.label :fecha_emision %><br>
+        <div class="input-group date<%= editar_o_bloquear %>">
+          <%= f.text_field :fecha_emision, { class: "form-control", value:formatted_date(@cheque.fecha_emision) } %>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+      </div>
+      <div class="field form-group col-md-3">
+        <%= f.label :fecha_vencimiento %><br>
+        <div class="input-group date<%= editar_o_bloquear %>">
+          <%= f.text_field :fecha_vencimiento, { class: "form-control", value:formatted_date(@cheque.fecha_vencimiento) } %>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field form-group col-md-6">
+        <%= f.label :beneficiario %><br>
+        <%= f.text_field :beneficiario, class: 'form-control' %>
+      </div>
+      <div class="field form-group col-md-2 col-md-offset-1">
+        <label class='text-right'>Moneda</label><br>
+        <span class='form-control text-right'>ARS</span>
+      </div>
+      <div class="field form-group col-md-3">
+        <%= f.label :monto, class: 'text-right'%><br>
+        <%= f.text_field :monto, { class: "form-control text-right", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field form-group col-md-3">
+        <%= f.label :banco %><br>
+        <%= f.text_field :banco, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-3">
+        <%= f.label :numero %><br>
+        <%= f.text_field :numero, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <br>
+    </div>
+
+    <%# campo necesario para crear/editar cheques %>
+    <%= f.hidden_field :estado %>
+    <% actualiza_situacion %>
+    <%= f.hidden_field :situacion %>
+
+  </fieldset>
+
+<% end %>

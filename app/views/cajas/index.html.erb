@@ -21,3 +21,15 @@
 <div id="cuentas" class="row">
   <%= render 'list', cajas: @cuentas, lista_banco: "", lista_caja: "hidden" %>
 </div>
+<div class="row">
+  <br>
+  <h2>Chequeras
+    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= con_obra? new_caja_path(situacion: 'chequera') %>">
+      <span class="glyphicon glyphicon-plus"></span>
+      Nueva Chequera
+    </a>
+  </h2>
+</div>
+<div id="chequeras" class="row">
+  <%= render 'list', cajas: @chequeras, lista_banco: "", lista_caja: "hidden" %>
+</div>

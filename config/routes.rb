@@ -61,7 +61,8 @@ Cp::Application.routes.draw do
 
   resources :terceros
 
-  resources :cheques, only: [ :index, :show ] do
+  # TODO borrar ':new' cuando ya exista interfase de carga
+  resources :cheques, only: [ :index, :show, :new, :create, :update, :destroy, :edit ] do
     collection do
       get 'propios'
       get 'terceros'

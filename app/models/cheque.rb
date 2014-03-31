@@ -53,7 +53,7 @@ class Cheque < ActiveRecord::Base
     where(estado: 'depositado')
   }
 
-  scope :de_terceros, ->{ where(situacion: 'tercero') }
+  scope :de_terceros, ->{ where(situacion: 'terceros') }
   scope :propios, ->{ where(situacion: 'propio') }
 
   def vencido?
