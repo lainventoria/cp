@@ -70,6 +70,7 @@ class RetencionesController < ApplicationController
 
       # Y cargamos la factura por si se encontró por otro lado
       @factura = @retencion.try :factura
+      @retencion.factura = @factura if @retencion.present?
     end
 
     def set_retenciones
