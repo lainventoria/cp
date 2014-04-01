@@ -4,9 +4,6 @@ Cp::Application.routes.draw do
   # /obra
   resources :obras do
 
-    # /obra/caja
-    resources :cajas
-
     # /obra/factura
     resources :facturas do
       # Filtrar facturas por situacion
