@@ -5,7 +5,12 @@ Cp::Application.routes.draw do
   resources :obras do
 
     # /obra/caja
-    resources :cajas
+    resources :cajas do
+      collection do
+        get 'transferencia'
+        get 'cambio_moneda'
+      end
+    end
 
     # /obra/factura
     resources :facturas do
@@ -42,8 +47,17 @@ Cp::Application.routes.draw do
     resources :retenciones, only: [ :index, :show ]
   end
 
+<<<<<<< HEAD
   # /caja
   resources :cajas
+=======
+  resources :cajas do
+    collection do
+      get 'transferencia'
+      get 'cambio_moneda'
+    end
+  end
+>>>>>>> mas de lo mismo
 
   # /factura
   resources :facturas, except: [ :index ] do

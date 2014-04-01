@@ -23,6 +23,12 @@ class CajasController < ApplicationController
     @editar = true
   end
 
+  def transferencia
+  end
+
+  def cambio_moneda
+  end
+
   def create
     @caja = Caja.new caja_params
 
