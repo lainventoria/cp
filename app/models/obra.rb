@@ -18,17 +18,26 @@ class Obra < ActiveRecord::Base
 
   validates_presence_of :nombre, :direccion
 
-  # Sumar los saldos de todas las facturas según situación
-  def saldo_de(pago_o_cobro, moneda = 'ARS')
-    saldo = Money.new(0, moneda)
+  # Abstracción para traer totales de facturas, se le pasa el atributo
+  # que lleva el monto (importe_total, iva, importe_neto) como string,
+  # la moneda y parámetros extra para filtrar.
+  #
+  # Luego obtiene los centavos y la moneda y devuelve un resultado
+  def total_facturas(campo_monto, moneda = 'ARS', params = {})
+    total = Money.new(0, moneda)
 
-    facturas.where(situacion: pago_o_cobro).
-             where(importe_total_moneda: moneda).
-             find_each do |factura|
-      saldo += factura.saldo
+    facturas.where(params.merge({ :"#{campo_monto}_moneda" => moneda })).
+             pluck(:"#{campo_monto}_centavos", :"#{campo_monto}_moneda").
+             each do |monto|
+      total += Money.new(monto[0], monto[1])
     end
 
-    saldo
+    total
+  end
+
+  # Sumar los saldos de todas las facturas según situación
+  def saldo_de(pago_o_cobro, moneda = 'ARS')
+    total_facturas('importe_total', moneda, { situacion: pago_o_cobro })
   end
 
   # los pagos son salidas
