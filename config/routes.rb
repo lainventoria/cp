@@ -4,8 +4,12 @@ Cp::Application.routes.draw do
   # /obra
   resources :obras do
 
-    # /obra/caja
-    resources :cajas
+    resources :cajas do
+      collection do
+        get 'transferencia'
+        get 'cambio_moneda'
+      end
+    end
 
     # /obra/factura
     resources :facturas do
@@ -48,8 +52,15 @@ Cp::Application.routes.draw do
   end
 
   resources :cajas do
+<<<<<<< HEAD
     # no se editan cheques aca, solo se listan
     resources :cheques, only: [ :index, :show, :edit ]
+=======
+    collection do
+      get 'transferencia'
+      get 'cambio_moneda'
+    end
+>>>>>>> mas de lo mismo
   end
 
   # /factura
