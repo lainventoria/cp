@@ -3,7 +3,12 @@ Cp::Application.routes.draw do
 
   resources :obras do
 
-    resources :cajas
+    resources :cajas do
+      collection do
+        get 'transferencia'
+        get 'cambio_moneda'
+      end
+    end
 
     resources :facturas do
     # Filtrar facturas por situacion
@@ -37,7 +42,12 @@ Cp::Application.routes.draw do
     resources :retenciones, only: [ :index, :show ]
   end
 
-  resources :cajas
+  resources :cajas do
+    collection do
+      get 'transferencia'
+      get 'cambio_moneda'
+    end
+  end
 
   resources :facturas, except: [ :index ] do
   # Filtrar facturas por situacion
