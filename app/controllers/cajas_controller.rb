@@ -53,12 +53,20 @@ class CajasController < ApplicationController
     end
   end
 
+  # las cajas solo se archivan cuando no tienen saldo
   def destroy
-    @caja.destroy
-    respond_to do |format|
-      format.html { redirect_to cajas_url }
-      format.json { head :no_content }
+    if @caja.archivar
+      respond_to do |format|
+        format.html { redirect_to obra_cajas_url(@caja.obra) }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { render action: 'edit', location: @caja }
+        format.json { render json: @caja.errors, status: :unprocessable_entity }
+      end
     end
+
   end
 
   private

@@ -46,4 +46,16 @@ class CajaTest < ActiveSupport::TestCase
     assert_equal Money.new(100), cheque.monto
     assert_equal @caja.obra.chequera_propia, cheque.chequera
   end
+
+  test 'no permite archivar hasta que el saldo es 0' do
+    [ 'ARS', 'USD' ].each do |moneda|
+      assert @caja.depositar!(Money.new(1000, moneda))
+
+      assert_not @caja.archivar, @caja.errors.inspect
+
+      assert @caja.extraer!(Money.new(1000, moneda))
+    end
+
+    assert @caja.archivar, @caja.errors.inspect
+  end
 end

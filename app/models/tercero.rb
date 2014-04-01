@@ -3,7 +3,7 @@ class Tercero < ActiveRecord::Base
   include ApplicationHelper
 
   # Cada tercero esta asociado a muchas facturas
-  has_many :facturas, inverse_of: :tercero
+  has_many :facturas, inverse_of: :tercero, dependent: :restrict_with_error
 
   # Las relaciones posibles que se pueden tener con cada tercero
   RELACIONES = %w(cliente proveedor ambos)

@@ -55,10 +55,19 @@ class CajasControllerTest < ActionController::TestCase
   end
 
   test "destruye" do
-    assert_difference('Caja.count', -1) do
+    # vaciamiento :P
+    @caja.totales.each do |total|
+      assert @caja.extraer!(total[1])
+    end
+
+    assert_difference('Caja.count', 0) do
       delete :destroy, id: @caja
     end
 
-    assert_redirected_to cajas_path
+    # no nos llega el archivada = true hasta que recargamos la caja
+    assert @caja.reload
+    assert_equal true, @caja.archivada
+
+    assert_redirected_to obra_cajas_path(@caja.obra)
   end
 end

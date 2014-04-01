@@ -14,3 +14,28 @@ es:
               debe_ser_una_chequera: "La caja asociada debe ser de tipo chequera"
             cuenta_id:
               debe_ser_una_cuenta_de_banco: "La caja asociada debe ser de tipo banco"
+        obra:
+          attributes:
+            base:
+              restrict_dependent_destroy:
+                many: "No se puede borrar esta obra porque tiene %{record} asociadas"
+        factura:
+          attributes:
+            base:
+              restrict_dependent_destroy:
+                many: "No se puede borrar esta factura porque tiene %{record} asociados"
+                one: "No se puede borrar esta factura porque tiene una retención asociada"
+        recibo:
+          attributes:
+            base:
+              restrict_dependent_destroy:
+                many: "No se puede borrar este recibo porque tiene movimientos asociados"
+        caja:
+          attributes:
+            base:
+              no_archivar_con_saldo: "No se puede archivar una caja con saldos restantes"
+        tercero:
+          attributes:
+            base:
+              restrict_dependent_destroy:
+                many: "No se puede borrar este tercero porque tiene facturas asociadas"

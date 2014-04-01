@@ -65,11 +65,17 @@ class FacturasController < ApplicationController
   end
 
   def destroy
-    volver_a_listado =  @factura.pago? ?  pagos_facturas_url : cobros_facturas_url
-    @factura.destroy
-    respond_to do |format|
-      format.html { redirect_to volver_a_listado }
-      format.json { head :no_content }
+    if @factura.destroy
+      volver_a_listado =  @factura.pago? ?  pagos_facturas_url : cobros_facturas_url
+      respond_to do |format|
+        format.html { redirect_to volver_a_listado }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { render action: :edit }
+        format.json { render json: @factura.errors, status: :unprocessable_entity }
+      end
     end
   end
 

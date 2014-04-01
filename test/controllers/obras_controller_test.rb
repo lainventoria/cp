@@ -40,6 +40,12 @@ class ObrasControllerTest < ActionController::TestCase
   end
 
   test "destruye" do
+    # no se puede destruir hasta que nos hayamos sacado de encima las
+    # facturas y las cajas
+    assert_not @obra.destroy, @obra.errors.inspect
+    assert @obra.facturas.destroy_all
+    assert @obra.cajas.destroy_all
+
     assert_difference('Obra.count', -1) do
       delete :destroy, id: @obra
     end
