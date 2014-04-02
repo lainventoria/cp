@@ -120,7 +120,7 @@ module ApplicationHelper
       when 'pago' then 'label-primary'
       when 'cobro' then 'label-success'
       when 'propio' then 'label-primary'
-      when 'terceros' then 'label-info'
+      when 'terceros' then 'label-success'
       else 'label-default'
     end
   end
