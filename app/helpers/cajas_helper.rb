@@ -24,10 +24,10 @@ module CajasHelper
     @caja.banco? ? "" : "hidden"
   end
 
-  def caja_o_cuenta
-    if ( @caja.efectivo? ) or ( params[:situacion] == 'efectivo' )
+  def caja_o_cuenta(caja = @caja)
+    if ( caja.efectivo? ) or ( params[:situacion] == 'efectivo' )
       'Caja'
-    elsif ( @caja.banco? ) or ( params[:situacion] == 'banco' )
+    elsif ( caja.banco? ) or ( params[:situacion] == 'banco' )
       'Cuenta'
     else
       'Chequera'
