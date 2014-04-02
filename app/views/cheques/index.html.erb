@@ -1,9 +1,6 @@
 <div class="row">
-  <h2>Listado de Cheques
+  <h2><%= titulo_listado_cheques %>
     <%# TODO poner un selector de fecha aca %>
-    <% if params[:vencidos] %>
-    vencidos al <%= formatted_date(Time.now) %>
-    <% end %>
     <% if @obra and @caja %>
     <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_obra_caja_cheque_path(@obra, @caja, situacion: @situacion) %>">
       <span class="glyphicon glyphicon-plus"></span>

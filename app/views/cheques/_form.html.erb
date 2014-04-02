@@ -15,7 +15,7 @@
     <div class="row">
       <div class="field form-group col-md-3">
         <label>Chequera</label>
-        <%= f.collection_select(:chequera_id, @obra.cajas.where(situacion: 'chequera'), :id, :tipo, { prompt: "-Seleccione Chequera-", selected: @cheque.chequera }, { class: "form-control" } ) %>
+        <%= f.collection_select(:chequera_id, @cheque.chequera.obra.cajas.where(situacion: 'chequera'), :id, :tipo, { prompt: "-Seleccione Chequera-", selected: @cheque.chequera_id }, { class: "form-control" } ) %>
       </div>
       <div class="field form-group col-md-3 col-md-offset-3">
         <%= f.label :fecha_emision %><br>

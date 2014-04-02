@@ -20,8 +20,8 @@
 
   <tbody>
     <% cajas.each do |caja| %>
-      <tr class="ir-a" data-uri="<%= obra_caja_path(caja.obra, caja.id)%>">
-        <td><%= link_to '', [caja.obra, caja], class:"glyphicon glyphicon-eye-open" %></td>
+      <tr class="ir-a" data-uri="<%= con_obra? caja_path(caja.id)%>">
+        <td><%= link_to '', @obra ? [ caja.obra, caja ] : caja, class:"glyphicon glyphicon-eye-open" %></td>
         <td><%= caja.obra.nombre %></td>
         <td class="<%= lista_banco %>"><%= caja.banco %></td>
         <td><%= caja.tipo %></td>
