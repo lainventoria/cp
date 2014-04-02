@@ -26,7 +26,7 @@
       <br>
     </div>
 
-    <div class="row">  
+    <div class="row">
       <a type="button" class="btn btn-success col-md-3" href="<%= con_obra? recibos_por_tipo_path %>">
         <span class="glyphicon glyphicon-list"></span>
         Listar Recibos
@@ -44,7 +44,7 @@
 
     <div class="row col-md-offset-1">
       <h4>Detalle de Movimientos</h4>
-      <%= render @recibo.movimientos %>
+      <%= render 'movimientos/list', movimientos: @recibo.movimientos, boton_borrar: 'hidden' %>
     </div>
 
   </div>
