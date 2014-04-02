@@ -23,8 +23,9 @@ class ObraTest < ActiveSupport::TestCase
 
   test 'chequear los saldos' do
     obra = create :obra
-    5.times { obra.facturas.create(situacion: 'pago', importe_neto: Money.new(1000), iva: Money.new(210)) }
-    5.times { obra.facturas.create(situacion: 'cobro', importe_neto: Money.new(1000), iva: Money.new(210)) }
+    tercero = create :tercero
+    5.times { obra.facturas.create(tercero: tercero, situacion: 'pago', importe_neto: Money.new(1000), iva: Money.new(210)) }
+    5.times { obra.facturas.create(tercero: tercero, situacion: 'cobro', importe_neto: Money.new(1000), iva: Money.new(210)) }
 
     assert_equal Money.new((1000 + 210) * -5), obra.saldo_de_pago
     assert_equal Money.new((1000 + 210) *  5), obra.saldo_de_cobro

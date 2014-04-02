@@ -12,10 +12,19 @@ class FacturasControllerTest < ActionController::TestCase
 
   test "crea" do
     assert_difference('Factura.count') do
-      post :create, factura: { tercero: @factura.tercero, descripcion: @factura.descripcion, situacion: @factura.situacion, fecha: @factura.fecha, fecha_pago: @factura.fecha_pago, importe_total: @factura.importe_total, iva: @factura.iva, numero: @factura.numero, tipo: @factura.tipo }
+
+      post :create, factura: {
+        obra_id: @factura.obra, tercero_id: @factura.tercero,
+        descripcion: @factura.descripcion,
+        situacion: @factura.situacion, fecha: @factura.fecha,
+        fecha_pago: @factura.fecha_pago,
+        importe_total: @factura.importe_total, iva: @factura.iva,
+        numero: @factura.numero, tipo: @factura.tipo
+      }
+
     end
 
-    assert_redirected_to factura_path(assigns(:factura))
+    assert_redirected_to obra_factura_path(@factura.obra, assigns(:factura))
   end
 
   test "muestra" do
