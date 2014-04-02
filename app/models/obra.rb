@@ -31,11 +31,12 @@ class Obra < ActiveRecord::Base
              pluck(:"#{campo_monto}_centavos", :"#{campo_monto}_moneda", :situacion).
              each do |monto|
 
-      case monto[2]
+      if monto[2] == 'pago' or campo_monto == 'iva'
         # los totales de pago son salidas de dinero, por lo que se devuelven
         # en negativo
-        when 'pago' then total -= Money.new(monto[0], monto[1])
-        else total += Money.new(monto[0], monto[1])
+        total -= Money.new(monto[0], monto[1])
+      else
+        total += Money.new(monto[0], monto[1])
       end
 
     end
