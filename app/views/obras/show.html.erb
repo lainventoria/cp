@@ -57,6 +57,12 @@
       <p>El saldo de cobros es la suma de todos los saldos de
         <%= link_to 'facturas de cobro', cobros_obra_facturas_path(@obra) %></p>
 
+      <h4>IVA
+        <span class="pull-right label label-<%= alert_range @obra.total_iva %>">
+          ARS <%= formatted_number(@obra.total_iva) %>
+        </span>
+      </h4>
+
       <h4>Cajas en efectivo
           <span class="pull-right label label-<%= alert_range(@obra.total_general('ARS')) %>">
           ARS <%= @obra.total_general('ARS', { situacion: 'efectivo' }) %>

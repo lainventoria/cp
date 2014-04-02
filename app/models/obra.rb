@@ -35,6 +35,13 @@ class Obra < ActiveRecord::Base
     total
   end
 
+  # calcular el total de iva
+  def total_iva(params = { })
+    total_facturas('iva', 'ARS', params.merge({ situacion: 'pago' })) -
+    total_facturas('iva', 'ARS', params.merge({ situacion: 'cobro' }))
+  end
+
+
   # Sumar los saldos de todas las facturas según situación
   def saldo_de(pago_o_cobro, moneda = 'ARS')
     total_facturas('importe_total', moneda, { situacion: pago_o_cobro })
