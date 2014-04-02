@@ -1,0 +1,16 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+    <span class="glyphicon glyphicon-plus"></span>
+    <%= situacion.capitalize %>
+  </button>
+  <% situacion == 'cobro' ? solo_pago = 'hidden' : solo_pago = '' %>
+  <ul class="dropdown-menu" role="menu">
+    <li><%= link_a_nuevo_movimiento('Efectivo') %></li>
+    <li><%= link_a_nuevo_movimiento('Transferencia') %></li>
+    <li class="divider"></li>
+    <li class="<%= solo_pago %>"><%= link_a_nuevo_movimiento('Cheque propio') %></li>
+    <li><%= link_a_nuevo_movimiento('Cheque de terceros') %></li>
+    <li class="divider <%= solo_pago %>"></li>
+    <li class="<%= solo_pago %>"><%= link_a_nuevo_movimiento('Retención') %></li>
+  </ul>
+</div>
