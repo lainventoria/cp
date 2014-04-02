@@ -63,6 +63,24 @@
         </span>
       </h4>
 
+      <h4>Importe Neto de Pago
+        <span class="pull-right label label-<%= alert_range @obra.total_facturas('importe_neto', 'ARS', { situacion: 'pago' }) %>">
+          ARS <%= formatted_number(@obra.total_facturas('importe_neto', 'ARS', { situacion: 'pago' })) %>
+        </span>
+        <span class="pull-right label label-<%= alert_range @obra.total_facturas('importe_neto', 'USD', { situacion: 'pago' }) %>">
+          USD <%= formatted_number(@obra.total_facturas('importe_neto', 'USD', { situacion: 'pago' })) %>
+        </span>
+      </h4>
+
+      <h4>Importe Neto de Cobro
+        <span class="pull-right label label-<%= alert_range @obra.total_facturas('importe_neto', 'ARS', { situacion: 'cobro' }) %>">
+          ARS <%= formatted_number(@obra.total_facturas('importe_neto', 'ARS', { situacion: 'cobro' })) %>
+        </span>
+        <span class="pull-right label label-<%= alert_range @obra.total_facturas('importe_neto', 'USD', { situacion: 'cobro' }) %>">
+          USD <%= formatted_number(@obra.total_facturas('importe_neto', 'USD', { situacion: 'cobro' })) %>
+        </span>
+      </h4>
+
       <h4>Cajas en efectivo
           <span class="pull-right label label-<%= alert_range(@obra.total_general('ARS')) %>">
           ARS <%= @obra.total_general('ARS', { situacion: 'efectivo' }) %>
