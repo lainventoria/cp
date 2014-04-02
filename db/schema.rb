@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140403014120) do
     t.string   "banco"
     t.string   "numero"
     t.string   "situacion"
+    t.string   "tipo",                       null: false
     t.boolean  "archivada",  default: false
   end
 
