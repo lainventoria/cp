@@ -24,4 +24,16 @@ module ChequesHelper
   def actualiza_situacion
     params[:situacion] ? @cheque.situacion = params[:situacion] : ''
   end
+
+  def etiqueta_de_estado(estado)
+    case estado
+      when 'chequera' then 'label-primary'
+      when 'depositado' then 'label-info'
+      when 'cobrado' then 'label-success'
+      when 'rechazado' then 'label-warning'
+      when 'pagado' then 'label-primary'
+      when 'pasamanos' then 'label-warning'
+      else 'label-default'
+    end
+  end
 end
