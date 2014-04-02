@@ -5,8 +5,7 @@
 
 <% monedas = ['ARS', 'USD'] %>
 <label>Moneda</label>
-<select id="selector_moneda" class="form-control moneda" <%= defined?(seleccion) ? seleccion : nil %>
-  <%= defined?(name) ? "name=#{name}" : '' %> >
+<select id="selector_moneda" class="form-control moneda">
   <% monedas.each do |m| %>
     <option value="<%= m %>" <%= moneda_seleccionada(m, moneda) %>><%= m %></option>
   <% end %>
