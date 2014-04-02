@@ -26,10 +26,18 @@ class Obra < ActiveRecord::Base
   def total_facturas(campo_monto, moneda = 'ARS', params = {})
     total = Money.new(0, moneda)
 
+    # traer solo monto_centavos, monto_moneda y situacion
     facturas.where(params.merge({ :"#{campo_monto}_moneda" => moneda })).
-             pluck(:"#{campo_monto}_centavos", :"#{campo_monto}_moneda").
+             pluck(:"#{campo_monto}_centavos", :"#{campo_monto}_moneda", :situacion).
              each do |monto|
-      total += Money.new(monto[0], monto[1])
+
+      case monto[2]
+        # los totales de pago son salidas de dinero, por lo que se devuelven
+        # en negativo
+        when 'pago' then total -= Money.new(monto[0], monto[1])
+        else total += Money.new(monto[0], monto[1])
+      end
+
     end
 
     total
@@ -37,10 +45,9 @@ class Obra < ActiveRecord::Base
 
   # calcular el total de iva
   def total_iva(params = { })
-    total_facturas('iva', 'ARS', params.merge({ situacion: 'pago' })) -
+    total_facturas('iva', 'ARS', params.merge({ situacion: 'pago' })) +
     total_facturas('iva', 'ARS', params.merge({ situacion: 'cobro' }))
   end
-
 
   # Sumar los saldos de todas las facturas según situación
   def saldo_de(pago_o_cobro, moneda = 'ARS')
