@@ -31,12 +31,23 @@ class Obra < ActiveRecord::Base
              pluck(:"#{campo_monto}_centavos", :"#{campo_monto}_moneda", :situacion).
              each do |monto|
 
-      if monto[2] == 'pago' or campo_monto == 'iva'
-        # los totales de pago son salidas de dinero, por lo que se devuelven
-        # en negativo
-        total -= Money.new(monto[0], monto[1])
-      else
-        total += Money.new(monto[0], monto[1])
+      # segun el monto y situacion decidir si restamos o sumamos
+      # TODO cleverizar
+      case monto[2]
+        when 'pago' then
+          case campo_monto
+            # el iva en las facturas de pago se percibe
+            when 'iva' then total += Money.new(monto[0], monto[1])
+            # el resto de lo que se paga se resta porque sale de caja
+            else total -= Money.new(monto[0], monto[1])
+          end
+        when 'cobro' then
+          case campo_monto
+            # el iva de las facturas de cobro se paga al estado
+            when 'iva' then total -= Money.new(monto[0], monto[1])
+            # el resto se suma porque se percibe
+            else total += Money.new(monto[0], monto[1])
+          end
       end
 
     end
@@ -56,10 +67,8 @@ class Obra < ActiveRecord::Base
   end
 
   # los pagos son salidas
-  # TODO si pasamos a registrar los movimientos de pago como movimientos
-  # negativos hay que cambiar acá
   def saldo_de_pago(moneda = 'ARS')
-    saldo_de('pago', moneda) * -1
+    saldo_de('pago', moneda)
   end
 
   def saldo_de_cobro(moneda = 'ARS')
