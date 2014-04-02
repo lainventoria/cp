@@ -47,23 +47,13 @@ Cp::Application.routes.draw do
     resources :retenciones, only: [ :index, :show ]
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   # /caja
-  resources :cajas
-=======
-=======
->>>>>>> 74a79ebb4f2ba06edf95585620d0c80516d5baf9
   resources :cajas do
     collection do
       get 'transferencia'
       get 'cambio_moneda'
     end
   end
-<<<<<<< HEAD
->>>>>>> mas de lo mismo
-=======
->>>>>>> 74a79ebb4f2ba06edf95585620d0c80516d5baf9
 
   # /factura
   resources :facturas, except: [ :index ] do
