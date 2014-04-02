@@ -1,0 +1,7 @@
+<% cajas = (params[:obra_id].present? ? Caja.where(obra_id: params[:obra_id]) : Caja).where.not(situacion: 'chequera') %>
+<label>Caja / Cuenta</label>
+<select id="selector_caja" class="form-control">
+  <% cajas.each do |c| %>
+    <option value="<%= c.id %>"><%= c.obra.nombre %>: <%= c.efectivo? ? 'Caja' : c.banco %> - <%= c.tipo %></option>
+  <% end %>
+</select>
