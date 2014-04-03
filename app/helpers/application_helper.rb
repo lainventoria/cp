@@ -43,7 +43,11 @@ module ApplicationHelper
   end
 
   def formatted_number(numero)
-    number_with_delimiter(numero, delimiter: ".", separator: ",")
+    number_to_currency(numero, delimiter: ".", separator: ",", format: '%n .', negative_format: '( %n )' )
+  end
+
+  def negativo_rojo(monto)
+    monto < 0 ? 'text-danger' : ''
   end
 
   # decidir si vamos a incluir /obra/:obra_id en las urls o no, para

@@ -36,9 +36,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row col-md-6">
   <h4>Listado de Movimientos</h4>
-  <%# TODO crear el parcial con listado de movimientos por caja %>
-  <%# TODO crear una pestaña para cada moneda, para facilitar la lectura%>
-  <%# render 'movimientos/list', caja: @caja %>
+  <%= render 'movimientos/list', movimientos: @caja.movimientos %> 
 </div>

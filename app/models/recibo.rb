@@ -40,7 +40,7 @@ class Recibo < ActiveRecord::Base
   # estaba restado
   def validate_saldo
     if self.new_record?
-      s = self.factura.saldo - self.importe
+      s = self.factura.saldo - Money.new(self.importe_centavos, self.factura.importe_neto_moneda)
       errors[:base] << "El recibo no puede superar el saldo de la factura #{s}" if s < 0
     end
   end

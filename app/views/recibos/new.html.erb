@@ -41,16 +41,13 @@
 
     <div class="row col-md-offset-1">
       <h4>Detalle de Movimientos</h4>
-      <%# lugar donde listar los movimientos que componen el recibo %>
+      <%= render 'movimientos/list', movimientos: @recibo.movimientos %>
     </div>
-
-    <div class="row pull-right">
-      <a type="button" class="btn btn-primary" href="#">
-        <span class="glyphicon glyphicon-plus"></span>
-        Nuevo Movimiento
-      </a>
+    <div class="row">
+      <br>
     </div>
-
+    <div id='movimientos' class="row pull-right">
+      <%= render 'movimientos/boton_agregar_medios_de_pago', situacion: determina_situacion_recibo %>
+    </div>
   </div>
-
 </div>

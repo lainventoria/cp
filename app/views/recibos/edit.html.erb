@@ -34,26 +34,13 @@
 
     <div class="row col-md-offset-1">
       <h4>Detalle de Movimientos</h4>
-      <%= render @recibo.movimientos %>
+      <%= render 'movimientos/list', movimientos: @recibo.movimientos %>
     </div>
-
+    <div class="row">
+      <br>
+    </div>
     <div id='movimientos' class="row pull-right">
-      <div class="btn-group">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-          <span class="glyphicon glyphicon-plus"></span>
-          Pago
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><%= link_a_nuevo_movimiento('Efectivo') %></li>
-          <li><%= link_a_nuevo_movimiento('Transferencia') %></li>
-          <li class="divider"></li>
-          <li><%= link_a_nuevo_movimiento('Cheque propio') %></li>
-          <li><%= link_a_nuevo_movimiento('Cheque de terceros') %></li>
-          <li class="divider"></li>
-          <li><%= link_a_nuevo_movimiento('Retención') %></li>
-        </ul>
-      </div>
+      <%= render 'movimientos/boton_agregar_medios_de_pago', situacion: determina_situacion_recibo %>
     </div>
-
   </div>
 </div>
