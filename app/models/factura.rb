@@ -69,9 +69,9 @@ class Factura < ActiveRecord::Base
   def saldo
     # Cuando se crea una Factura, el saldo es igual al importe_total
     if self.new_record?
-      importe_total
+      Money.new(importe_total_centavos, importe_total_moneda)
     else
-      importe_total - Money.new(recibos.sum(:importe_centavos), importe_total_moneda)
+      Money.new(importe_total_centavos, importe_total_moneda) - Money.new(recibos.sum(:importe_centavos), importe_total_moneda)
     end
   end
 
