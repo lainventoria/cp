@@ -1,5 +1,6 @@
 <%= form_for([@obra, @caja, @cheque]) do |f| %>
   <% if @cheque.errors.any? %>
+    <% @editar = true %>
     <div id="error_explanation" class="alert alert-danger">
       <strong>No se guardo el Cheque. </strong>Debe corregir <%= pluralize(@cheque.errors.count, "error") %>
       <ul>
