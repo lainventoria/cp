@@ -1,15 +1,15 @@
-<h3>Entregar cheque de terceros</h3>
+<h4>Entregar cheque de terceros</h4>
 
 <%= fields_for :causa do |f| %>
   <%= hidden_field_tag 'causa_tipo', 'cheque-de-terceros' %>
 
-  <div class="field form-group col-md-12" >
+  <div class="field form-group col-md-10" >
     <%= f.label :cheque %>
     <%= f.collection_select(:cheque_id, cheques_de_terceros, :id, :descripcion,
       { prompt: "-Seleccione un cheque-" }, { class: "form-control" } ) %>
   </div>
-
-  <div class="field form-group col-md-12" >
-    <%= f.submit 'Agregar', name: 'agregar_causa', class: 'btn btn-success pull-right' %>
+  <div class="field form-group col-md-2" >
+    <br>
+    <%= f.submit 'Agregar', name: 'agregar_causa', class: 'btn btn-success nivelar-boton form-control' %>
   </div>
 <% end %>

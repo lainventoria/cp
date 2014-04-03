@@ -1,20 +1,23 @@
-<h3>Pago en efectivo</h3>
+<h4>Pago en efectivo</h4>
 
 <%= fields_for :causa do |f| %>
   <%= hidden_field_tag 'causa_tipo', 'efectivo' %>
 
-  <div class="field form-group col-md-6" >
-    <%= f.label :monto %>
-    <%= f.text_field :monto, class: 'form-control', data: { role:'money', a_sep:'.', a_dec:',' } %>
-  </div>
-
-  <div class="field form-group col-md-6" >
+  <div class="field form-group col-md-5" >
     <%= f.label :caja %>
     <%= f.collection_select(:caja_id, @factura.obra.cajas.de_efectivo, :id, :tipo,
       { prompt: "-Seleccione Caja-" }, { class: "form-control" } ) %>
   </div>
-
-  <div class="field form-group col-md-12" >
-    <%= f.submit 'Agregar', name: 'agregar_causa', class: 'btn btn-success pull-right' %>
+  <div class="field form-group col-md-2 text-right" >
+    <label>Moneda</label>
+    <%= f.text_field :monto_moneda, class: 'form-control text-right', value: @factura.importe_neto_moneda %>
+  </div>
+  <div class="field form-group col-md-3 text-right" >
+    <%= f.label :monto %>
+    <%= f.text_field :monto, class: 'form-control text-right', data: { role:'money', a_sep:'.', a_dec:',' } %>
+  </div>
+  <div class="field form-group col-md-2" >
+    <br>
+    <%= f.submit 'Agregar', name: 'agregar_causa', class: 'btn btn-success form-control nivelar-boton' %>
   </div>
 <% end %>
