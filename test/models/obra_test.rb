@@ -22,11 +22,29 @@ class ObraTest < ActiveSupport::TestCase
     assert_equal 1, obra.cajas.where(tipo: 'Retenciones de Cargas Sociales').count
   end
 
-  test 'chequear los saldos' do
+  test 'chequear saldos y totales' do
     obra = create :obra
     tercero = create :tercero
-    5.times { obra.facturas.create(tercero: tercero, situacion: 'pago', importe_neto: Money.new(1000), iva: Money.new(210)) }
-    5.times { obra.facturas.create(tercero: tercero, situacion: 'cobro', importe_neto: Money.new(1000), iva: Money.new(210)) }
+    5.times { obra.facturas.create(tercero: tercero, situacion: 'pago', importe_neto: Money.new(1000, 'ARS'), iva: Money.new(210, 'ARS')) }
+    5.times { obra.facturas.create(tercero: tercero, situacion: 'cobro', importe_neto: Money.new(1000, 'ARS'), iva: Money.new(210, 'ARS')) }
+
+    # todos los pagos son negativos, pero su iva es positivo
+    assert_equal Money.new(1000 * -5),
+                 obra.total_facturas('importe_neto', 'ARS', { situacion: 'pago' })
+    assert_equal Money.new(210 * 5),
+                 obra.total_facturas('iva', 'ARS', { situacion: 'pago' })
+
+    # los cobros son positivos pero su iva es negativo
+    assert_equal Money.new(1000 * 5),
+                 obra.total_facturas('importe_neto', 'ARS', { situacion: 'cobro' })
+    assert_equal Money.new(210 * -5),
+                 obra.total_facturas('iva', 'ARS', { situacion: 'cobro' })
+
+    # el balance da cero
+    assert_equal Money.new(0),
+                 obra.total_facturas('importe_neto', 'ARS')
+    assert_equal Money.new(0),
+                 obra.total_facturas('iva', 'ARS')
 
     assert_equal Money.new((1000 + 210) * -5), obra.saldo_de_pago
     assert_equal Money.new((1000 + 210) *  5), obra.saldo_de_cobro

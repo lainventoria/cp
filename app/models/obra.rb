@@ -20,24 +20,57 @@ class Obra < ActiveRecord::Base
 
   validates_presence_of :nombre, :direccion
 
-  # Sumar los saldos de todas las facturas según situación
-  def saldo_de(pago_o_cobro, moneda = 'ARS')
-    saldo = Money.new(0, moneda)
+  # Abstracción para traer totales de facturas, se le pasa el atributo
+  # que lleva el monto (importe_total, iva, importe_neto) como string,
+  # la moneda y parámetros extra para filtrar.
+  #
+  # Luego obtiene los centavos y la moneda y devuelve un resultado
+  def total_facturas(campo_monto, moneda = 'ARS', params = {})
+    total = Money.new(0, moneda)
 
-    facturas.where(situacion: pago_o_cobro).
-             where(importe_total_moneda: moneda).
-             find_each do |factura|
-      saldo += factura.saldo
+    # traer solo monto_centavos, monto_moneda y situacion
+    facturas.where(params.merge({ :"#{campo_monto}_moneda" => moneda })).
+             pluck(:"#{campo_monto}_centavos", :"#{campo_monto}_moneda", :situacion).
+             each do |monto|
+
+      # segun el monto y situacion decidir si restamos o sumamos
+      # TODO cleverizar
+      case monto[2]
+        when 'pago' then
+          case campo_monto
+            # el iva en las facturas de pago se percibe
+            when 'iva' then total += Money.new(monto[0], monto[1])
+            # el resto de lo que se paga se resta porque sale de caja
+            else total -= Money.new(monto[0], monto[1])
+          end
+        when 'cobro' then
+          case campo_monto
+            # el iva de las facturas de cobro se paga al estado
+            when 'iva' then total -= Money.new(monto[0], monto[1])
+            # el resto se suma porque se percibe
+            else total += Money.new(monto[0], monto[1])
+          end
+      end
+
     end
 
-    saldo
+    total
+  end
+
+  # calcular el total de iva
+  def total_iva(params = { })
+    total_facturas('iva', 'ARS', params.merge({ situacion: 'pago' })) +
+    total_facturas('iva', 'ARS', params.merge({ situacion: 'cobro' }))
+  end
+
+  # Sumar los saldos de todas las facturas según situación
+  def saldo_de(pago_o_cobro, moneda = 'ARS')
+    total_facturas('importe_total', moneda, { situacion: pago_o_cobro })
   end
 
   # los pagos son salidas
-  # TODO si pasamos a registrar los movimientos de pago como movimientos
-  # negativos hay que cambiar acá
   def saldo_de_pago(moneda = 'ARS')
-    saldo_de('pago', moneda) * -1
+    saldo_de('pago', moneda)
   end
 
   def saldo_de_cobro(moneda = 'ARS')
