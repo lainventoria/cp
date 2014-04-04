@@ -1,16 +1,19 @@
 <div class="field form-group col-md-2 text-right" >
   <%= render partial: 'layouts/selector_moneda', locals: {
-      moneda: @factura.importe_neto_moneda, name: 'causa[monto_moneda]' } %>
+    moneda: @factura.importe_neto_moneda, 
+    name: 'causa[monto_moneda]',
+    seleccion: ''
+  } %>
 </div>
 
-<div class="field form-group col-md-2 text-right" >
+<div id='movimiento_monto' class="field form-group col-md-2 text-right" >
   <%= f.label :monto %>
   <%= f.text_field :monto, class: 'form-control text-right',
       data: { role:'money', a_sep:'.', a_dec:',' } %>
 </div>
 
-<div class="field form-group col-md-2 text-right" >
-  <%= f.label :monto_aceptado, 'Aceptado a' %>
+<div id='movimiento_monto_aceptado' class="field form-group col-md-2 text-right" >
+  <%= f.label :monto_aceptado, 'Equiv.' + @factura.importe_neto_moneda  %>
   <%= f.text_field :monto_aceptado, class: 'form-control text-right',
       data: { role:'money', a_sep:'.', a_dec:',' } %>
 </div>
