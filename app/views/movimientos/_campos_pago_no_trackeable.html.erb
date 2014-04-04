@@ -13,7 +13,7 @@
 </div>
 
 <div class="field form-group col-md-2 text-right" >
-  <%= f.label :monto_aceptado, 'Aceptado a' %>
+  <%= f.label :monto_aceptado, 'Equiv.' + @factura.importe_neto_moneda  %>
   <%= f.text_field :monto_aceptado, class: 'form-control text-right',
       data: { role:'money', a_sep:'.', a_dec:',' } %>
 </div>
