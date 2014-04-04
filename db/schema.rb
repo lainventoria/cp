@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20140404224643) do
     t.string   "numero"
     t.string   "situacion"
     t.boolean  "archivada",    default: false
-    t.string   "color"
     t.string   "tipo_factura"
   end
 
