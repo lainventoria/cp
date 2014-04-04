@@ -46,6 +46,11 @@ Cp::Application.routes.draw do
 
   # /caja
   resources :cajas do
+    member do
+      get 'cambiar'
+      get 'transferir'
+    end
+
     # no se editan cheques aca, solo se listan
     resources :cheques, only: [ :index, :show, :edit ]
   end

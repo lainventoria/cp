@@ -1,7 +1,7 @@
 # encoding: utf-8
 class CajasController < ApplicationController
   before_action :set_obra
-  before_action :set_caja, only: [:show, :edit, :update, :destroy]
+  before_action :set_caja, except: [ :index, :new, :create ]
   before_action :set_movimientos, only: [:show]
 
   def index
@@ -73,6 +73,12 @@ class CajasController < ApplicationController
       end
     end
 
+  end
+
+  def cambiar
+  end
+
+  def transferir
   end
 
   private
