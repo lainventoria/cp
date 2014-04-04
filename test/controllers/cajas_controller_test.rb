@@ -62,7 +62,9 @@ class CajasControllerTest < ActionController::TestCase
       assert @caja.extraer!(total[1])
     end
 
-    assert_difference('Caja.count', 0) do
+    # el default scope hace que la caja archivada se ignore y parezca
+    # que se borró
+    assert_difference('Caja.count', -1) do
       delete :destroy, id: @caja
     end
 

@@ -1,13 +1,13 @@
 # encoding: utf-8
 class Obra < ActiveRecord::Base
-  has_many :cajas, ->{ where(archivada: false) }, dependent: :restrict_with_error
+  has_many :cajas, dependent: :restrict_with_error
   has_many :cheques, through: :cajas
   has_many :facturas, dependent: :restrict_with_error
   has_many :recibos, through: :facturas
   has_many :retenciones, through: :facturas
 
   # TODO mejorar esta cosa
-  has_one :chequera_propia, ->{ where(tipo: 'Chequera propia').where(archivada: false) },
+  has_one :chequera_propia, ->{ where(tipo: 'Chequera propia') },
     class_name: 'Caja'
   has_one :chequera, ->{ where(tipo: 'Chequera') },
     class_name: 'Caja'
