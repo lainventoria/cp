@@ -89,7 +89,7 @@ class Obra < ActiveRecord::Base
   private
 
     def crear_cajas
-      ['Obra', 'Administración', 'Administración en Negro', 'Seguridad'].each do |tipo|
+      ['Obra', 'Administración', 'Administración X', 'Seguridad'].each do |tipo|
         cajas.create tipo: tipo, situacion: 'efectivo'
       end
 
@@ -99,7 +99,7 @@ class Obra < ActiveRecord::Base
 
       cajas.create tipo: 'Caja de Ahorro', situacion: 'banco'
       cajas.create tipo: 'Chequera', situacion: 'chequera'
-      cajas.create tipo: 'Chequera en Negro', situacion: 'chequera'
+      cajas.create tipo: 'Chequera X', situacion: 'chequera'
       cajas.create tipo: 'Chequera propia', situacion: 'chequera'
       cajas.create tipo: 'Retenciones de Ganancias', situacion: 'chequera'
       cajas.create tipo: 'Retenciones de Cargas Sociales', situacion: 'chequera'
