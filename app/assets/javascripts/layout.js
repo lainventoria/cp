@@ -30,12 +30,24 @@ $(document).ready(function(){
     }
   });
 
+  // ejecuta acciones despues de seleccionar una moneda (1)
   // actualiza campos con clase 'actualizar_moneda' con lo que se elija
-  // en el selector incluido en el partial 'layouts/selector_moneda'
   $('#selector_moneda').on('change', function() {
     $('.actualizar_moneda').each( function() {
       this.value = $('#selector_moneda')[0].value;
     });
+  });
+
+  // ejecuta acciones despues de seleccionar una moneda (2)
+  // cambia el css (afecta al formulario de medios de pago)
+  $("*[name='causa[monto_moneda]']").on('change', function() {
+    if ( $("*[name='causa[monto_moneda]']")[0].value == $('#causa_monto_aceptado_moneda')[0].value ) {
+      $('#movimiento_monto')[0].className = $('#movimiento_monto')[0].className.replace('col-md-2','col-md-4');
+      $('#movimiento_monto_aceptado')[0].className = $('#movimiento_monto_aceptado')[0].className.replace('col-md-2','hidden');
+    } else {
+      $('#movimiento_monto')[0].className = $('#movimiento_monto')[0].className.replace('col-md-4','col-md-2');
+      $('#movimiento_monto_aceptado')[0].className = $('#movimiento_monto_aceptado')[0].className.replace('hidden','col-md-2');
+    }
   });
 
   // inicializa los bootstrap-filestyle
