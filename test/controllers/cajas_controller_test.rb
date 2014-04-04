@@ -72,4 +72,16 @@ class CajasControllerTest < ActionController::TestCase
 
     assert_redirected_to obra_cajas_path(@caja.obra)
   end
+
+  test 'transfiere' do
+    get :transferir, id: @caja
+    assert_response :success
+    assert_equal @caja, assigns(:caja)
+  end
+
+  test 'cambia' do
+    get :cambiar, id: @caja
+    assert_response :success
+    assert_equal @caja, assigns(:caja)
+  end
 end

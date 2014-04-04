@@ -2,12 +2,11 @@
 class CajasController < ApplicationController
   before_action :set_obra
   before_action :set_caja, except: [ :index, :new, :create ]
-  before_action :set_movimientos, only: [:show]
 
   def index
-    @cajas = @obra ? @obra.cajas.where(situacion: 'efectivo') : Caja.where(situacion: 'efectivo')
-    @cuentas = @obra ? @obra.cajas.where(situacion: 'banco') : Caja.where(situacion: 'banco')
-    @chequeras = @obra ? @obra.cajas.where(situacion: 'chequera') : Caja.where(situacion: 'chequera')
+        @cajas = (@obra ? @obra.cajas : Caja).de_efectivo
+      @cuentas = (@obra ? @obra.cajas : Caja).cuentas
+    @chequeras = (@obra ? @obra.cajas : Caja).chequeras
   end
 
   def show
@@ -15,18 +14,12 @@ class CajasController < ApplicationController
   end
 
   def new
-    @caja = Caja.new
+    @caja = Caja.new obra: @obra
     @editar = true
   end
 
   def edit
     @editar = true
-  end
-
-  def transferencia
-  end
-
-  def cambio_moneda
   end
 
   def create
@@ -85,16 +78,6 @@ class CajasController < ApplicationController
 
     def set_caja
       @caja = (@obra.present? ? @obra.cajas : Caja).find(params[:id])
-    end
-
-    def set_movimientos
-      # FIXME @movimientos = @caja.movimientos. Hace falta?
-      @movimientos = Movimiento.where(caja_id: @caja.id)
-
-      # FIXME WTF?
-      if ( ! @caja.nil? && ! @movimientos.nil? )
-        @caja.movimientos = @movimientos
-      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
