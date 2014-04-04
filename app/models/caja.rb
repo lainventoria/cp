@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Caja < ActiveRecord::Base
 
-  default_scope { where(archivada: false) }
+  default_scope { where(archivada: false).where(tipo_factura: nil) }
 
   belongs_to :obra, inverse_of: :cajas
   has_many :movimientos
