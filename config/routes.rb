@@ -54,6 +54,7 @@ Cp::Application.routes.draw do
     member do
       get 'cambiar'
       get 'transferir'
+      patch 'operar'
     end
 
     # /caja/cheque

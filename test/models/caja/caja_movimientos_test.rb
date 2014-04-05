@@ -45,5 +45,8 @@ class CajaMovimientosTest < ActiveSupport::TestCase
     assert_equal 2, recibo.movimientos.count
     assert_equal dineros, destino.total
     assert_equal 0, origen.total
+    recibo.movimientos.each do |m|
+      assert_equal 'Transferencia', m.causa_type
+    end
   end
 end

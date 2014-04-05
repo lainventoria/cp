@@ -22,6 +22,11 @@ class Transferencia < PagoNoTrackeable
     end
   end
 
+  # Usa sus datos para transferir
+  def operar
+    caja.transferir monto, caja_destino
+  end
+
   private
 
     def caja_es_una_cuenta

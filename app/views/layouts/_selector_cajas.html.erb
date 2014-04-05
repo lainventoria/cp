@@ -1,7 +1,12 @@
-<% cajas = (params[:obra_id].present? ? Caja.where(obra_id: params[:obra_id]) : Caja).where.not(situacion: 'chequera') %>
+<%# cajas: una lista de cajas - opcional (por ahora)
+    nombre: el nombre del select para unirlo a un params - opcional %>
+
+<%  unless cajas.present?
+      cajas = (@obra.present? ? @obra.cajas : Caja).where.not(situacion: 'chequera')
+    end %>
+
 <label>Caja / Cuenta</label>
-<select id="selector_caja" class="form-control">
-  <% cajas.each do |c| %>
-    <option value="<%= c.id %>"><%= c.obra.nombre %>: <%= c.efectivo? ? 'Caja' : c.banco %> - <%= c.tipo %></option>
-  <% end %>
-</select>
+
+<%= select_tag defined?(nombre) ? nombre : :caja,
+    options_from_collection_for_select(cajas, :id, :descripcion),
+    class: 'form-control' %>

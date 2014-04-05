@@ -65,13 +65,27 @@ class CajasController < ApplicationController
         format.json { render json: @caja.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   def cambiar
   end
 
   def transferir
+    @operacion = Transferencia.new caja: @caja
+  end
+
+  def operar
+    @operacion = modelo_de_operacion.construir operacion_params
+
+    respond_to do |format|
+      if @operacion.operar
+        format.html { redirect_to ruta_segun_operacion, notice: 'Operación realizada con éxito.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to ruta_segun_operacion, notice: 'Ocurrió un error.' }
+        format.json { render json: @operacion.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
@@ -84,6 +98,40 @@ class CajasController < ApplicationController
     def caja_params
       params.require(:caja).permit(
         :obra_id, :situacion, :tipo, :banco, :numero
+      )
+    end
+
+    # Operaciones permitidas
+    def operaciones_validas
+      %{ transferencia cambio }
+    end
+
+    # Devuelve la operación sólo si es válida
+    def operacion
+      operaciones_validas.include?(params[:operacion]) ? params[:operacion] : nil
+    end
+
+    # Para 'transferencia' devuelve la clase Transferencia
+    def modelo_de_operacion
+      operacion.try(:classify).try(:constantize)
+    end
+
+    # A qué ruta redirigir después de la operación
+    def ruta_segun_operacion
+      case operacion
+        when 'transferencia'
+          transferir_caja_path(@caja)
+        when 'cambio'
+          cambiar_caja_path(@caja)
+        else
+          @caja
+      end
+    end
+
+    # Parámetros permitidos para las operaciones de caja
+    def operacion_params
+      params.require(operacion).permit(
+        :caja_id, :monto, :monto_moneda, :caja_destino_id
       )
     end
 end

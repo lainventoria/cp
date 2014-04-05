@@ -190,9 +190,10 @@ class Caja < ActiveRecord::Base
 
     Caja.transaction do
       recibo = Recibo.interno_nuevo
-      # FIXME agregar causa los movimientos
-      recibo.movimientos << extraer(monto, true)
-      recibo.movimientos << caja.depositar(monto, true)
+      salida = extraer(monto, true)
+      entrada = caja.depositar(monto, true)
+      salida.causa = entrada.causa = Transferencia.new
+      recibo.movimientos << salida << entrada
     end
 
     recibo
@@ -209,5 +210,9 @@ class Caja < ActiveRecord::Base
 
     self.archivada = true
     save
+  end
+
+  def descripcion
+    "#{efectivo? ? 'Caja' : banco} - #{tipo}"
   end
 end
