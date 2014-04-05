@@ -36,7 +36,7 @@ es:
             movimientos:
               sobrepasan_el_saldo: 'Sobrepasan el saldo'
               no_son_en_la_misma_moneda: 'Todos los pagos deben realizarse en la misma moneda'
-              meiosis_de_facturas: "La caja tiene que ser del mismo tipo que la factura X"
+              meiosis_de_facturas: "La caja tiene que ser compatible con el tipo de factura"
         caja:
           attributes:
             base:
