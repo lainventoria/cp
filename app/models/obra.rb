@@ -27,11 +27,20 @@ class Obra < ActiveRecord::Base
   # Luego obtiene los centavos y la moneda y devuelve un resultado
   def total_facturas(campo_monto, moneda = 'ARS', params = {})
     total = Money.new(0, moneda)
+    # traer siempre siempre las facturas de la misma moneda
+    params.merge!({ :"#{campo_monto}_moneda" => moneda })
 
-    # traer solo monto_centavos, monto_moneda y situacion
-    facturas.where(params.merge({ :"#{campo_monto}_moneda" => moneda })).
-             pluck(:"#{campo_monto}_centavos", :"#{campo_monto}_moneda", :situacion).
+    # traer solo monto_centavos, monto_moneda, situacion y tipo
+    facturas.where(params).
+             pluck(:"#{campo_monto}_centavos", :"#{campo_monto}_moneda", :situacion, :tipo).
              each do |monto|
+
+      # excluir las facturas de tipo X a menos que las estemos pidiendo
+      # si estamos buscando un tipo especifico va a estar en el param
+      #
+      # TODO hubiera sido más elegante pasarlo por param pero no se
+      # puede negar en hashes :c
+      next if params[:tipo] != 'X' && monto[3] == 'X'
 
       # todo se suma, luego se decide si mostrar los pagos como
       # negativos en la interfaz, etc.
@@ -59,25 +68,24 @@ class Obra < ActiveRecord::Base
   end
 
   # Sumar los saldos de todas las facturas según situación
-  def saldo_de(pago_o_cobro, moneda = 'ARS')
-    saldo_de_facturas(moneda, { situacion: pago_o_cobro })
-  end
+  def saldo_de(pago_o_cobro, moneda = 'ARS', params = {})
+    saldo_de_facturas(moneda, params.merge({ situacion: pago_o_cobro }))
 
   # los pagos son salidas
-  def saldo_de_pago(moneda = 'ARS')
-    saldo_de('pago', moneda)
+  def saldo_de_pago(moneda = 'ARS', params = {})
+    saldo_de 'pago', moneda, params
   end
 
-  def saldo_de_cobro(moneda = 'ARS')
-    saldo_de 'cobro', moneda
+  def saldo_de_cobro(moneda = 'ARS', params = {})
+    saldo_de 'cobro', moneda, params
   end
 
-  def saldo_general(moneda = 'ARS')
-    saldo_de_cobro(moneda) - saldo_de_pago(moneda)
+  def saldo_general(moneda = 'ARS', params = {})
+    saldo_de_cobro(moneda, params) - saldo_de_pago(moneda, params)
   end
 
   # devuelve el total de todas las cajas para una moneda
-  def total_general(moneda = 'ARS', parametros = {})
+  def total_general(moneda = 'ARS', parametros = { tipo_factura: nil })
     total = Money.new(0, moneda)
     cajas.where(parametros).find_each do |caja|
       total += caja.total(moneda)

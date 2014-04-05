@@ -7,6 +7,8 @@ class ObrasTotalesTest < ActiveSupport::TestCase
     @tercero = create :tercero
     5.times { @obra.facturas.create(tercero: @tercero, situacion: 'pago', importe_neto: Money.new(1000, 'ARS'), iva: Money.new(210, 'ARS')) }
     5.times { @obra.facturas.create(tercero: @tercero, situacion: 'cobro', importe_neto: Money.new(1000, 'ARS'), iva: Money.new(210, 'ARS')) }
+
+    @obra.cajas.find_each { |c| c.depositar! Money.new(1000, 'ARS') }
   end
 
   test "todos los pagos y su iva son positivos" do
@@ -33,5 +35,23 @@ class ObrasTotalesTest < ActiveSupport::TestCase
 
   test "los saldos totales son ni fu ni fa" do
     assert_equal Money.new(0), @obra.saldo_general
+  end
+
+  test "las facturas X se balancean aparte" do
+    @obra.facturas.create(tercero: @tercero,
+      situacion: 'pago', importe_neto: Money.new(1000, 'ARS'),
+      tipo: 'X')
+
+    assert_equal Money.new(0), @obra.saldo_general
+    assert_equal Money.new(-1000), @obra.saldo_general('ARS', { tipo: 'X' })
+  end
+
+  test "todas las cajas se balancean sobre la tela de una araña" do
+    assert_equal Money.new(1000 * (@obra.cajas.count - 2)),
+      @obra.total_general
+  end
+
+  test "las cajas X se balancean aparte" do
+    assert_equal Money.new(1000 * 2), @obra.total_general('ARS', { tipo_factura: 'X' })
   end
 end
