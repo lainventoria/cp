@@ -11,7 +11,7 @@ class CajaMovimientosTest < ActiveSupport::TestCase
     create :movimiento, caja: @caja, monto: Money.new(500, 'EUR')
 
     assert_difference 'Movimiento.count', 2 do
-      @recibo_interno = @caja.cambiar(Money.new(200, 'EUR'), 'ARS', 1.5)
+      @recibo_interno = @caja.cambiar(Money.new(200, 'EUR'), Money.new(300))
     end
 
     assert_equal 2, @caja.movimientos.where(recibo_id: @recibo_interno).count
@@ -27,7 +27,7 @@ class CajaMovimientosTest < ActiveSupport::TestCase
     create :movimiento, caja: @caja, monto: Money.new(100, 'EUR')
 
     assert_no_difference 'Movimiento.count' do
-      @recibo_interno = @caja.cambiar(Money.new(200, 'EUR'), 'ARS', 1.5)
+      @recibo_interno = @caja.cambiar(Money.new(200, 'EUR'), Money.new(300))
     end
 
     assert_nil @recibo_interno

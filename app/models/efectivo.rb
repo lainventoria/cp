@@ -9,7 +9,7 @@ class Efectivo < CausaNoTrackeable
     # Si vamos a cambiar, hacer el cambio interno y usar el nuevo valor de
     # monto
     if monto_aceptado.try :nonzero?
-      caja.cambiar_a_ojo(monto, monto_aceptado)
+      caja.cambiar(monto, monto_aceptado)
       self.monto = monto_aceptado
     end
 

@@ -76,34 +76,13 @@ class Caja < ActiveRecord::Base
     end
   end
 
-  # El cambio de moneda registra la transacción con un movimiento de salida
-  # (negativo) y un movimiento de entrada en la nueva moneda.
-  #
-  # Este índice de cambio no se registra en el banco default
-  def cambiar(cantidad, moneda, indice)
-    # Sólo si la caja tiene suficiente saldo devolvemos el monto convertido
-    Caja.transaction do
-      # Crear un recibo que agrupe todos los movimientos producto de
-      # este cambio
-      recibo = Recibo.interno_nuevo
-
-      # FIXME agregar causa los movimientos
-      recibo.movimientos << extraer(cantidad, true)
-      cantidad.bank.exchange cantidad.fractional, indice do |nuevo|
-        recibo.movimientos << depositar(Money.new(nuevo, moneda), true)
-      end
-
-      recibo
-    end || nil
-  end
-
   # Te doy 3 pesos por tus 100 dólares
-  def cambiar_a_ojo(cantidad, cantidad_aceptada)
+  def cambiar(cantidad, cantidad_aceptada)
      Caja.transaction do
       recibo = Recibo.interno_nuevo
-      # FIXME agregar causa los movimientos
-      recibo.movimientos << extraer(cantidad, true)
-      recibo.movimientos << depositar(cantidad_aceptada, true)
+      salida = extraer(cantidad, true)
+      entrada =  depositar(cantidad_aceptada, true)
+      recibo.movimientos << salida << entrada
       recibo
     end || nil
   end
