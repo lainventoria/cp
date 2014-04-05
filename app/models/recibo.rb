@@ -10,8 +10,8 @@ class Recibo < ActiveRecord::Base
   # Por eso cada recibo tiene que estar asociado a una factura
   # a menos que sea un recibo interno (burocracia!)
   validates_presence_of :factura, unless: :interno?
-  validate :importe_no_supera_el_saldo, :todos_los_montos_son_monotonos,
-    unless: :interno?
+  validate :importe_no_supera_el_saldo, :meiosis_de_facturas,
+           :todos_los_montos_son_monotonos, unless: :interno?
 
   before_save :actualizar_situacion, unless: :interno?
 
@@ -83,6 +83,16 @@ class Recibo < ActiveRecord::Base
     def importe_no_supera_el_saldo
       if factura.present?
         errors.add :movimientos, :sobrepasan_el_saldo if importe_temporal > factura.saldo
+      end
+    end
+
+    # comprueba que las cajas X sólo acepten facturas X
+    # el resto no importa
+    def meiosis_de_facturas
+      if factura.present? &&
+         movimientos.any? { |m| m.caja.tipo_factura == 'X' and factura.tipo != 'X' }
+
+        errors.add :movimientos, :meiosis_de_facturas
       end
     end
 
