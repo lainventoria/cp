@@ -32,21 +32,27 @@ class CausaNoTrackeable
 
   def self.construir(params)
     datos = params.extract! :monto_moneda, :monto, :caja_id, :caja,
-      :monto_aceptado, :monto_aceptado_moneda, :caja_destino_id
+      :monto_aceptado, :monto_aceptado_moneda, :caja_destino_id, :indice
     new datos
   end
 
   def initialize(opciones = {})
     @caja = parsear_caja opciones[:caja], opciones[:caja_id]
-    @caja_id = @caja.try :id
     @caja_destino = parsear_caja opciones[:caja_destino], opciones[:caja_destino_id]
-    @caja_destino_id = @caja_destino.try :id
 
     # TODO quitar opciones de carga!
     @monto = parsear_monto  opciones[:monto],
                             opciones[:monto_moneda]
     @monto_aceptado = parsear_monto opciones[:monto_aceptado],
                                     opciones[:monto_aceptado_moneda]
+  end
+
+  def caja_id
+    caja.try :id
+  end
+
+  def caja_destino_id
+    caja_destino.try :id
   end
 
   # Los siguientes métodos son necesarios para que rails genere la asociación

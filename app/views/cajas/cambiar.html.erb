@@ -2,4 +2,33 @@
   <h2>Cambio de Moneda</h2>
 </div>
 
-<%= render 'form_transfer', form_cambio: '',form_transfer: 'hidden'  %>
+<%= form_for @operacion, url: operar_caja_path(@caja), method: :patch do |f| %>
+  <%= hidden_field_tag :operacion, :cambio %>
+
+  <%= render partial: 'origen_de_operacion', locals: { f: f } %>
+
+  <div class="row destino">
+    <div class="field form-group col-md-1">
+      <br>
+      <label>Por</label>
+    </div>
+
+    <div class="field form-group col-md-2">
+      <%= render partial: 'layouts/selector_moneda', locals: {
+            moneda: 'ARS', name: 'cambio[monto_aceptado_moneda]' } %>
+    </div>
+
+    <div class="field form-group col-md-2">
+      <label>Monto cambiado</label>
+      <%= f.text_field :monto_aceptado, class: "form-control text-right monto",
+          data: { role: 'money', a_sep: '.', a_dec: ',' } %>
+    </div>
+
+    <div class="field form-group col-md-2" >
+      <br>
+      <%= f.submit 'Operar', class: 'btn btn-success nivelar-boton form-control' %>
+    </div>
+  </div>
+  <br>
+
+<% end %>

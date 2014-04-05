@@ -68,6 +68,7 @@ class CajasController < ApplicationController
   end
 
   def cambiar
+    @operacion = Cambio.new caja: @caja
   end
 
   def transferir
@@ -131,7 +132,8 @@ class CajasController < ApplicationController
     # Parámetros permitidos para las operaciones de caja
     def operacion_params
       params.require(operacion).permit(
-        :caja_id, :monto, :monto_moneda, :caja_destino_id
+        :caja_id, :monto, :monto_moneda, :caja_destino_id,
+        :monto_aceptado, :monto_aceptado_moneda
       )
     end
 end

@@ -1,14 +1,11 @@
 <%# este partial requiere los siguientes parametros
-  name: "name del select" (opcional)
+  nombre: nombre del select (en params) (opcional)
   moneda: [valores existentes] valor preseleccionado del selector
   seleccion: ['disabled', ''] des/activa la seleccion de moneda
 %>
 
-<% monedas = ['ARS', 'USD'] %>
 <label>Moneda</label>
-<select id="selector_moneda" class="form-control moneda" <%= defined?(seleccion) ? seleccion : nil %>
-  <%= defined?(name) ? "name=#{name}" : '' %> >
-  <% monedas.each do |m| %>
-    <option value="<%= m %>" <%= moneda_seleccionada(m, moneda) %>><%= m %></option>
-  <% end %>
-</select>
+<%= select_tag defined?(nombre) ? nombre : 'selector_moneda',
+    options_for_select(monedas, defined?(moneda) ? moneda : nil),
+    class: 'form-control moneda',
+    enabled: defined?(seleccion) && seleccion.present? ? false : true %>

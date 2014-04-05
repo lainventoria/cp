@@ -134,4 +134,8 @@ module ApplicationHelper
       else 'label-default'
     end
   end
+
+  def monedas
+    ['ARS', 'USD']
+  end
 end

@@ -4,24 +4,8 @@
 
 <%= form_for @operacion, url: operar_caja_path(@caja), method: :patch do |f| %>
   <%= hidden_field_tag :operacion, :transferencia %>
-  <%= f.hidden_field :caja_id %>
 
-  <div class="row origen">
-    <div class="field form-group col-md-1">
-      <br>
-      <label>Transferir</label>
-    </div>
-
-    <div class="field form-group col-md-2">
-      <%= render 'layouts/selector_moneda', moneda: 'ARS', seleccion:'' %>
-    </div>
-
-    <div class="field form-group col-md-2">
-      <label>Monto</label>
-      <%= f.text_field :monto, class: "form-control text-right monto",
-          data: { role: 'money', a_sep: '.', a_dec: ',' } %>
-    </div>
-  </div>
+  <%= render partial: 'origen_de_operacion', locals: { f: f } %>
 
   <div class="row destino">
     <div class="field form-group col-md-1">

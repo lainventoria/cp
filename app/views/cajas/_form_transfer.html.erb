@@ -3,27 +3,7 @@
   form_transfer = campos visibles en formulario transferencia
   values = ['hidden', ''] %>
 
-<div class="row origen">
-  <h4>Origen</h4>
-  <div class="field form-group col-md-4">
-    <%= render 'layouts/selector_cajas' %>
-  </div>
-
-  <div class="field form-group col-md-2">
-    <%= render 'layouts/selector_moneda', moneda: 'ARS', seleccion:'' %>
-  </div>
-
-  <div class="field form-group col-md-2">
-    <label>Monto</label>
-    <input class="form-control text-right monto" data-role='money' data-a-sep='.' data-a-dec=',' value='0'></input>
-  </div>
-</div>
 <div class="row destino">
-  <h4>Destino</h4>
-  <div class="field form-group col-md-4 <%= form_transfer %>">
-    <%= render 'layouts/selector_cajas' %>
-  </div>
-
   <%# place holder para el formulario de cambio de moneda %>
   <div class="field form-group col-md-4 <%= form_cambio %>">
   </div>

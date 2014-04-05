@@ -1,0 +1,18 @@
+<div class="row origen">
+  <%= f.hidden_field :caja_id %>
+
+  <div class="field form-group col-md-1">
+    <br>
+    <label>Cambiar</label>
+  </div>
+
+  <div class="field form-group col-md-2">
+    <%= render 'layouts/selector_moneda', moneda: 'ARS', seleccion:'' %>
+  </div>
+
+  <div class="field form-group col-md-2">
+    <label>Monto</label>
+    <%= f.text_field :monto, class: "form-control text-right monto",
+        data: { role: 'money', a_sep: '.', a_dec: ',' } %>
+  </div>
+</div>
