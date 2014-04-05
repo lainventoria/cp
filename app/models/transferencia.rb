@@ -1,5 +1,5 @@
 # encoding: utf-8
-class Transferencia < PagoNoTrackeable
+class Transferencia < CausaNoTrackeable
   include CausaDeMovimientos
 
   validates_presence_of :monto, :caja

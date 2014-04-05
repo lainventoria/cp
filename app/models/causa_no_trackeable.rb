@@ -1,7 +1,7 @@
 # encoding: utf-8
 # Representa una clase de pago con una única instancia en el sistema, a la cual
 # no nos interesa seguirle el rastro (e.g. efectivo).
-class PagoNoTrackeable
+class CausaNoTrackeable
   include ActiveModel::Naming
   include ActiveModel::Validations
 
