@@ -42,8 +42,10 @@ module RecibosHelper
   end
 
   # TODO si la caja no tiene fondos no sale ninguna
-  def cajas_de_efectivo(params = {})
-    @factura.obra.cajas.de_efectivo.where(params).con_fondos_en(@factura.importe_total_moneda).uniq
+  def cajas_de_efectivo
+    @factura.obra.cajas.de_efectivo.
+      where(tipo_factura: (@factura.tipo == 'X' ? 'X' : nil)).
+      con_fondos_en(@factura.importe_total_moneda).uniq
   end
 
   def cuentas

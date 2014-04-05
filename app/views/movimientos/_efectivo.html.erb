@@ -5,7 +5,7 @@
 
   <div class="field form-group col-md-4" >
     <%= f.label :caja %>
-    <%= f.collection_select(:caja_id, cajas_de_efectivo({ tipo_factura: (@factura.tipo == 'X' ? 'X' : nil) }), :id, :tipo,
+    <%= f.collection_select(:caja_id, cajas_de_efectivo, :id, :tipo,
       { prompt: "-Seleccione Caja-" }, { class: "form-control", required: true } ) %>
   </div>
 
