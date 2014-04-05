@@ -90,7 +90,7 @@ class Recibo < ActiveRecord::Base
     # el resto no importa
     def meiosis_de_facturas
       if factura.present? &&
-         movimientos.any? { |m| m.caja.tipo_factura == 'X' and factura.tipo != 'X' }
+         movimientos.any? { |m| m.caja.tipo_factura == 'X' && factura.tipo != 'X' }
 
         errors.add :movimientos, :meiosis_de_facturas
       end
