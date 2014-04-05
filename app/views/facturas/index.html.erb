@@ -50,9 +50,11 @@
           <td class="ir-a text-right" data-uri="<%= con_obra? factura_path(factura.id) %>"><%= campo %></td>
         <% end %>
         <td>
-          <span>
-            <%= link_to raw('<i class="glyphicon glyphicon-registration-mark" title="Nueva Retencion"></i>'), [:new, factura, :retencion] %>
-          </span>
+          <% if @situacion == 'pago' %>
+            <span>
+              <%= link_to raw('<i class="glyphicon glyphicon-registration-mark" title="Nueva Retencion"></i>'), [:new, factura, :retencion] %>
+            </span>
+          <% end %>
           <span class="pull-right">
             <%= link_to raw('<i class="glyphicon glyphicon-plus-sign" title="Nuevo Recibo"></i>'), [:new, factura, :recibo] %>
           </span>
