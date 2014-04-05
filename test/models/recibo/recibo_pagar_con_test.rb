@@ -24,9 +24,9 @@ class ReciboPagarConTest < ActiveSupport::TestCase
 
   test "pagar facturas x en cajas x" do
     recibo = create :recibo, factura: create(:factura, situacion: 'pago', tipo: 'X')
-    medio_de_pago = Efectivo.new monto: @factura.importe_total,
-      caja: create(:caja, :con_fondos, monto: @factura.importe_total, tipo_factura: 'X')
+    medio_de_pago = Efectivo.new monto: recibo.factura.importe_total,
+      caja: create(:caja, :con_fondos, monto: recibo.factura.importe_total, tipo_factura: 'X')
 
-    assert recibo.pagar_con(medio_de_pago)
+    assert recibo.pagar_con(medio_de_pago), recibo.errors.messages
   end
 end
