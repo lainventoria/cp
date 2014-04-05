@@ -4,6 +4,10 @@
     Pago
   </button>
   <ul class="dropdown-menu" role="menu">
+    <% if @recibo.factura.tipo == 'X' %>
+    <li><%= link_a_nuevo_movimiento('Efectivo') %></li>
+    <li><%= link_a_nuevo_movimiento('Cheque de terceros') %></li>
+    <% else %>
     <li><%= link_a_nuevo_movimiento('Efectivo') %></li>
     <li><%= link_a_nuevo_movimiento('Transferencia') %></li>
     <li class="divider"></li>
@@ -11,5 +15,6 @@
     <li><%= link_a_nuevo_movimiento('Cheque de terceros') %></li>
     <li class="divider"></li>
     <li><%= link_a_nuevo_movimiento('Retenciones') %></li>
+    <% end %>
   </ul>
 </div>
