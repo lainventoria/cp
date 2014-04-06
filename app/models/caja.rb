@@ -195,4 +195,13 @@ class Caja < ActiveRecord::Base
   def descripcion
     "#{efectivo? ? 'Caja' : banco} - #{tipo}"
   end
+
+  # se fija si acepta facturas validas o no
+  def factura_valida?
+    Cp::Application.config.tipos_validos.include? tipo_factura
+  end
+
+  def factura_invalida?
+    not factura_valida?
+  end
 end

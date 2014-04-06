@@ -31,6 +31,12 @@ class Factura < ActiveRecord::Base
   # una modificación
   before_validation :calcular_importe_total
 
+  def self.tipos_invalidos
+    pluck(:tipo).uniq.reject { |t|
+      Cp::Application.config.tipos_validos.include? t
+    }
+  end
+
   # Chequea si la situación es pago
   def pago?
     situacion == 'pago'
@@ -44,6 +50,15 @@ class Factura < ActiveRecord::Base
   # La factura está cancelada cuando el saldo es 0
   def cancelada?
     saldo == Money.new(0)
+  end
+
+  # se fija si la factura es de un tipo considerado valido
+  def tipo_valido?
+    Cp::Application.config.tipos_validos.include? tipo
+  end
+
+  def tipo_invalido?
+    not tipo_valido?
   end
 
   # Si el saldo es menor al importe_total es porque se pagó de más
