@@ -7,7 +7,6 @@
 <div id="cajas">
   <%= render 'list', cajas: @cajas, lista_banco: "hidden", lista_caja: "" %>
 </div>
-
 <br>
 
 <h2>Cuentas
@@ -19,15 +18,9 @@
 <div id="cuentas">
   <%= render 'list', cajas: @cuentas, lista_banco: "", lista_caja: "hidden" %>
 </div>
-
 <br>
 
-<h2>Chequeras
-  <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= con_obra? new_caja_path(situacion: 'chequera') %>">
-    <span class="glyphicon glyphicon-plus"></span>
-    Nueva Chequera
-  </a>
-</h2>
+<h2>Chequeras</h2>
 <div id="chequeras">
   <%= render 'list', cajas: @chequeras, lista_banco: "", lista_caja: "hidden" %>
 </div>

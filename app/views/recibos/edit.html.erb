@@ -1,9 +1,11 @@
 <h2>Editar Recibo</h2>
 
-<div class="row">
-  <div class="col-md-8">
+<div class="col-md-8">
+  <div class="row">
     <%= render 'form' %>
+  </div>
 
+  <div class="row">
     <a type="button" class="btn btn-danger col-md-3" href="<%= con_obra? factura_recibo_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
       <span class="glyphicon glyphicon-remove-circle"></span>
       Borrar Recibo
@@ -17,22 +19,22 @@
       Guardar Cambios
     </a>
   </div>
+</div>
 
-  <div class="col-md-4">
-    <div class="row">
-      <div class="field form-group col-md-5 pull-right">
-        <label>Saldo de la Factura</label><br>
-        <span class="form-control text-right" disabled ><%= formatted_number(@factura.saldo) %></span>
-      </div>
+<div class="col-md-4">
+  <div class="row">
+    <div class="field form-group col-md-6 pull-right">
+      <label>Saldo de la Factura</label><br>
+      <span class="form-control text-right" disabled ><%= formatted_number(@factura.saldo) %></span>
     </div>
+  </div>
 
-    <div class="col-md-offset-1">
-      <h4>Detalle de Movimientos</h4>
-      <%= render 'movimientos/list', movimientos: @recibo.movimientos %>
-    </div>
-    <br>
-    <div id='movimientos' class="pull-right">
-      <%= render "agregar_#{@recibo.situacion}" %>
-    </div>
+  <div class="col-md-offset-1">
+    <h4>Detalle de Movimientos</h4>
+    <%= render 'movimientos/list', movimientos: @recibo.movimientos %>
+  </div>
+  <br>
+  <div id='movimientos' class="pull-right">
+    <%= render "agregar_#{@recibo.situacion}" %>
   </div>
 </div>

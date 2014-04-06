@@ -10,8 +10,8 @@
       </ul>
     </div>
   <% end %>
-  
-  <fieldset <%= editar_o_bloquear %> > 
+
+  <fieldset <%= editar_o_bloquear %> >
     <div class="row">
       <div class="field form-group col-md-6">
         <%= f.label :nombre %><br>
@@ -54,7 +54,7 @@
       <div class="col-md-4">
         <div class="field form-group">
           <%= f.label :direccion %><br>
-          <%= f.text_area :direccion, class: "form-control" %>
+          <%= f.text_area :direccion, { class: "form-control", rows: 4 } %>
         </div>
       </div>
     </div>
@@ -64,10 +64,6 @@
         <%= f.text_area :notas, class: "form-control" %>
       </div>
     </div>
-    <div class="row">
-    </div>
-  </div>
-
-  <br>  
-
+  </fieldset>
+  <br>
 <% end %>

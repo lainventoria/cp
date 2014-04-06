@@ -1,11 +1,11 @@
 <%= form_for [cheque.chequera.obra, cheque.chequera, cheque],
+             html: { class: 'form-inline pull-right' },
              url: depositar_obra_caja_cheque_url(cheque.chequera.obra, cheque.chequera, cheque),
              method: :patch do |f| %>
   <%= f.collection_select(:cuenta_id,
         cheque.chequera.obra.cajas.where(situacion: 'banco'),
         :id,
         :tipo, { prompt: "-Seleccione Caja-" },
-        { class: "form-control" } ) %>
-  <%= f.submit class: "btn btn-info", value: "Depositar" %>
-
+        { class: "form-control input-sm" } ) %>
+  <%= f.submit class: "btn btn-sm btn-info", value: "Depositar" %>
 <% end %>

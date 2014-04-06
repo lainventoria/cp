@@ -1,18 +1,21 @@
 module CajasHelper
 
   def valor_situacion
-    if @caja.new_record? 
+    if @caja.new_record?
       params[:situacion]
     else
       @caja.situacion
     end
   end
-  
+
   def opciones_formulario_caja
-    if valor_situacion == "efectivo"
-      { form_caja: "", form_banco: "hidden" }
-    else
-      { form_caja: "hidden", form_banco: "" }
+    case valor_situacion
+      when 'banco'
+        { form_caja: "hidden",
+          form_banco: "" }
+      else
+        { form_caja: "",
+          form_banco: "hidden" }
     end
   end
 
@@ -32,6 +35,10 @@ module CajasHelper
     else
       'Chequera'
     end
+  end
+
+  def ocultar_en_chequera
+    caja_o_cuenta == 'Chequera' ? 'hidden' : ''
   end
 
   def obra_caja

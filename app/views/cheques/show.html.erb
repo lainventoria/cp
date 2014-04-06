@@ -1,29 +1,25 @@
-<div class="row">
-  <h2><%= titulo_vista_cheque %></h2>
-  <% if !notice.nil? %>
-    <div id="notice" class="alert alert-success"><%= notice %></div>
-  <% end %>
-</div>
+<h2><%= titulo_vista_cheque %></h2>
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-success"><%= notice %></div>
+<% end %>
 
-<div class="row">
-  <div class="col-md-8">
-    <div class="row">
-      <%= render 'form' %>
-    </div>
+<div class="col-md-8">
+  <div class="row">
+    <%= render 'form' %>
+  </div>
 
-    <div class="row">
-      <a type="button" class="btn btn-success col-md-3" href="<%= obra_caja_cheques_path(@cheque.chequera.obra, @cheque.chequera)%>">
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Ver chequera
-      </a>
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= edit_obra_caja_cheque_path(@cheque.chequera.obra, @cheque.chequera, @cheque) %>">
-        <span class="glyphicon glyphicon-edit"></span>
-        Editar Cheque
-      </a>
-    </div>
+  <div class="row">
+    <a type="button" class="btn btn-success col-md-3" href="<%= obra_caja_cheques_path(@cheque.chequera.obra, @cheque.chequera)%>">
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Ver chequera
+    </a>
+    <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= edit_obra_caja_cheque_path(@cheque.chequera.obra, @cheque.chequera, @cheque) %>">
+      <span class="glyphicon glyphicon-edit"></span>
+      Editar Cheque
+    </a>
+  </div>
 
-    <div class="row">
-      <br>
-    </div>
+  <div class="row">
+    <br>
   </div>
 </div>

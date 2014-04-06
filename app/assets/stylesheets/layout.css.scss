@@ -39,14 +39,14 @@ body {
 form {
   .filestyle {
     &[type='text'] {
-      width: 60%;
+      width: 74%;
       float: left;
     }
 
    &.btn {
-      margin-left: 5%;
-      width: 25%;
-      float: left;
+      margin-left: 3%;
+      width: 22%;
+      float: right;
     }
   }
 }

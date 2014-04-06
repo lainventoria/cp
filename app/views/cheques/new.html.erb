@@ -1,27 +1,23 @@
 <%# TODO borrar vista cuando exista interfase de creacion de cheques %>
 
-<div class="row">
-  <h2>Nuevo Cheque</h2>
-  <% if !notice.nil? %>
-    <div id="notice" class="alert alert-success"><%= notice %></div>
-  <% end %>
-</div>
+<h2>Nuevo Cheque</h2>
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-success"><%= notice %></div>
+<% end %>
 
-<div class="row">
-  <div class="col-md-8">
-    <div class="row">
-      <%= render 'form' %>
-    </div>
+<div class="col-md-8">
+  <div class="row">
+    <%= render 'form' %>
+  </div>
 
-    <div class="row">
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= path_a_listado %>">
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Listar Cheques
-      </a>
-      <a type="button" class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
-        <span class="glyphicon glyphicon-ok"></span>
-        Guardar Cambios
-      </a>
-    </div>
+  <div class="row">
+    <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= path_a_listado %>">
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Listar Cheques
+    </a>
+    <a type="button" class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+      <span class="glyphicon glyphicon-ok"></span>
+      Guardar Cambios
+    </a>
   </div>
 </div>

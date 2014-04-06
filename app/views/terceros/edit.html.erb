@@ -1,22 +1,16 @@
-<div class="row">
-  <h2>Editar Tercero</h2>
-</div>
+<h2>Editar Tercero</h2>
 
-<div class="row">
-  <%= render 'form' %>
+<%= render 'form' %>
 
-  <div class="row">
-    <a type="button" class="btn btn-danger col-md-2" href="<%= con_obra? tercero_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
-      <span class="glyphicon glyphicon-remove-circle"></span>
-      Borrar Tercero
-    </a>
-    <a type="button" class="btn btn-warning col-md-2 col-md-offset-1" href="<%= con_obra? tercero_path(@tercero) %>">
-      <span class="glyphicon glyphicon-eye-open"></span>
-      Ver Tercero
-    </a>
-    <a type="button" class="btn btn-success col-md-2 col-md-offset-2" id="btnGuardar">
-      <span class="glyphicon glyphicon-ok"></span>
-      Guardar Cambios
-    </a>
-  </div>
-</div>
+<a type="button" class="btn btn-danger col-md-2" href="<%= con_obra? tercero_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
+  <span class="glyphicon glyphicon-remove-circle"></span>
+  Borrar Tercero
+</a>
+<a type="button" class="btn btn-warning col-md-2 col-md-offset-1" href="<%= con_obra? tercero_path(@tercero) %>">
+  <span class="glyphicon glyphicon-eye-open"></span>
+  Ver Tercero
+</a>
+<a type="button" class="btn btn-success col-md-2 col-md-offset-2" id="btnGuardar">
+  <span class="glyphicon glyphicon-ok"></span>
+  Guardar Cambios
+</a>

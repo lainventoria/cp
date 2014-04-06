@@ -12,7 +12,7 @@
   <td class='text-right <%= lista_cajas %> <%= lista_efectivo %> <%= negativo_rojo(movimiento.monto) %>'>
     <%= movimiento.monto_moneda == 'USD' ? formatted_number(movimiento.monto) : '' %>
   </td>
-  <td>
-    <a class="glyphicon glyphicon-remove-sign text-danger <%= boton_borrar %>" <%# TODO agregar metodo para borrar movimiento %> ></a>
+  <td class="<%= boton_borrar %>">
+    <a class="glyphicon glyphicon-remove-sign text-danger" <%# TODO agregar metodo para borrar movimiento %> ></a>
   </td>
 </tr>

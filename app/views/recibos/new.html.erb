@@ -30,16 +30,17 @@
 
 <div class="col-md-4">
   <div class="row">
-    <div class="field form-group col-md-5 pull-right">
+    <div class="field form-group col-md-6 pull-right">
       <label>Saldo de la Factura</label><br>
       <span class="form-control text-right" disabled ><%= formatted_number(@factura.saldo) %></span>
     </div>
   </div>
-
-  <div class="row">
-    <br>
+  <div class="col-md-offset-1">
+    <h4>Detalle de Movimientos</h4>
+    <%= render 'movimientos/list', movimientos: @recibo.movimientos %>
   </div>
-  <div id='movimientos' class="row pull-right">
+  <br>
+  <div id='movimientos' class="pull-right">
     <%= render "agregar_#{@recibo.situacion}" %>
   </div>
 </div>

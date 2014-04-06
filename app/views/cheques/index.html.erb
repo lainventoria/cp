@@ -1,13 +1,5 @@
-<div class="row">
-  <h2><%= titulo_listado_cheques %>
-    <%# TODO poner un selector de fecha aca %>
-    <% if @obra and @caja %>
-    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_obra_caja_cheque_path(@obra, @caja, situacion: @situacion) %>">
-      <span class="glyphicon glyphicon-plus"></span>
-      Nuevo Cheque
-    </a>
-    <% end %>
-  </h2>
-</div>
+<h2><%= titulo_listado_cheques %>
+  <%# TODO poner un selector de fecha aca %>
+</h2>
 
 <%= render 'list' %>
