@@ -33,8 +33,16 @@ module RecibosHelper
       data: { remote: true }, class: 'agregar-movimiento'
   end
 
+  # crea un listado de cheques segun el tipo de factura que aceptan sus
+  # cajas
   def cheques_de_terceros
-    @factura.obra.cheques.de_terceros.order(:fecha_vencimiento)
+    @factura.obra.cheques.de_terceros.order(:fecha_vencimiento).reject do |c|
+      if @factura.tipo == 'X'
+        c.chequera.tipo_factura != 'X'
+      else
+        c.chequera.tipo_factura == 'X'
+        end
+    end
   end
 
   def retenciones
