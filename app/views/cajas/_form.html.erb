@@ -43,10 +43,11 @@
 
     </div>
 
-      <%# campo necesario para crear un recibo nuevo %>
-      <%= f.hidden_field :situacion, value: valor_situacion %>
-
   </fieldset>
+
+  <%# campo necesario para crear un recibo nuevo %>
+  <%= f.hidden_field :situacion, value: valor_situacion %>
+  <%= hidden_field_tag :obra_id, obra_caja %>
 
   <br>
 
