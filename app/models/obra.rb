@@ -33,24 +33,9 @@ class Obra < ActiveRecord::Base
              pluck(:"#{campo_monto}_centavos", :"#{campo_monto}_moneda", :situacion).
              each do |monto|
 
-      # segun el monto y situacion decidir si restamos o sumamos
-      # TODO cleverizar
-      case monto[2]
-        when 'pago' then
-          case campo_monto
-            # el iva en las facturas de pago se percibe
-            when 'iva' then total += Money.new(monto[0], monto[1])
-            # el resto de lo que se paga se resta porque sale de caja
-            else total -= Money.new(monto[0], monto[1])
-          end
-        when 'cobro' then
-          case campo_monto
-            # el iva de las facturas de cobro se paga al estado
-            when 'iva' then total -= Money.new(monto[0], monto[1])
-            # el resto se suma porque se percibe
-            else total += Money.new(monto[0], monto[1])
-          end
-      end
+      # todo se suma, luego se decide si mostrar los pagos como
+      # negativos en la interfaz, etc.
+      total += Money.new(monto[0], monto[1])
 
     end
 
@@ -59,18 +44,18 @@ class Obra < ActiveRecord::Base
 
   # calcular el total de iva
   def total_iva(params = { })
-    total_facturas('iva', 'ARS', params.merge({ situacion: 'pago' })) +
-    total_facturas('iva', 'ARS', params.merge({ situacion: 'cobro' }))
+    total_facturas('iva', 'ARS', params.merge({ situacion: 'cobro' })) -
+    total_facturas('iva', 'ARS', params.merge({ situacion: 'pago' }))
   end
 
   def saldo_de_facturas(moneda = 'ARS', params = {})
     saldo = Money.new(0, moneda)
-    facturas.where(params).find_each do |f|
+    # filtrar todas las de la moneda especificada si o si
+    facturas.where(params.merge({ importe_total_moneda: moneda })).find_each do |f|
       saldo += f.saldo
     end
 
     saldo
-    
   end
 
   # Sumar los saldos de todas las facturas según situación

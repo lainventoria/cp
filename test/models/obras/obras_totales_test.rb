@@ -9,25 +9,18 @@ class ObrasTotalesTest < ActiveSupport::TestCase
     5.times { @obra.facturas.create(tercero: @tercero, situacion: 'cobro', importe_neto: Money.new(1000, 'ARS'), iva: Money.new(210, 'ARS')) }
   end
 
-  test "todos los pagos son negativos, pero su iva es positivo" do
-    assert_equal Money.new(1000 * -5),
+  test "todos los pagos y su iva son positivos" do
+    assert_equal Money.new(1000 * 5),
                  @obra.total_facturas('importe_neto', 'ARS', { situacion: 'pago' })
     assert_equal Money.new(210 * 5),
                  @obra.total_facturas('iva', 'ARS', { situacion: 'pago' })
   end
 
-  test "los cobros son positivos pero su iva es negativo" do
+  test "los cobros y su iva son positivos" do
     assert_equal Money.new(1000 * 5),
                  @obra.total_facturas('importe_neto', 'ARS', { situacion: 'cobro' })
-    assert_equal Money.new(210 * -5),
+    assert_equal Money.new(210 * 5),
                  @obra.total_facturas('iva', 'ARS', { situacion: 'cobro' })
-  end
-
-  test "el balance da cero" do
-    assert_equal Money.new(0),
-                 @obra.total_facturas('importe_neto', 'ARS')
-    assert_equal Money.new(0),
-                 @obra.total_facturas('iva', 'ARS')
   end
 
   test "los saldos de pago no son negativos" do
