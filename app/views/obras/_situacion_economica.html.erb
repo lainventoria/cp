@@ -1,0 +1,34 @@
+<div class="row col-md-12">
+  <div class="row borde-abajo">
+    <div class="h3 col-md-6">Situacion Economica</div>
+    <div class="h4 h4-alinear-h3 col-md-3 text-right text-bottom">en ARS &nbsp;</div>
+    <div class="h4 h4-alinear-h3 col-md-3 text-right">en USD &nbsp;</div>
+  </div>
+  <div class="row borde-abajo-punteado" title="Saldo general: suma de todos los saldos.">
+    <div class="h4 col-md-6">Total Facturas</div>
+    <div class="h4 text-right col-md-3 <%= negativo_rojo(@obra.saldo_general) %>">
+      <%= formatted_number(@obra.saldo_general('ARS')) %>
+    </div>
+    <div class="h4 text-right col-md-3 <%= negativo_rojo(@obra.saldo_general('USD')) %>">
+      <%= formatted_number(@obra.saldo_general('USD')) %>
+    </div>
+  </div>
+  <div class="row ir-a" data-uri="<%= cobros_obra_facturas_path(@obra) %>" title="Saldo de Cobros: montos pendientes de cobro (ver Facturas de Cobro)">
+    <div class="h4 col-md-6">Facturas por Cobrar</div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.saldo_de_cobro('ARS')) %>
+    </div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.saldo_de_cobro('USD')) %>
+    </div>
+  </div>
+  <div class="row borde-abajo ir-a" data-uri="<%= pagos_obra_facturas_path(@obra) %>" title="Saldo de Pagos: montos pendientes de pago (ver Facturas de Pago)">
+    <div class="h4 col-md-6">Facturas por Pagar</div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.saldo_de_pago('ARS') * -1) %>
+    </div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.saldo_de_pago('USD') * -1) %>
+    </div>
+  </div>
+</div>

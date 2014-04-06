@@ -43,7 +43,7 @@ module ApplicationHelper
   end
 
   def formatted_number(numero)
-    number_to_currency(numero, delimiter: ".", separator: ",", format: '%n .', negative_format: '( %n )' )
+    number_to_currency(numero, delimiter: ".", separator: ",", format: '%n &nbsp;' , negative_format: '( %n )' )
   end
 
   def negativo_rojo(monto)

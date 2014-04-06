@@ -1,63 +1,58 @@
-<div class="row">
-  <h2><%= titulo_detalle_factura %></h2> 
-  <% if !notice.nil? %>
-    <div id="notice" class="alert alert-success"><%= notice %></div>
-  <% end %>
+<h2><%= titulo_detalle_factura %></h2> 
+<% if !notice.nil? %>
+  <div id="notice" class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<div class="col-md-8">
+  <div class="row">
+    <%= render 'form' %>
+  </div>
+
+  <div class="row">
+    <a type="button" class="btn btn-success col-md-3" href="<%= con_obra? facturas_por_tipo_path %>">
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Listar Facturas
+    </a>
+    <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= con_obra? edit_factura_path(@factura) %>">
+      <span class="glyphicon glyphicon-edit"></span>
+      Editar Factura
+    </a>
+  </div>
 </div>
 
-<div class="row">
-  <div class="col-md-8">
-    <div class="row">
-      <%= render 'form' %>
+<div class="col-md-4">
+  <div class="row">
+    <div class="field form-group col-md-5 col-md-offset-1">
+      <label>Saldo remanente</label><br>
+      <span class="form-control text-right" disabled><%= formatted_number(@factura.saldo) %></span>
     </div>
-
-    <div class="row">
-      <a type="button" class="btn btn-success col-md-3" href="<%= con_obra? facturas_por_tipo_path %>">
-        <span class="glyphicon glyphicon-list-alt"></span>
-        Listar Facturas
-      </a>
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= con_obra? edit_factura_path(@factura) %>">
-        <span class="glyphicon glyphicon-edit"></span>
-        Editar Factura
-      </a>
+    <div class="field form-group col-md-5 col-md-offset-1">
+      <label>Total Recibos</label><br>
+      <span class="form-control text-right" disabled><%= formatted_number(@factura.importe_total - @factura.saldo) %></span>
     </div>
   </div>
 
-  <div class="col-md-4">
-    <div class="row">
-      <div class="field form-group col-md-5 col-md-offset-1">
-        <label>Saldo remanente</label><br>
-        <span class="form-control text-right" disabled><%= formatted_number(@factura.saldo) %></span>
-      </div>
-      <div class="field form-group col-md-5 col-md-offset-1">
-        <label>Total Recibos</label><br>
-        <span class="form-control text-right" disabled><%= formatted_number(@factura.importe_total - @factura.saldo) %></span>
-      </div>
-    </div>
+  <div class="col-md-offset-1">
+    <h4>Detalle de Recibos
+      <a type="button" class="btn btn-sm btn-primary pull-right" href="<%= con_obra? new_factura_recibo_path(@factura) %>">
+        <span class="glyphicon glyphicon-plus"></span>
+        Recibo
+      </a>
+    </h4>
+    <% @recibos = @factura.recibos %>
+    <%= render 'recibos/list', lista_larga: "hidden" %>
+  </div>
 
-    <div class="row col-md-offset-1">
-      <h4>Detalle de Recibos
-        <a type="button" class="btn btn-sm btn-primary pull-right" href="<%= con_obra? new_factura_recibo_path(@factura) %>">
+  <% if @factura.pago? %>
+    <div class="col-md-offset-1">
+      <h4>Detalle de Retenciones
+        <a type="button" class="btn btn-sm btn-primary pull-right" href="<%= con_obra? new_factura_retencion_path(@factura) %>">
           <span class="glyphicon glyphicon-plus"></span>
-          Nuevo Recibo
+          Retencion
         </a>
       </h4>
-      <% @recibos = @factura.recibos %>
-      <%= render 'recibos/list', lista_larga: "hidden" %>
+      <% @retenciones = @factura.retenciones %>
+      <%= render 'retenciones/list', lista_larga: 'hidden' %>
     </div>
-
-    <% if @factura.pago? %>
-      <div class="row col-md-offset-1">
-        <h4>Detalle de Retenciones
-          <a type="button" class="btn btn-sm btn-primary pull-right" href="<%= con_obra? new_factura_retencion_path(@factura) %>">
-            <span class="glyphicon glyphicon-plus"></span>
-            Nueva Retencion
-          </a>
-        </h4>
-        <% @retenciones = @factura.retenciones %>
-        <%= render 'retenciones/list', lista_larga: 'hidden' %>
-      </div>
-    <% end %>
-  </div>
+  <% end %>
 </div>
-

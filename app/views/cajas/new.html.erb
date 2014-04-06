@@ -1,10 +1,6 @@
-<div class="row">
-  <h2>Nueva <%= caja_o_cuenta %></h2>
-</div>
+<h2>Nueva <%= caja_o_cuenta %></h2>
 
-<div class="row">
-  <%= render 'form' , opciones_formulario_caja %>
-</div>
+<%= render 'form' , opciones_formulario_caja %>
 
 <div class="row">
   <a type="button" class="btn btn-warning col-md-2 col-md-offset-3" href="<%= con_obra? cajas_path %>">

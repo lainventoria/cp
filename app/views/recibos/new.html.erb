@@ -1,49 +1,45 @@
-<div class="row">
-  <h2>Nuevo Recibo</h2>
+<h2>Nuevo Recibo</h2>
+
+<div class="col-md-8">
+  <div class="row">
+    <%= render 'form' %>
+  </div>
+
+  <div class="row">
+    <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= con_obra? factura_path (@factura) %>">
+      <span class="glyphicon glyphicon-eye-open"></span>
+      Volver a Factura
+    </a>
+    <a type="button" class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+      <span class="glyphicon glyphicon-ok"></span>
+      Guardar Cambios
+    </a>
+  </div>
+
+  <div class="row">
+    <br>
+  </div>
+
+  <div class="row">
+    <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= con_obra? recibos_por_tipo_path %>">
+      <span class="glyphicon glyphicon-list"></span>
+      Listar Recibos
+    </a>
+  </div>
 </div>
 
-<div class="row">
-  <div class="col-md-8">
-    <div class="row">
-      <%= render 'form' %>
-    </div>
-
-    <div class="row">
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= con_obra? factura_path (@factura) %>">
-        <span class="glyphicon glyphicon-eye-open"></span>
-        Volver a Factura
-      </a>
-      <a type="button" class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
-        <span class="glyphicon glyphicon-ok"></span>
-        Guardar Cambios
-      </a>
-    </div>
-
-    <div class="row">
-      <br>
-    </div>
-
-    <div class="row">
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-4" href="<%= con_obra? recibos_por_tipo_path %>">
-        <span class="glyphicon glyphicon-list"></span>
-        Listar Recibos
-      </a>
+<div class="col-md-4">
+  <div class="row">
+    <div class="field form-group col-md-5 pull-right">
+      <label>Saldo de la Factura</label><br>
+      <span class="form-control text-right" disabled ><%= formatted_number(@factura.saldo) %></span>
     </div>
   </div>
 
-  <div class="col-md-4">
-    <div class="row">
-      <div class="field form-group col-md-5 pull-right">
-        <label>Saldo de la Factura</label><br>
-        <span class="form-control text-right" disabled ><%= formatted_number(@factura.saldo) %></span>
-      </div>
-    </div>
-
-    <div class="row">
-      <br>
-    </div>
-    <div id='movimientos' class="row pull-right">
-      <%= render "agregar_#{@recibo.situacion}" %>
-    </div>
+  <div class="row">
+    <br>
+  </div>
+  <div id='movimientos' class="row pull-right">
+    <%= render "agregar_#{@recibo.situacion}" %>
   </div>
 </div>

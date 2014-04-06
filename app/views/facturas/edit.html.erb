@@ -1,27 +1,23 @@
-<div class="row">
-  <h2>Editar Factura</h2>
-  <%= render 'layouts/notice' %>
-</div>
+<h2>Editar Factura</h2>
+<%= render 'layouts/notice' %>
 
-<div class="row">
-  <div class="col-md-8">
-    <div class="row">
-      <%= render 'form' %>
-    </div>
+<div class="col-md-8">
+  <div class="row">
+    <%= render 'form' %>
+  </div>
 
-    <div class="row">
-      <a type="button" class="btn btn-danger col-md-3" href="<%= con_obra? factura_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
-        <span class="glyphicon glyphicon-remove-circle"></span>
-        Borrar Factura
-      </a>
-      <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= con_obra? factura_path(@factura) %>">
-        <span class="glyphicon glyphicon-eye-open"></span>
-        Volver a Factura
-      </a>
-      <a type="button" class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
-        <span class="glyphicon glyphicon-ok"></span>
-        Guardar Cambios
-      </a>
-    </div>
+  <div class="row">
+    <a type="button" class="btn btn-danger col-md-3" href="<%= con_obra? factura_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
+      <span class="glyphicon glyphicon-remove-circle"></span>
+      Borrar Factura
+    </a>
+    <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= con_obra? factura_path(@factura) %>">
+      <span class="glyphicon glyphicon-eye-open"></span>
+      Volver a Factura
+    </a>
+    <a type="button" class="btn btn-success col-md-3 col-md-offset-2" id="btnGuardar">
+      <span class="glyphicon glyphicon-ok"></span>
+      Guardar Cambios
+    </a>
   </div>
 </div>

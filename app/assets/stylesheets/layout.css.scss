@@ -13,6 +13,28 @@ body {
   margin-top: 5px;
 }
 
+.h4-alinear-h3 {
+  margin-top: 25px;
+}
+
+// cambia cursor a 'pointer' en elementos con clase 'ir-a'
+.ir-a {
+  cursor: pointer;
+}
+
+// bordes para celdas y renglones
+.borde-abajo {
+  border-bottom-color: #EEE;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+}
+
+.borde-abajo-punteado {
+  border-bottom-color: #EEE;
+  border-bottom-width: 2px;
+  border-bottom-style: dashed;
+}
+
 // estilo para selector de archivos bootstrap-filestyle
 form {
   .filestyle {

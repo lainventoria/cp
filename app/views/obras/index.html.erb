@@ -1,34 +1,38 @@
-<div class="row">
-  <h2>Listado de Obras
-    <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_obra_path %>">
-      <span class="glyphicon glyphicon-plus"></span>
-      Nueva Obra
-    </a>
-  </h2>
-</div>
+<h2>Listado de Obras
+  <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= new_obra_path %>">
+    <span class="glyphicon glyphicon-plus"></span>
+    Nueva Obra
+  </a>
+</h2>
 
-<table class="table table-hover table-condensed">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Nombre</th>
-      <th>Direccion</th>
-      <th>Saldo General</th>
-      <th>Saldo de Pagos</th>
-      <th>Saldo de Cobros</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @obras.each do |obra| %>
-      <tr class="ir-a" data-uri="<%= obra_path(obra.id) %>">
-        <td><%= link_to raw('<i class="glyphicon glyphicon-eye-open" title="Ver Obra"></i>'), [obra] %></td>
-        <td><%= obra.nombre %></td>
-        <td><%= obra.direccion %></td>
-        <td><%= obra.saldo_general %></td>
-        <td><%= obra.saldo_de_pago %></td>
-        <td><%= obra.saldo_de_cobro %></td>
+<div class="row col-md-9">
+  <table class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Nombre</th>
+        <th>Direccion</th>
+        <th class="text-right">Obligaciones Netas</th>
+        <th class="text-right">Liquidez Neta</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @obras.each do |obra| %>
+        <tr class="ir-a" data-uri="<%= obra_path(obra.id) %>">
+          <td><%= link_to raw('<i class="glyphicon glyphicon-eye-open" title="Ver Obra"></i>'), [obra] %></td>
+          <td><%= obra.nombre %></td>
+          <td><%= obra.direccion %></td>
+          <td class="text-right" data-uri='<%= obra_path(obra.id) %>'>
+            <div class='<%= negativo_rojo(obra.saldo_general('ARS')) %>'><%= formatted_number obra.saldo_general('ARS') %> ARS</div>
+            <div class='<%= negativo_rojo(obra.saldo_general('USD')) %>'><%= formatted_number obra.saldo_general('USD') %> ARS</div>
+          </td>
+          <td class="text-right" data-uri='<%= obra_path(obra.id) %>'>
+            <div class='<%= negativo_rojo(obra.total_general('ARS')) %>'><%= formatted_number obra.total_general('ARS') %> ARS</div>
+            <div class='<%= negativo_rojo(obra.total_general('USD')) %>'><%= formatted_number obra.total_general('USD') %> ARS</div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

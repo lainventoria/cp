@@ -1,0 +1,61 @@
+<div class="row col-md-12">
+  <div class="row borde-abajo">
+    <div class="h3 col-md-6">Situacion Financiera</div>
+    <div class="h4 h4-alinear-h3 col-md-3 text-right text-bottom">en ARS &nbsp;</div>
+    <div class="h4 h4-alinear-h3 col-md-3 text-right">en USD &nbsp;</div>
+  </div>
+  <div class="row borde-abajo-punteado" title="Liquidez Neta: dinero disponible no comprometido con pagos futuros">
+    <div class="h4 col-md-6">Liquidez Neta</div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.total_general('ARS')) %>
+    </div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.total_general('USD')) %>
+    </div>
+  </div>
+  <div class="row ir-a" data-uri="<%= obra_cajas_path(@obra) %>" title="Efectivo: montos disponibles en todas las cajas de la obra (ver Cajas y Cuentas)">
+    <div class="h4 col-md-6">Efectivo</div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.total_general('ARS', { situacion: 'efectivo' })) %>
+    </div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.total_general('USD', { situacion: 'efectivo' })) %>
+    </div>
+  </div>
+  <div class="row ir-a" data-uri="<%= obra_cajas_path(@obra) %>" title="Bancos: montos disponibles en todas las cuentas bancarias de la obra (ver Cajas y Cuentas)">
+    <div class="h4 col-md-6">Bancos</div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.total_general('ARS', { situacion: 'banco' })) %>
+    </div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.total_general('USD', { situacion: 'banco' })) %>
+    </div>
+  </div>
+  <div class="row ir-a" data-uri="<%= obra_cheques_path(@obra, situacion: 'terceros') %>" title="Cheques 3ros: cheques de 3ros en cartera (ver Cheques Terceros)">
+    <div class="h4 col-md-6">Cheques de 3ros</div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.chequera.total) %>
+    </div>
+    <div class="h4 text-right col-md-3">
+    --- &nbsp;
+    </div>
+  </div>
+  <div class="row ir-a" data-uri="<%= obra_cheques_path(@obra, situacion: 'propios') %>" title="Cheques Propios: cheques propios emitidos (ver Cheques Propios)">
+    <div class="h4 col-md-6">Cheques Propios</div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.chequera_propia.total) %>
+    </div>
+    <div class="h4 text-right col-md-3">
+    --- &nbsp;
+    </div>
+  </div>
+  <div class="row borde-abajo ir-a" data-uri="<%= obra_retenciones_path(@obra, situacion: 'terceros') %>" title="Retenciones: retenciones pendientes de pago (ver Retenciones)">
+    <div class="h4 col-md-6">Retenciones</div>
+    <div class="h4 text-right col-md-3">
+      <%= formatted_number(@obra.total_general('ARS', "tipo LIKE 'Retenciones%' AND situacion = 'chequera'")) %>
+    </div>
+    <div class="h4 text-right col-md-3">
+      --- &nbsp;
+    </div>
+  </div>
+</div>
