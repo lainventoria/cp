@@ -103,4 +103,20 @@ class ChequeTest < ActiveSupport::TestCase
     assert_equal cheque.monto, cheque.chequera.total * -1
     assert_equal cheque.monto, cuenta.total
   end
+
+  test 'adopta el banco de su cuenta si es propio' do
+    cuenta = create :cuenta, banco: 'Gringotts'
+    cheque = build :cheque, banco: nil, cuenta: cuenta
+
+    assert cheque.save
+    assert_equal 'Gringotts', cheque.banco
+  end
+
+  test 'nunca adopta el banco de su cuenta si es de terceros' do
+    cuenta = create :cuenta, banco: 'Gringotts'
+    cheque = build :cheque_de_terceros, banco: 'Otro', cuenta: cuenta
+
+    assert cheque.save
+    assert_equal 'Otro', cheque.banco
+  end
 end

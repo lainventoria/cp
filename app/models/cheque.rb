@@ -40,6 +40,8 @@ class Cheque < ActiveRecord::Base
 
   monetize :monto_centavos, with_model_currency: :monto_moneda
 
+  before_save :adoptar_banco_de_cuenta
+
   # Trae todos los cheques vencidos, si se le pasa una fecha trae los
   # vencidos a ese momento
   # TODO testear
@@ -57,11 +59,17 @@ class Cheque < ActiveRecord::Base
   scope :propios, ->{ where(situacion: 'propio') }
 
   def self.construir(params)
-    id_de_terceros = params.extract! :cheque_id
+    cheque_de_terceros_id = params.extract! :cheque_id
+
+    parametros_permitidos = params.permit :cuenta_id, :chequera_id, :monto,
+      :monto_moneda, :numero, :fecha_emision, :beneficiario,
+      :fecha_vencimiento
 
     # TODO scopear a obra y cosas así
-    if id_de_terceros.present?
-      find(id_de_terceros[:cheque_id])
+    if cheque_de_terceros_id.present?
+      find(cheque_de_terceros_id[:cheque_id])
+    else
+      new parametros_permitidos
     end
   end
 
@@ -216,6 +224,12 @@ class Cheque < ActiveRecord::Base
     def tipo_de_cuenta
       if cuenta.present?
         errors.add(:cuenta_id, :debe_ser_una_cuenta_de_banco) unless cuenta.banco?
+      end
+    end
+
+    def adoptar_banco_de_cuenta
+      if propio?
+        self.banco = cuenta.try :banco
       end
     end
 end

@@ -1,0 +1,52 @@
+<h4>Emitir un cheque</h4>
+
+<%= fields_for :causa do |f| %>
+  <%= hidden_field_tag 'causa_tipo', 'cheque-propio' %>
+  <%= f.hidden_field :chequera_id, value: @factura.obra.chequera_propia.id %>
+
+    <div class="field form-group col-md-4" >
+      <%= f.label :cuenta %>
+      <%= f.collection_select :cuenta_id, @factura.obra.cajas.cuentas, :id, :tipo,
+          { prompt: "-Seleccione Cuenta-" }, { class: "form-control" } %>
+    </div>
+
+    <div class="field form-group col-md-3">
+      <%= f.label :fecha_emision %><br>
+      <div class="input-group date">
+        <%= f.text_field :fecha_emision, class: "form-control" %>
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-th"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field form-group col-md-3">
+      <%= f.label :fecha_vencimiento %><br>
+      <div class="input-group date">
+        <%= f.text_field :fecha_vencimiento, class: "form-control" %>
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-th"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field form-group col-md-2" >
+      <%= f.label :monto %>
+      <%= f.text_field :monto, class: 'form-control' %>
+    </div>
+
+    <div class="field form-group col-md-4">
+      <%= f.label :numero %><br>
+      <%= f.text_field :numero, class: "form-control" %>
+    </div>
+
+    <div class="field form-group col-md-6">
+      <%= f.label :beneficiario %><br>
+      <%= f.text_field :beneficiario, class: 'form-control' %>
+    </div>
+
+    <div class="field form-group col-md-2" >
+      <br>
+      <%= f.submit 'Agregar', name: 'agregar_causa', class: 'btn btn-success nivelar-boton form-control' %>
+    </div>
+<% end %>

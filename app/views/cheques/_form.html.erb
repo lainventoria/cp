@@ -16,22 +16,29 @@
     <div class="row">
       <div class="field form-group col-md-3">
         <label>Chequera</label>
-        <%= f.collection_select(:chequera_id, @cheque.chequera.obra.cajas.where(situacion: 'chequera'), :id, :tipo, { prompt: "-Seleccione Chequera-", selected: @cheque.chequera_id }, { class: "form-control" } ) %>
+        <%= f.collection_select(:chequera_id, @cheque.chequera.obra.cajas.where(situacion: 'chequera'),
+            :id, :tipo, { prompt: "-Seleccione Chequera-", selected: @cheque.chequera_id },
+            { class: "form-control" } ) %>
       </div>
+
       <div class="field form-group col-md-3 col-md-offset-3">
         <%= f.label :fecha_emision %><br>
         <div class="input-group date">
-          <%= f.text_field :fecha_emision, { class: "form-control", value:formatted_date(@cheque.fecha_emision) } %>
+          <%= f.text_field :fecha_emision, class: "form-control",
+              value: formatted_date(@cheque.fecha_emision) %>
           <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
       </div>
+
       <div class="field form-group col-md-3">
         <%= f.label :fecha_vencimiento %><br>
         <div class="input-group date">
-          <%= f.text_field :fecha_vencimiento, { class: "form-control", value:formatted_date(@cheque.fecha_vencimiento) } %>
+          <%= f.text_field :fecha_vencimiento, class: "form-control",
+              value: formatted_date(@cheque.fecha_vencimiento) %>
           <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
       </div>
+
     </div>
 
     <div class="row">
@@ -54,6 +61,7 @@
         <%= f.label :banco %><br>
         <%= f.text_field :banco, class: "form-control" %>
       </div>
+
       <div class="field form-group col-md-3">
         <%= f.label :numero %><br>
         <%= f.text_field :numero, class: "form-control" %>
