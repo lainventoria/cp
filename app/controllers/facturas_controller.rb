@@ -107,7 +107,8 @@ class FacturasController < ApplicationController
       params.require(:factura).permit(
         :tipo, :numero, :situacion, :tercero_id, :importe_neto, :iva,
         :descripcion, :importe_total, :fecha, :fecha_pago, :obra_id,
-        :importe_neto_moneda, :iva_moneda, :importe_total_moneda
+        :importe_neto_moneda, :iva_moneda, :importe_total_moneda,
+        tercero_attributes: [ :nombre, :cuit ]
       )
     end
 end

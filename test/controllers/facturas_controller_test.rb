@@ -27,6 +27,26 @@ class FacturasControllerTest < ActionController::TestCase
     assert_redirected_to obra_factura_path(@factura.obra, assigns(:factura))
   end
 
+  test "crea un tercero adhoc" do
+    obra = create :obra
+    assert_difference('Factura.count') do
+      assert_difference('Tercero.count') do
+        post :create, factura: {
+          obra_id: obra.id,
+          descripcion: 'qweqe',
+          situacion: 'pago', fecha: Time.now,
+          fecha_pago: Time.now,
+          importe_total: Money.new(1000), iva: Money.new(0),
+          numero: '1', tipo: 'X',
+          tercero_attributes: { nombre: 'pepe honguito', cuit: '20-31278322-4' }
+        }
+      end
+
+    end
+
+    assert_redirected_to obra_factura_path(obra, assigns(:factura))
+  end
+
   test "muestra" do
     get :show, id: @factura
     assert_response :success
@@ -50,7 +70,13 @@ class FacturasControllerTest < ActionController::TestCase
   end
 
   test "actualiza" do
-    patch :update, id: @factura, factura: { tercero: @factura.tercero, descripcion: @factura.descripcion, situacion: @factura.situacion, fecha: @factura.fecha, fecha_pago: @factura.fecha_pago, importe_total: @factura.importe_total, iva: @factura.iva, numero: @factura.numero, tipo: @factura.tipo }
+
+    patch :update, id: @factura, factura: { tercero_id: @factura.tercero,
+      descripcion: @factura.descripcion, situacion: @factura.situacion,
+      fecha: @factura.fecha, fecha_pago: @factura.fecha_pago,
+      importe_total: @factura.importe_total, iva: @factura.iva,
+      numero: @factura.numero, tipo: @factura.tipo }
+
     assert_redirected_to factura_path(assigns(:factura))
   end
 

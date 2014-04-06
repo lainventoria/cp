@@ -23,6 +23,8 @@ class Factura < ActiveRecord::Base
 
   validate :validate_saldo
 
+  accepts_nested_attributes_for :tercero
+
   monetize :importe_neto_centavos, with_model_currency: :importe_neto_moneda
   monetize :importe_total_centavos, with_model_currency: :importe_total_moneda
   monetize :iva_centavos, with_model_currency: :iva_moneda
@@ -103,4 +105,12 @@ class Factura < ActiveRecord::Base
   def validate_saldo
     errors.add :recibos, :sobrepasan_el_importe_total if saldo.negative?
   end
+
+  # setear magicamente el tercero si no pasamos uno existente
+  def tercero_attributes=(attributes = {})
+    if tercero_id.nil?
+      self.tercero = Tercero.where(attributes.merge({ relacion: 'ambos' })).first_or_create
+    end
+  end
+
 end

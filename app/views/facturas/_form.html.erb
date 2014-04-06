@@ -47,11 +47,11 @@
       <div class="field form-group col-md-8">
         <%= f.hidden_field :tercero_id %>
         <%= f.label :tercero %><br>
-        <%= autocomplete_field_tag 'nombre_tercero', @factura.tercero.try(:nombre), autocomplete_tercero_nombre_facturas_path, { class: "form-control" } %>
+        <%= autocomplete_field_tag 'factura[tercero_attributes[nombre]]', @factura.tercero.try(:nombre), autocomplete_tercero_nombre_facturas_path, { class: "form-control" } %>
       </div>
       <div class="field form-group col-md-4">
         <%= f.label '', 'CUIT' %><br>
-        <%= autocomplete_field_tag 'cuit_tercero', @factura.tercero.try(:cuit), autocomplete_tercero_cuit_facturas_path, { class: "form-control" } %>
+        <%= autocomplete_field_tag 'factura[tercero_attributes[cuit]]', @factura.tercero.try(:cuit), autocomplete_tercero_cuit_facturas_path, { class: "form-control" } %>
       </div>
     </div>
 
