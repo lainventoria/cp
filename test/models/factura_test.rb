@@ -31,6 +31,9 @@ class FacturaTest < ActiveSupport::TestCase
     end
 
     assert factura.reload.cancelada?
+    # testbombing!
+    assert_not Factura.por_saldar.include? factura
+    assert Factura.saldadas.include? factura
   end
 
   test "desbloquear factura despues de cancelada" do

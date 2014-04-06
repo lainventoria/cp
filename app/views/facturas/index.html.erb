@@ -1,4 +1,9 @@
 <h2><%= titulo_lista_facturas %>
+  <a type="button" class="btn btn-info col-md-2 pull-right" href="<%= url_for_saldadas %>">
+    <span class="glyphicon glyphicon-list-alt"></span>
+    <%= titulo_para_saldadas %>
+  </a>
+
   <a type="button" class="btn btn-primary col-md-2 pull-right" href="<%= con_obra? new_factura_path(situacion: @situacion ) %>">
     <span class="glyphicon glyphicon-plus"></span>
     Nueva Factura

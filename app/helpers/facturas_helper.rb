@@ -43,4 +43,20 @@ module FacturasHelper
   def obra_factura
     @factura.new_record? ? params[:obra_id] : @factura.obra_id
   end
+
+  def url_for_saldadas
+    if params[:saldadas].present?
+      url_for(saldadas: nil)
+    else
+      url_for(saldadas: true)
+    end
+  end
+
+  def titulo_para_saldadas
+    if params[:saldadas].present?
+      "Ver por saldar"
+    else
+      "Ver saldadas"
+    end
+  end
 end
