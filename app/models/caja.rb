@@ -76,36 +76,28 @@ class Caja < ActiveRecord::Base
     end
   end
 
-  # El cambio de moneda registra la transacción con un movimiento de salida
-  # (negativo) y un movimiento de entrada en la nueva moneda.
-  #
-  # Este índice de cambio no se registra en el banco default
-  def cambiar(cantidad, moneda, indice)
-    # Sólo si la caja tiene suficiente saldo devolvemos el monto convertido
+  # Te doy 3 pesos por tus 100 dólares
+  def cambiar(cantidad, cantidad_aceptada)
     Caja.transaction do
-      # Crear un recibo que agrupe todos los movimientos producto de
-      # este cambio
       recibo = Recibo.interno_nuevo
-
-      # FIXME agregar causa los movimientos
-      recibo.movimientos << extraer(cantidad, true)
-      cantidad.bank.exchange cantidad.fractional, indice do |nuevo|
-        recibo.movimientos << depositar(Money.new(nuevo, moneda), true)
-      end
-
+      salida = extraer(cantidad, true)
+      entrada = depositar(cantidad_aceptada, true)
+      salida.causa = entrada.causa = Operacion.new
+      recibo.movimientos << salida << entrada
       recibo
-    end || nil
+    end
   end
 
-  # Te doy 3 pesos por tus 100 dólares
-  def cambiar_a_ojo(cantidad, cantidad_aceptada)
-     Caja.transaction do
+  # transferir un monto de una caja a otra
+  def transferir(monto, caja)
+    Caja.transaction do
       recibo = Recibo.interno_nuevo
-      # FIXME agregar causa los movimientos
-      recibo.movimientos << extraer(cantidad, true)
-      recibo.movimientos << depositar(cantidad_aceptada, true)
+      salida = extraer(monto, true)
+      entrada = caja.depositar(monto, true)
+      salida.causa = entrada.causa = Operacion.new
+      recibo.movimientos << salida << entrada
       recibo
-    end || nil
+    end
   end
 
   # Sólo si la caja tiene suficiente saldo o es una chequera, devolvemos el
@@ -184,20 +176,6 @@ class Caja < ActiveRecord::Base
     cheque.pagar
   end
 
-  # transferir un monto de una caja a otra
-  def transferir(monto, caja)
-    recibo = nil
-
-    Caja.transaction do
-      recibo = Recibo.interno_nuevo
-      # FIXME agregar causa los movimientos
-      recibo.movimientos << extraer(monto, true)
-      recibo.movimientos << caja.depositar(monto, true)
-    end
-
-    recibo
-  end
-
   # las cajas no se pueden destruir, solo se marcan como archivadas 
   def archivar
     totales.each do |total|
@@ -209,5 +187,9 @@ class Caja < ActiveRecord::Base
 
     self.archivada = true
     save
+  end
+
+  def descripcion
+    "#{efectivo? ? 'Caja' : banco} - #{tipo}"
   end
 end

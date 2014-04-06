@@ -17,8 +17,8 @@
       <th>Vence <%= sort_links @factura, :fecha_pago %></th>
       <th>Tercero <%= sort_links @factura, :terceros_nombre %></th>
       <th>Descripción</th>
-      <th class="text-right">Moneda</th>
-      <th class="text-right"><%= sort_links @factura, :importe_neto_centavos %> Importe total</th>
+      <th class="text-right">Moneda <%= sort_links @factura, :importe_total_moneda %></th>
+      <th class="text-right">Importe Total <%= sort_links @factura, :importe_total_centavos %></th>
       <th class="text-right">Saldo</th>
       <th></th>
     </tr>

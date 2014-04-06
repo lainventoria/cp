@@ -1,13 +1,12 @@
 # encoding: utf-8
 class CajasController < ApplicationController
   before_action :set_obra
-  before_action :set_caja, only: [:show, :edit, :update, :destroy]
-  before_action :set_movimientos, only: [:show]
+  before_action :set_caja, except: [ :index, :new, :create ]
 
   def index
-    @cajas = @obra ? @obra.cajas.where(situacion: 'efectivo') : Caja.where(situacion: 'efectivo')
-    @cuentas = @obra ? @obra.cajas.where(situacion: 'banco') : Caja.where(situacion: 'banco')
-    @chequeras = @obra ? @obra.cajas.where(situacion: 'chequera') : Caja.where(situacion: 'chequera')
+    @cajas =     (@obra ? @obra.cajas : Caja).de_efectivo
+    @cuentas =   (@obra ? @obra.cajas : Caja).cuentas
+    @chequeras = (@obra ? @obra.cajas : Caja).chequeras
   end
 
   def show
@@ -15,7 +14,7 @@ class CajasController < ApplicationController
   end
 
   def new
-    @caja = Caja.new
+    @caja = Caja.new obra: @obra
     @editar = true
   end
 
@@ -66,7 +65,28 @@ class CajasController < ApplicationController
         format.json { render json: @caja.errors, status: :unprocessable_entity }
       end
     end
+  end
 
+  def cambiar
+    @operacion = Operacion.new caja: @caja
+  end
+
+  def transferir
+    @operacion = Operacion.new caja: @caja
+  end
+
+  def operar
+    @operacion = Operacion.new operacion_params
+
+    respond_to do |format|
+      if @operacion.send(operacion)
+        format.html { redirect_to ruta_segun_operacion, notice: 'Operación realizada con éxito.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to ruta_segun_operacion, notice: 'Ocurrió un error.' }
+        format.json { render json: @operacion.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
@@ -75,20 +95,44 @@ class CajasController < ApplicationController
       @caja = (@obra.present? ? @obra.cajas : Caja).find(params[:id])
     end
 
-    def set_movimientos
-      # FIXME @movimientos = @caja.movimientos. Hace falta?
-      @movimientos = Movimiento.where(caja_id: @caja.id)
-
-      # FIXME WTF?
-      if ( ! @caja.nil? && ! @movimientos.nil? )
-        @caja.movimientos = @movimientos
-      end
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def caja_params
       params.require(:caja).permit(
         :obra_id, :situacion, :tipo, :banco, :numero
+      )
+    end
+
+    # Operaciones permitidas
+    def operaciones_validas
+      %{ transferir cambiar }
+    end
+
+    # Devuelve la operación sólo si es válida
+    def operacion
+      if operaciones_validas.include?(params[:tipo_de_operacion])
+        params[:tipo_de_operacion]
+      else
+        nil
+      end
+    end
+
+    # A qué ruta redirigir después de la operación
+    def ruta_segun_operacion
+      case operacion
+        when 'transferir'
+          transferir_caja_path(@caja)
+        when 'cambiar'
+          cambiar_caja_path(@caja)
+        else
+          @caja
+      end
+    end
+
+    # Parámetros permitidos para las operaciones de caja
+    def operacion_params
+      params.require(:operacion).permit(
+        :caja_id, :monto, :monto_moneda, :caja_destino_id,
+        :monto_aceptado, :monto_aceptado_moneda
       )
     end
 end

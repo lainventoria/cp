@@ -1,5 +1,5 @@
 # encoding: utf-8
-class Efectivo < PagoNoTrackeable
+class Efectivo < CausaNoTrackeable
   include CausaDeMovimientos
 
   validates_presence_of :monto, :caja
@@ -9,7 +9,7 @@ class Efectivo < PagoNoTrackeable
     # Si vamos a cambiar, hacer el cambio interno y usar el nuevo valor de
     # monto
     if monto_aceptado.try :nonzero?
-      caja.cambiar_a_ojo(monto, monto_aceptado)
+      caja.cambiar(monto, monto_aceptado)
       self.monto = monto_aceptado
     end
 

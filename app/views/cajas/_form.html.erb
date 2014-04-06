@@ -19,10 +19,11 @@
   <fieldset <%= editar_o_bloquear %>>
 
     <div class="row">
-      
+
       <div class="field form-group col-md-2">
         <%= f.label :obra_id %>
-        <%= f.collection_select(:obra_id, Obra.all, :id, :nombre, { prompt: "-Seleccione Obra-", selected: obra_caja }, { class: "form-control" } ) %>
+        <%= f.collection_select(:obra_id, Obra.all, :id, :nombre, {
+            prompt: "-Seleccione Obra-", selected: obra_caja }, { class: "form-control" } ) %>
       </div>
 
       <div class="field form-group col-md-2 <%= form_banco %>">
@@ -44,7 +45,7 @@
 
       <%# campo necesario para crear un recibo nuevo %>
       <%= f.hidden_field :situacion, value: valor_situacion %>
-      
+
   </fieldset>
 
   <br>

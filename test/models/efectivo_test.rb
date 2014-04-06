@@ -12,7 +12,7 @@ class EfectivoTest < ActiveSupport::TestCase
   end
 
   test 'es un medio de pago' do
-    assert_kind_of PagoNoTrackeable, @efectivo
+    assert_kind_of CausaNoTrackeable, @efectivo
     assert_nothing_raised { @efectivo.usar_para_pagar build(:recibo) }
   end
 

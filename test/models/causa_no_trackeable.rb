@@ -2,10 +2,10 @@
 require 'test_helper'
 
 # Testear sarasa!
-class Sarasa < PagoNoTrackeable
+class Sarasa < CausaNoTrackeable
 end
 
-class PagoNoTrackeableTest < ActiveSupport::TestCase
+class CausaNoTrackeableTest < ActiveSupport::TestCase
   test 'registra el monto en pesos por default' do
     assert_equal Money.new(100), Sarasa.new(monto: Money.new(100)).monto
   end

@@ -19,7 +19,7 @@ module RecibosHelper
   def link_a_causa(movimiento)
     case movimiento.causa_type
       # Las causas sin vista en el sistema no generan links
-      when 'Efectivo', 'Transferencia'
+      when 'Efectivo', 'Transferencia', 'Operacion'
         movimiento.causa_type
       else
         # TODO sacar el if cuando todos los movimientos tengan causa

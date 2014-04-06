@@ -4,9 +4,6 @@ Cp::Application.routes.draw do
   # /obra
   resources :obras do
 
-    # /obra/caja
-    resources :cajas
-
     # /obra/factura
     resources :facturas do
       # Filtrar facturas por situacion
@@ -15,10 +12,13 @@ Cp::Application.routes.draw do
         get 'pagos'
       end
 
-      # /obra/factura/recibo - Ver los recibos de cada factura para esta obra
+      # /obra/factura/recibo
+      # Ver los recibos de cada factura para esta obra
+      # TODO acciones que sobran?
       resources :recibos, except: [ :index ]
 
-      # /obra/factura/retención - Ver las retenciones de cada factura para esta obra
+      # /obra/factura/retención
+      # Ver las retenciones de cada factura para esta obra
       resources :retenciones
     end
 
@@ -30,8 +30,9 @@ Cp::Application.routes.draw do
       end
     end
 
-    # /obra/caja/cheque
+    # /obra/caja
     resources :cajas do
+      # /obra/caja/cheque
       resources :cheques do
         member do
           patch 'depositar'
@@ -43,11 +44,20 @@ Cp::Application.routes.draw do
 
     # /obra/retención
     resources :retenciones, only: [ :index, :show ]
+    # /obra/cheque
     # no se editan cheques aca, solo se listan
     resources :cheques, only: [ :index, :show, :edit ]
   end
 
+  # /caja
   resources :cajas do
+    member do
+      get 'cambiar'
+      get 'transferir'
+      patch 'operar'
+    end
+
+    # /caja/cheque
     # no se editan cheques aca, solo se listan
     resources :cheques, only: [ :index, :show, :edit ]
   end

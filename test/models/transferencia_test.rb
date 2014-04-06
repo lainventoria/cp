@@ -12,7 +12,7 @@ class TransferenciaTest < ActiveSupport::TestCase
   end
 
   test 'es un medio de pago' do
-    assert_kind_of PagoNoTrackeable, @transferencia
+    assert_kind_of CausaNoTrackeable, @transferencia
     assert_nothing_raised { @transferencia.usar_para_pagar build(:recibo) }
   end
 

@@ -20,4 +20,9 @@ module CausaDeMovimientos
   def usar_para_pagar(recibo)
     raise NotImplementedError, 'Cada causa debe definir `usar_para_pagar`'
   end
+
+  # Cada medio de cobro tiene que implementar su propio proceso de cobr
+  def usar_para_cobrar(recibo)
+    raise NotImplementedError, 'Cada causa debe definir `usar_para_cobrar`'
+  end
 end

@@ -1,0 +1,12 @@
+<%# cajas: una lista de cajas - opcional (por ahora)
+    nombre: el nombre del select para unirlo a un params - opcional %>
+
+<%  unless cajas.present?
+      cajas = (@obra.present? ? @obra.cajas : Caja).where.not(situacion: 'chequera')
+    end %>
+
+<label>Caja / Cuenta</label>
+
+<%= select_tag defined?(nombre) ? nombre : :caja,
+    options_from_collection_for_select(cajas, :id, :descripcion),
+    class: 'form-control' %>

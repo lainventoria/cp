@@ -1,0 +1,31 @@
+<div class="row">
+  <h2>Transferencia desde <%= @caja.descripcion %></h2>
+</div>
+
+<%= form_for @operacion, url: operar_caja_path(@caja), method: :patch do |f| %>
+  <%= hidden_field_tag :tipo_de_operacion, :transferir %>
+
+  <%= render partial: 'origen_de_operacion', locals: { f: f } %>
+
+  <div class="row destino">
+    <div class="field form-group col-md-1">
+      <br>
+      <label>A</label>
+    </div>
+
+    <div class="field form-group col-md-4">
+      <%# TODO se puede transferir de cuentas a cajas de efectivo y viceversa, o
+          se hace con depósitos y extracciones independientes? %>
+      <%= render partial: 'layouts/selector_cajas', locals: {
+          cajas: @caja.obra.cajas.where.not(situacion: 'chequeras').where.not(id: @caja.id),
+          nombre: 'operacion[caja_destino_id]' } %>
+    </div>
+
+    <div class="field form-group col-md-2" >
+      <br>
+      <%= f.submit 'Operar', class: 'btn btn-success nivelar-boton form-control' %>
+    </div>
+  </div>
+  <br>
+
+<% end %>
