@@ -78,13 +78,26 @@ class Caja < ActiveRecord::Base
 
   # Te doy 3 pesos por tus 100 dólares
   def cambiar(cantidad, cantidad_aceptada)
-     Caja.transaction do
+    Caja.transaction do
       recibo = Recibo.interno_nuevo
       salida = extraer(cantidad, true)
-      entrada =  depositar(cantidad_aceptada, true)
+      entrada = depositar(cantidad_aceptada, true)
+      salida.causa = entrada.causa = Operacion.new
       recibo.movimientos << salida << entrada
       recibo
-    end || nil
+    end
+  end
+
+  # transferir un monto de una caja a otra
+  def transferir(monto, caja)
+    Caja.transaction do
+      recibo = Recibo.interno_nuevo
+      salida = extraer(monto, true)
+      entrada = caja.depositar(monto, true)
+      salida.causa = entrada.causa = Operacion.new
+      recibo.movimientos << salida << entrada
+      recibo
+    end
   end
 
   # Sólo si la caja tiene suficiente saldo o es una chequera, devolvemos el
@@ -161,21 +174,6 @@ class Caja < ActiveRecord::Base
   # mejor haría un 'pagar_todo'
   def pagar_cheque(cheque)
     cheque.pagar
-  end
-
-  # transferir un monto de una caja a otra
-  def transferir(monto, caja)
-    recibo = nil
-
-    Caja.transaction do
-      recibo = Recibo.interno_nuevo
-      salida = extraer(monto, true)
-      entrada = caja.depositar(monto, true)
-      salida.causa = entrada.causa = Transferencia.new
-      recibo.movimientos << salida << entrada
-    end
-
-    recibo
   end
 
   # las cajas no se pueden destruir, solo se marcan como archivadas 

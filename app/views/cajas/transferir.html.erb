@@ -3,7 +3,7 @@
 </div>
 
 <%= form_for @operacion, url: operar_caja_path(@caja), method: :patch do |f| %>
-  <%= hidden_field_tag :operacion, :transferencia %>
+  <%= hidden_field_tag :tipo_de_operacion, :transferir %>
 
   <%= render partial: 'origen_de_operacion', locals: { f: f } %>
 
@@ -18,7 +18,7 @@
           se hace con depósitos y extracciones independientes? %>
       <%= render partial: 'layouts/selector_cajas', locals: {
           cajas: @caja.obra.cajas.where.not(situacion: 'chequeras').where.not(id: @caja.id),
-          nombre: 'transferencia[caja_destino_id]' } %>
+          nombre: 'operacion[caja_destino_id]' } %>
     </div>
 
     <div class="field form-group col-md-2" >

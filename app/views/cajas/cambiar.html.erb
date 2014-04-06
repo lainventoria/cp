@@ -3,7 +3,7 @@
 </div>
 
 <%= form_for @operacion, url: operar_caja_path(@caja), method: :patch do |f| %>
-  <%= hidden_field_tag :operacion, :cambio %>
+  <%= hidden_field_tag :tipo_de_operacion, :cambiar %>
 
   <%= render partial: 'origen_de_operacion', locals: { f: f } %>
 
@@ -15,7 +15,7 @@
 
     <div class="field form-group col-md-2">
       <%= render partial: 'layouts/selector_moneda', locals: {
-            moneda: 'ARS', name: 'cambio[monto_aceptado_moneda]' } %>
+            moneda: 'ARS', nombre: 'operacion[monto_aceptado_moneda]' } %>
     </div>
 
     <div class="field form-group col-md-2">

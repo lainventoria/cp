@@ -7,7 +7,8 @@
   </div>
 
   <div class="field form-group col-md-2">
-    <%= render 'layouts/selector_moneda', moneda: 'ARS', seleccion:'' %>
+    <%= render partial: 'layouts/selector_moneda', locals: {
+          moneda: 'ARS', nombre: 'operacion[monto_moneda]' } %>
   </div>
 
   <div class="field form-group col-md-2">

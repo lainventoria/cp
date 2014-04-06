@@ -1,6 +1,6 @@
 # encoding: utf-8
-# Representa una clase de pago con una única instancia en el sistema, a la cual
-# no nos interesa seguirle el rastro (e.g. efectivo).
+# Representa una causa de movimientos con una única instancia en el sistema, a
+# la cual no nos interesa seguirle el rastro (e.g. efectivo).
 class CausaNoTrackeable
   include ActiveModel::Naming
   include ActiveModel::Validations
@@ -32,19 +32,20 @@ class CausaNoTrackeable
 
   def self.construir(params)
     datos = params.extract! :monto_moneda, :monto, :caja_id, :caja,
-      :monto_aceptado, :monto_aceptado_moneda, :caja_destino_id, :indice
+      :monto_aceptado, :monto_aceptado_moneda, :caja_destino_id
     new datos
   end
 
   def initialize(opciones = {})
     @caja = parsear_caja opciones[:caja], opciones[:caja_id]
-    @caja_destino = parsear_caja opciones[:caja_destino], opciones[:caja_destino_id]
+    @caja_destino = parsear_caja(
+      opciones[:caja_destino], opciones[:caja_destino_id])
 
     # TODO quitar opciones de carga!
-    @monto = parsear_monto  opciones[:monto],
-                            opciones[:monto_moneda]
-    @monto_aceptado = parsear_monto opciones[:monto_aceptado],
-                                    opciones[:monto_aceptado_moneda]
+    @monto = parsear_monto(
+      opciones[:monto], opciones[:monto_moneda])
+    @monto_aceptado = parsear_monto(
+      opciones[:monto_aceptado], opciones[:monto_aceptado_moneda])
   end
 
   def caja_id

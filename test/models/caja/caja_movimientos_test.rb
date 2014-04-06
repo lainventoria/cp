@@ -21,6 +21,10 @@ class CajaMovimientosTest < ActiveSupport::TestCase
     assert @caja.movimientos.collect(&:monto).include?(Money.new(500, 'EUR'))
     assert @caja.movimientos.collect(&:monto).include?(Money.new(-200, 'EUR'))
     assert @caja.movimientos.collect(&:monto).include?(Money.new(300))
+
+    @recibo_interno.movimientos.each do |m|
+      assert_equal 'Operacion', m.causa_type
+    end
   end
 
   test 'no cambia moneda si no hay suficiente' do
@@ -46,7 +50,7 @@ class CajaMovimientosTest < ActiveSupport::TestCase
     assert_equal dineros, destino.total
     assert_equal 0, origen.total
     recibo.movimientos.each do |m|
-      assert_equal 'Transferencia', m.causa_type
+      assert_equal 'Operacion', m.causa_type
     end
   end
 end

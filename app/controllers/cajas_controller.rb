@@ -4,8 +4,8 @@ class CajasController < ApplicationController
   before_action :set_caja, except: [ :index, :new, :create ]
 
   def index
-        @cajas = (@obra ? @obra.cajas : Caja).de_efectivo
-      @cuentas = (@obra ? @obra.cajas : Caja).cuentas
+    @cajas =     (@obra ? @obra.cajas : Caja).de_efectivo
+    @cuentas =   (@obra ? @obra.cajas : Caja).cuentas
     @chequeras = (@obra ? @obra.cajas : Caja).chequeras
   end
 
@@ -68,18 +68,18 @@ class CajasController < ApplicationController
   end
 
   def cambiar
-    @operacion = Cambio.new caja: @caja
+    @operacion = Operacion.new caja: @caja
   end
 
   def transferir
-    @operacion = Transferencia.new caja: @caja
+    @operacion = Operacion.new caja: @caja
   end
 
   def operar
-    @operacion = modelo_de_operacion.construir operacion_params
+    @operacion = Operacion.new operacion_params
 
     respond_to do |format|
-      if @operacion.operar
+      if @operacion.send(operacion)
         format.html { redirect_to ruta_segun_operacion, notice: 'Operación realizada con éxito.' }
         format.json { head :no_content }
       else
@@ -104,25 +104,24 @@ class CajasController < ApplicationController
 
     # Operaciones permitidas
     def operaciones_validas
-      %{ transferencia cambio }
+      %{ transferir cambiar }
     end
 
     # Devuelve la operación sólo si es válida
     def operacion
-      operaciones_validas.include?(params[:operacion]) ? params[:operacion] : nil
-    end
-
-    # Para 'transferencia' devuelve la clase Transferencia
-    def modelo_de_operacion
-      operacion.try(:classify).try(:constantize)
+      if operaciones_validas.include?(params[:tipo_de_operacion])
+        params[:tipo_de_operacion]
+      else
+        nil
+      end
     end
 
     # A qué ruta redirigir después de la operación
     def ruta_segun_operacion
       case operacion
-        when 'transferencia'
+        when 'transferir'
           transferir_caja_path(@caja)
-        when 'cambio'
+        when 'cambiar'
           cambiar_caja_path(@caja)
         else
           @caja
@@ -131,7 +130,7 @@ class CajasController < ApplicationController
 
     # Parámetros permitidos para las operaciones de caja
     def operacion_params
-      params.require(operacion).permit(
+      params.require(:operacion).permit(
         :caja_id, :monto, :monto_moneda, :caja_destino_id,
         :monto_aceptado, :monto_aceptado_moneda
       )
