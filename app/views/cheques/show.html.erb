@@ -7,7 +7,6 @@
   <div class="row">
     <%= render 'form' %>
   </div>
-
   <div class="row">
     <a type="button" class="btn btn-success col-md-3" href="<%= obra_caja_cheques_path(@cheque.chequera.obra, @cheque.chequera)%>">
       <span class="glyphicon glyphicon-list-alt"></span>
@@ -18,8 +17,14 @@
       Editar Cheque
     </a>
   </div>
+  <br>
+</div>
 
+<div class="col-md-4">
   <div class="row">
-    <br>
+    <div class="col-md-11 col-md-offset-1">
+      <h4>Recibos asociados</h4>
+      <%= render 'recibos/list' %>
+    </div>
   </div>
 </div>

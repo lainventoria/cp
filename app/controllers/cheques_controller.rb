@@ -4,7 +4,8 @@ class ChequesController < ApplicationController
   before_action :set_caja
   before_action :set_cheques, only: [ :index ]
   before_action :set_cheque, only: [ :show, :edit, :update, :destroy, :depositar, :pagar, :cobrar ]
-  before_action :set_order, only: [:propios, :terceros]
+  before_action :set_order, only: [ :propios, :terceros ]
+  before_action :set_recibos, only: [ :show ]
 
   def index
     params[:situacion] ? @cheques = @cheques.where(situacion: params[:situacion]) : ''
@@ -133,5 +134,9 @@ class ChequesController < ApplicationController
       if params[:caja_id]
         @caja = (@obra.present? ? @obra.cajas : Caja).find(params[:caja_id])
       end
+    end
+
+    def set_recibos
+      @recibos = @cheque.recibos
     end
 end
