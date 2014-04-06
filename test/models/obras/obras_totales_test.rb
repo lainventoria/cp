@@ -37,12 +37,12 @@ class ObrasTotalesTest < ActiveSupport::TestCase
     assert_equal Money.new(0), @obra.saldo_general
   end
 
-  test "las facturas X se balancean aparte" do
+  test "todas las facturas se balancean juntas" do
     @obra.facturas.create(tercero: @tercero,
       situacion: 'pago', importe_neto: Money.new(1000, 'ARS'),
       tipo: 'X')
 
-    assert_equal Money.new(0), @obra.saldo_general
+    assert_equal Money.new(-1000), @obra.saldo_general
     assert_equal Money.new(-1000), @obra.saldo_general('ARS', { tipo: 'X' })
   end
 
