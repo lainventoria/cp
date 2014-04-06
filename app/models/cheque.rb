@@ -40,6 +40,8 @@ class Cheque < ActiveRecord::Base
 
   monetize :monto_centavos, with_model_currency: :monto_moneda
 
+  before_save :adoptar_banco_de_cuenta
+
   # Trae todos los cheques vencidos, si se le pasa una fecha trae los
   # vencidos a ese momento
   # TODO testear
@@ -216,6 +218,12 @@ class Cheque < ActiveRecord::Base
     def tipo_de_cuenta
       if cuenta.present?
         errors.add(:cuenta_id, :debe_ser_una_cuenta_de_banco) unless cuenta.banco?
+      end
+    end
+
+    def adoptar_banco_de_cuenta
+      if propio?
+        self.banco = cuenta.try :banco
       end
     end
 end
