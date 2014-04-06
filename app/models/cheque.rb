@@ -59,11 +59,17 @@ class Cheque < ActiveRecord::Base
   scope :propios, ->{ where(situacion: 'propio') }
 
   def self.construir(params)
-    id_de_terceros = params.extract! :cheque_id
+    cheque_de_terceros_id = params.extract! :cheque_id
+
+    parametros_permitidos = params.permit :cuenta_id, :chequera_id, :monto,
+      :monto_moneda, :numero, :fecha_emision, :beneficiario,
+      :fecha_vencimiento
 
     # TODO scopear a obra y cosas así
-    if id_de_terceros.present?
-      find(id_de_terceros[:cheque_id])
+    if cheque_de_terceros_id.present?
+      find(cheque_de_terceros_id[:cheque_id])
+    else
+      new parametros_permitidos
     end
   end
 

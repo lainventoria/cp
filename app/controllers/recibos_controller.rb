@@ -57,7 +57,6 @@ class RecibosController < ApplicationController
 
     respond_to do |format|
       if @recibo.update(recibo_params) && @recibo.pagar_con(@causa)
-
         format.html { seguir_agregando_o_mostrar }
         format.json { head :no_content }
       else

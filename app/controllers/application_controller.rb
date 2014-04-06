@@ -60,7 +60,9 @@ class ApplicationController < ActionController::Base
       if params[:causa].present?
         params[:causa].permit(
           :monto, :monto_moneda, :caja_id, :cheque_id, :retencion_id,
-          :monto_aceptado, :monto_aceptado_moneda
+          :monto_aceptado, :monto_aceptado_moneda,
+          :cuenta_id, :chequera_id, :numero, :fecha_emision, :beneficiario,
+          :fecha_vencimiento
         )
       else
         {}
