@@ -37,11 +37,13 @@ module RecibosHelper
   # cajas
   def cheques_de_terceros
     @factura.obra.cheques.de_terceros.order(:fecha_vencimiento).reject do |c|
-      if @factura.tipo == 'X'
-        c.chequera.tipo_factura != 'X'
+      # si la factura es valida, rebota las cajas de tipo invalido
+      # si la factura es invalida, rebota las cajas de tipo valido
+      if @factura.tipo_valido?
+        c.chequera.factura_invalida?
       else
-        c.chequera.tipo_factura == 'X'
-        end
+        c.chequera.factura_valida?
+      end
     end
   end
 
@@ -51,8 +53,10 @@ module RecibosHelper
 
   # TODO si la caja no tiene fondos no sale ninguna
   def cajas_de_efectivo
+    tipos = @factura.tipo_valido? ? Cp::Application.config.tipos_validos : Factura.tipos_invalidos
+
     @factura.obra.cajas.de_efectivo.
-      where(tipo_factura: (@factura.tipo == 'X' ? 'X' : nil)).
+      where(tipo_factura: tipos).
       con_fondos_en(@factura.importe_total_moneda).uniq
   end
 

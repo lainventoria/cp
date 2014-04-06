@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :factura do
     obra
     tercero
-    tipo "MyString"
+    tipo "A"
     numero "MyString"
     situacion "pago"
     descripcion "MyText"

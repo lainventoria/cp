@@ -86,11 +86,11 @@ class Recibo < ActiveRecord::Base
       end
     end
 
-    # comprueba que las cajas X sólo acepten facturas X
+    # comprueba que las cajas validas solo acepten facturas validas
     # el resto no importa
     def meiosis_de_facturas
       if factura.present? &&
-         movimientos.any? { |m| m.caja.tipo_factura == 'X' && factura.tipo != 'X' }
+         movimientos.any? { |m| m.caja.factura_valida? == factura.tipo_invalido? }
 
         errors.add :movimientos, :meiosis_de_facturas
       end
