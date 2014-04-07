@@ -5,14 +5,18 @@ class Transferencia < CausaNoTrackeable
   validates_presence_of :monto, :caja
   validate :caja_es_una_cuenta
 
+  # Puedo ofrecer pesos (monto), o dólares (monto) aceptados como pesos
+  # (monto_aceptado). También intercambiando las monedas
   def usar_para_pagar(recibo)
-    # Si vamos a cambiar, hacer el cambio interno y usar el nuevo valor de
-    # monto
+    # Si ofrezco una moneda a cambio de la correspondiente a la factura, tengo
+    # que cambiarla
     if monto_aceptado.try :nonzero?
       caja.cambiar(monto, monto_aceptado)
       self.monto = monto_aceptado
     end
 
+    # Extraigo de la caja ya sea el pago correcto, o el pago aceptado que
+    # generó el cambio
     if movimiento = caja.extraer(monto)
       movimiento.causa = self
       movimiento.recibo = recibo
@@ -22,11 +26,13 @@ class Transferencia < CausaNoTrackeable
     end
   end
 
+  # Puedo aceptar pesos (monto), o dólares (monto) aceptados como pesos
+  # (monto_aceptado). También intercambiando las monedas
   def usar_para_cobrar(recibo)
-    # Si vamos a cambiar, hacer el cambio interno y usar el nuevo valor de
+    # Si  cambiar, hacer el cambio interno y usar el nuevo valor de
     # monto
     if monto_aceptado.try :nonzero?
-      caja.cambiar(monto, monto_aceptado)
+      caja.cambiar(monto_aceptado, monto)
       self.monto = monto_aceptado
     end
 
@@ -37,11 +43,6 @@ class Transferencia < CausaNoTrackeable
     else
       false
     end
-  end
-
-  # Usa sus datos para transferir
-  def operar
-    caja.transferir monto, caja_destino
   end
 
   private
