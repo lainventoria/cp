@@ -5,9 +5,9 @@ $(document)
 
     $("#selector_moneda_pago").on "change", ->
       if $("#selector_moneda_pago").val() is $("#selector_moneda").val()
-        $("#movimiento_monto_aceptado").hide()
+        $("#movimiento_monto_aceptado *").hide()
       else
-        $("#movimiento_monto_aceptado").show()
+        $("#movimiento_monto_aceptado *").show()
 
     $("#selector_moneda_pago").trigger("change")
 
