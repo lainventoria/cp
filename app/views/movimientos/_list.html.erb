@@ -1,11 +1,7 @@
-<%# este partial requiere los siguientes parametros
-  movimientos: movimientos a renderizar
-%>
-<%# TODO todos estos pueden ir a helpers %>
-<% params[:controller] == 'cajas' ? lista_cajas = '' : lista_cajas = 'hidden' %>
-<% params[:controller] == 'recibos' ? lista_recibos = '' : lista_recibos = 'hidden' %>
-<% params[:action] == 'edit' ? boton_borrar = '' : boton_borrar = 'hidden' %>
-<% movimientos.pluck(:monto_moneda).uniq.count == 2 ? lista_efectivo = '' : lista_efectivo = 'hidden' %>
+<% lista_cajas = establecer_parametros_listado_movimientos(movimientos)[0] %>
+<% lista_recibos = establecer_parametros_listado_movimientos(movimientos)[1] %>
+<% boton_borrar = establecer_parametros_listado_movimientos(movimientos)[2] %>
+<% lista_efectivo = establecer_parametros_listado_movimientos(movimientos)[3] %>
 
 <table class="table table-hover table-condensed">
   <thead>
