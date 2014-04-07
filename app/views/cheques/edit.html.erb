@@ -6,11 +6,11 @@
   </div>
 
   <div class="row">
-    <a type="button" class="btn btn-danger col-md-3" href="<%= obra_caja_cheque_path(@cheque.chequera.obra, @cheque.chequera, @cheque) %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
+    <a type="button" class="btn btn-danger col-md-3" href="<%= obra_cheque_path(@cheque.chequera.obra, @cheque.chequera, @cheque) %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
       <span class="glyphicon glyphicon-remove-circle"></span>
       Borrar Cheque
     </a>
-    <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= obra_caja_cheque_path(@cheque.chequera.obra, @cheque.chequera, @cheque) %>">
+    <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= obra_cheque_path(@cheque.chequera.obra, @cheque.chequera, @cheque) %>">
       <span class="glyphicon glyphicon-eye-open"></span>
       Volver a Cheque
     </a>
