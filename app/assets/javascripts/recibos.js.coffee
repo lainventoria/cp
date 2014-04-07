@@ -9,10 +9,6 @@ $(document)
       else
         $("#movimiento_monto_aceptado").show()
 
-    $("#causa_monto").on "keyup", ->
-      if $("#selector_moneda_pago").val() is $("#selector_moneda").val()
-        $("#causa_monto_aceptado").val($("#causa_monto").val())
-
     $("#selector_moneda_pago").trigger("change")
 
     # TODO Por alguna razón no bindea a los nuevos objetos
