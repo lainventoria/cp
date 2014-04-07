@@ -82,10 +82,10 @@ class CajasController < ApplicationController
 
     respond_to do |format|
       if @operacion.send(operacion)
-        format.html { redirect_to ruta_segun_operacion, notice: 'Operación realizada con éxito.' }
+        format.html { redirect_to obra_cajas_path(@caja.obra), notice: 'Operación realizada con éxito.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to ruta_segun_operacion, notice: 'Ocurrió un error.' }
+        format.html { redirect_to obra_cajas_path(@caja.obra), notice: 'Ocurrió un error.' }
         format.json { render json: @operacion.errors, status: :unprocessable_entity }
       end
     end
@@ -115,18 +115,6 @@ class CajasController < ApplicationController
         params[:tipo_de_operacion]
       else
         nil
-      end
-    end
-
-    # A qué ruta redirigir después de la operación
-    def ruta_segun_operacion
-      case operacion
-        when 'transferir'
-          transferir_caja_path(@caja)
-        when 'cambiar'
-          cambiar_caja_path(@caja)
-        else
-          @caja
       end
     end
 
