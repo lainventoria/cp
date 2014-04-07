@@ -4,7 +4,7 @@
     Cobro
   </button>
   <ul class="dropdown-menu" role="menu">
-    <% if @recibo.factura.tipo.valido? %>
+    <% if @recibo.factura.tipo_valido? %>
       <li><%= link_a_nuevo_movimiento('Efectivo') %></li>
       <li><%= link_a_nuevo_movimiento('Transferencia') %></li>
       <li class="divider"></li>

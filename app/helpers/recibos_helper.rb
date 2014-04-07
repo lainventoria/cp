@@ -55,13 +55,24 @@ module RecibosHelper
   def cajas_de_efectivo
     tipos = @factura.tipo_valido? ? Cp::Application.config.tipos_validos : Factura.tipos_invalidos
 
-    @factura.obra.cajas.de_efectivo.
-      where(tipo_factura: tipos).
-      con_fondos_en(@factura.importe_total_moneda).uniq
+    cajas = @factura.obra.cajas.de_efectivo.
+      where(tipo_factura: tipos)
+
+    if @factura.pago?
+      cajas.con_fondos_en(@factura.importe_total_moneda).uniq
+    else
+      cajas.uniq
+    end
   end
 
   def cuentas_de_donde_transferir
-    @factura.obra.cajas.cuentas.con_fondos_en(@factura.importe_total_moneda)
+    cuentas = @factura.obra.cajas.cuentas
+
+    if @factura.pago?
+      cuentas.con_fondos_en(@factura.importe_total_moneda)
+    else
+      cuentas
+    end
   end
 
   def cuentas_de_donde_emitir

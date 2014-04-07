@@ -40,7 +40,7 @@ class RecibosController < ApplicationController
     @causa = modelo_de_causa.try :construir, causa_params
 
     respond_to do |format|
-      if @recibo.save && @recibo.pagar_con(@causa)
+      if @recibo.save && @recibo.pagar_o_cobrar_con(@causa)
 
         format.html { seguir_agregando_o_mostrar }
         format.json { render action: 'show', status: :created, location: [@recibo.factura,@recibo] }
@@ -56,7 +56,7 @@ class RecibosController < ApplicationController
     @causa = modelo_de_causa.try :construir, causa_params
 
     respond_to do |format|
-      if @recibo.update(recibo_params) && @recibo.pagar_con(@causa)
+      if @recibo.update(recibo_params) && @recibo.pagar_o_cobrar_con(@causa)
         format.html { seguir_agregando_o_mostrar }
         format.json { head :no_content }
       else

@@ -44,6 +44,14 @@ class Recibo < ActiveRecord::Base
     self.situacion = factura.situacion
   end
 
+  def pagar_o_cobrar_con(algo)
+    if pago?
+      pagar_con algo
+    elsif cobro?
+      cobrar_con algo
+    end
+  end
+
   def pagar_con(medio_de_pago)
     if medio_de_pago.present?
       if pago = medio_de_pago.usar_para_pagar(self)
@@ -56,6 +64,26 @@ class Recibo < ActiveRecord::Base
           errors.add :base, :medio_de_pago_invalido,
             causa: pago.causa_type,
             mensaje: pago.errors.messages.values.flatten.to_sentence
+        end
+      else
+        # TODO Creo que ya no se llega acá
+        false
+      end
+    else
+      true # noop, como un save sin cambios
+    end
+  end
+
+  def cobrar_con(medio_de_cobro)
+    if medio_de_cobro.present?
+      if cobro = medio_de_cobro.usar_para_cobrar(self)
+        if cobro.errors.empty?
+          movimientos.build caja: cobro.caja, monto: cobro.monto, causa: cobro.causa
+          save
+        else
+          errors.add :base, :medio_de_cobro_invalido,
+            causa: cobro.causa_type,
+            mensaje: cobro.errors.messages.values.flatten.to_sentence
         end
       else
         # TODO Creo que ya no se llega acá
