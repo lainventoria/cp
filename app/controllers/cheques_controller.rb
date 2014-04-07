@@ -3,7 +3,7 @@ class ChequesController < ApplicationController
   before_action :set_obra
   before_action :set_caja
   before_action :set_cheque, only: [ :show, :edit, :update, :destroy, :depositar, :pagar, :cobrar ]
-  before_action :set_order, only: [:propios, :terceros]
+  before_action :set_order, only: [:index]
 
   def index
     if params[:situacion]

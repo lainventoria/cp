@@ -7,12 +7,12 @@
   <thead>
     <tr>
       <th></th>
-      <th>Fecha <%= sort_links @recibo, :fecha %></th>
-      <th class="<%= lista_larga %>">Tercero <%= sort_links @recibo, :terceros_nombre %></th>
+      <th>Fecha <%= sort_links :fecha %></th>
+      <th class="<%= lista_larga %>">Tercero <%= sort_links :terceros_nombre %></th>
       <th class="<%= lista_larga %>">Factura</th>
       <th class="<%= lista_larga %>">Fecha Factura</th>
       <th class="text-right">Moneda</th>
-      <th class="text-right">Importe</th>
+      <th class="text-right">Importe <%= sort_links :importe_cache_centavos %></th>
     </tr>
   </thead>
 

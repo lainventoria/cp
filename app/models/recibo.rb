@@ -15,7 +15,10 @@ class Recibo < ActiveRecord::Base
            unless: :interno?
 
   before_save :actualizar_situacion, unless: :interno?
+  before_save :actualizar_importe_cache
   before_destroy :borrar_movimientos_asociados
+
+  monetize :importe_cache_centavos, with_model_currency: :importe_cache_moneda
 
   # Todas las situaciones en que se generan recibos
   SITUACIONES = %w(cobro pago interno)
@@ -156,5 +159,9 @@ class Recibo < ActiveRecord::Base
     # valida que si no pasamos fecha se ponga la actual
     def siempre_es_hoy
       self.fecha = Time.now if not fecha
+    end
+
+    def actualizar_importe_cache
+      self.importe_cache = importe
     end
 end

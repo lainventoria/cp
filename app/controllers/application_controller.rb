@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    # para cargar las columnaas por que ordenar
+    # para cargar las columnas porque ordenar
     def set_order
       sort = params[:sort].present? ? params[:sort] : 'id'
       if sort == 'terceros_nombre'
