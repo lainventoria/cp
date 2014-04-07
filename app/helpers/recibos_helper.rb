@@ -48,7 +48,7 @@ module RecibosHelper
   end
 
   def retenciones
-    @factura.retenciones
+    @factura.retenciones.where.not(estado: ['aplicada', 'cerrada'])
   end
 
   # TODO si la caja no tiene fondos no sale ninguna

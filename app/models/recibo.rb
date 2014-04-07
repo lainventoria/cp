@@ -158,7 +158,10 @@ class Recibo < ActiveRecord::Base
 
     # No funciona el dependent porque algunas causas no son modelos reales :|
     def borrar_movimientos_asociados
-      if movimientos.collect(&:causa).any?(&:trackeable?)
+      if temporal?
+        # TODO Caso especial a reingenierizar
+        movimientos.first.try :delete
+      elsif movimientos.collect(&:causa).any?(&:trackeable?)
         false
       else
         movimientos.all?(&:destroy)

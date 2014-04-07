@@ -116,7 +116,7 @@ class Retencion < ActiveRecord::Base
       if movimiento = deuda_pendiente
         movimiento.causa = self
         movimiento.recibo = este_recibo
-        aplicar
+        aplicar and borrar_recibo_temporal
         movimiento
       else
         false
@@ -137,7 +137,7 @@ class Retencion < ActiveRecord::Base
   end
 
   def deuda_pendiente
-    recibos.where(situacion: 'temporal').movimientos.first
+    recibos.where(situacion: 'temporal').first.movimientos.first
   end
 
   private
@@ -167,5 +167,9 @@ class Retencion < ActiveRecord::Base
           temporal.save
         end
       end
+    end
+
+    def borrar_recibo_temporal
+      recibos.where(situacion: 'temporal').first.destroy
     end
 end
