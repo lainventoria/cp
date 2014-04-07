@@ -20,7 +20,7 @@
       </div>
       <div class="field form-group col-md-2">
         <%= f.label :relacion %><br>
-        <%= f.text_field :relacion, class: "form-control" %>
+        <%= f.select :relacion, Tercero::RELACIONES, { prompt: '-Elegir-' }, { class: 'form-control' } %>
       </div>
     </div>
     <div class="row">
