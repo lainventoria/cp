@@ -209,10 +209,14 @@ class Cheque < ActiveRecord::Base
   def usar_para_cobrar(este_recibo)
     if terceros?
       Cheque.transaction do
-        movimiento = chequera.depositar(monto)
-        movimiento.causa = self
-        este_recibo.movimientos << movimiento
-        save
+        if movimiento = chequera.depositar(monto, true)
+          save
+          movimiento.causa = self
+          movimiento.recibo = este_recibo
+          movimiento
+        else
+          false
+        end
       end
     else
       errors.add(:situacion, :debe_ser_de_terceros)

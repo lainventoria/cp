@@ -22,6 +22,23 @@ class Transferencia < CausaNoTrackeable
     end
   end
 
+  def usar_para_cobrar(recibo)
+    # Si vamos a cambiar, hacer el cambio interno y usar el nuevo valor de
+    # monto
+    if monto_aceptado.try :nonzero?
+      caja.cambiar(monto, monto_aceptado)
+      self.monto = monto_aceptado
+    end
+
+    if movimiento = caja.depositar(monto)
+      movimiento.causa = self
+      movimiento.recibo = recibo
+      movimiento
+    else
+      false
+    end
+  end
+
   # Usa sus datos para transferir
   def operar
     caja.transferir monto, caja_destino
