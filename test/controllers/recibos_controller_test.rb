@@ -92,13 +92,6 @@ class RecibosControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "no muestra a través de otra obra" do
-    # Rails devuelve un 404 por default con estos errores en producción
-    assert_raise ActiveRecord::RecordNotFound do
-      get :show, obra_id: create(:obra), id: create(:recibo, factura: @factura)
-    end
-  end
-
   test "accede a editar" do
     get :edit, id: create(:recibo, factura: @factura), factura_id: @factura
     assert_response :success

@@ -15,15 +15,20 @@
       Editar Retención
     </a>
   </div>
-
-  <div class="row">
-    <br>
-  </div>
-
+  <br>
   <div class="row">
     <a type="button" class="btn btn-success col-md-3" href="<%= con_obra? retenciones_path %>">
       <span class="glyphicon glyphicon-list"></span>
       Listar Retenciones
     </a>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="row">
+    <div class="col-md-11 col-md-offset-1">
+      <h4>Recibos asociados</h4>
+      <%= render 'recibos/list' %>
+    </div>
   </div>
 </div>

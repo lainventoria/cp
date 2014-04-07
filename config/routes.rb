@@ -27,6 +27,7 @@ Cp::Application.routes.draw do
       collection do
         get 'cobros'
         get 'pagos'
+        get 'internos'
       end
     end
 
@@ -89,6 +90,7 @@ Cp::Application.routes.draw do
     collection do
       get 'cobros'
       get 'pagos'
+      get 'internos'
     end
   end
 

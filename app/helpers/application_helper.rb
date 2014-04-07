@@ -90,6 +90,7 @@ module ApplicationHelper
           # otra obra
           when 'pagos' then url_for(params.merge({ obra_id: obra.try(:id), factura_id: nil }))
           when 'cobros' then url_for(params.merge({ obra_id: obra.try(:id), factura_id: nil }))
+          when 'internos' then url_for(params.merge({ obra_id: obra.try(:id), factura_id: nil }))
           # para las otras acciones vamos al listado segun la situacion
           # del recibo actual
           else url_for(params.merge({ obra_id: obra.try(:id), factura_id: nil, action: @recibo.try(:situacion) +"s", id: nil }))

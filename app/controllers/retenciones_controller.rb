@@ -5,6 +5,7 @@ class RetencionesController < ApplicationController
   before_action :set_factura, only: [:show, :edit, :update, :new, :create]
   before_action :set_retencion, only: [:show, :edit, :update, :destroy]
   before_action :set_retenciones, only: [:index]
+  before_action :set_recibos, only: [ :show ]
 
   def index
   end
@@ -82,9 +83,14 @@ class RetencionesController < ApplicationController
       end
     end
 
+    def set_recibos
+      @recibos = @retencion.recibos
+    end
+
     def retencion_params
       params.require(:retencion).permit(
-        :monto, :documento, :factura_id, :fecha_vencimiento
+        :monto, :documento, :factura_id,
+        :fecha_vencimiento, :situacion
       )
     end
 end

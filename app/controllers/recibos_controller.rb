@@ -9,6 +9,12 @@ class RecibosController < ApplicationController
   def index
   end
 
+  def internos
+    @recibos = Recibo.where(situacion: 'interno')
+    @situacion = 'Interno'
+    render 'index'
+  end
+
   def cobros
     @recibos = @recibos.joins(:tercero).where(situacion: 'cobro').order(@order)
     @situacion = "Cobros"
@@ -86,8 +92,6 @@ class RecibosController < ApplicationController
     def set_recibo
       @recibo = if @factura.present?
         @factura.recibos
-      elsif @obra.present?
-        @obra.recibos
       else
         Recibo
       end.find(params[:id])

@@ -11,7 +11,11 @@
       <div class="field form-group col-md-6">
         <label>Tercero</label>
         <span class="form-control" disabled>
-          <%= @factura.tercero.cuit %>: <%= @factura.tercero.nombre.first(40) %>
+          <% if ! @recibo.interno? %>
+            <%= @factura.tercero.cuit %>: <%= @factura.tercero.nombre.first(40) %>
+          <% else %>
+            Recibo Interno
+          <% end %>
         </span>
       </div>
       <div class="field form-group col-md-3 col-md-offset-3">
@@ -29,11 +33,15 @@
       <div class="field form-group col-md-6" >
         <label>Nro. Factura</label>
         <span class="form-control" disabled>
-          <%= "#{@factura.tipo.first(1)}-#{@factura.numero.first(10)}: #{@factura.descripcion.first(40)}" %>
+          <% if ! @recibo.interno? %>
+            <%= "#{@factura.tipo.first(1)}-#{@factura.numero.first(10)}: #{@factura.descripcion.first(40)}" %>
+          <% end %>
         </span>
       </div>
       <div class="field form-group col-md-2 col-md-offset-1">
-        <%= render 'layouts/selector_moneda', moneda: @factura.importe_neto_moneda, seleccion: 'disabled' %>
+        <% if ! @recibo.interno? %>
+          <%= render 'layouts/selector_moneda', moneda: @factura.importe_neto_moneda, seleccion: 'disabled' %>
+        <% end %>
       </div>
       <div class="field form-group col-md-3">
         <%= f.label :importe %><br>
@@ -42,20 +50,18 @@
       </div>
     </div>
 
-    <div class="row">
-      <br><%# TODO margen con csssss!! %>
-    </div>
+    <br>
 
     <%# Hook para enganchar los nuevos movimientos %>
     <div class="row" id='nuevo-movimiento'>
     </div>
 
-    <div class="row">
-      <br><%# TODO margen con csssss!! %>
-    </div>
+    <br>
 
     <%# campo necesario para crear un recibo nuevo %>
-    <%= f.hidden_field :factura_id, value: @factura.id %>
+    <% if ! @recibo.interno? %>
+      <%= f.hidden_field :factura_id, value: @factura.id %>
+    <% end %>
   </fieldset>
 
 <% end %>

@@ -37,7 +37,7 @@
       </a>
     </h4>
     <% @recibos = @factura.recibos %>
-    <%= render 'recibos/list', lista_larga: "hidden" %>
+    <%= render 'recibos/list' %>
   </div>
 
   <% if @factura.pago? %>

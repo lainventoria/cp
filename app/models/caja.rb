@@ -5,7 +5,7 @@ class Caja < ActiveRecord::Base
 
   belongs_to :obra, inverse_of: :cajas
   has_many :movimientos
-  has_many :cheques, ->{ where.not(estado: ['cobrado','pagado']) }, foreign_key: 'chequera_id'
+  has_many :cheques, foreign_key: 'chequera_id'
   has_many :cheques_en_cuenta, foreign_key: 'cuenta_id', class_name: 'Cheque'
   has_many :retenciones, foreign_key: 'chequera_id'
   has_many :retenciones_a_pagar, foreign_key: 'cuenta_id', class_name: 'Retencion'

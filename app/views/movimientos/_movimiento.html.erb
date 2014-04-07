@@ -1,8 +1,8 @@
-<tr class="ir-a" data-uri="<%# TODO agregar path a movimento? %>">
+<tr <%= navegar_a_causa(movimiento) %>>
   <td class='<%= lista_cajas %>'>
     <%= formatted_date(movimiento.recibo.fecha) %>
   </td>
-  <td><%= link_a_causa(movimiento) %></td>
+  <td><%= movimiento.causa_type %></td>
   <td class='text-right <%= lista_recibos %>'>
     <%= formatted_number(movimiento.monto.abs) %>
   </td>
