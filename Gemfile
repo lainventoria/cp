@@ -11,6 +11,8 @@ gem 'yaml_db', github: 'mauriciopasquier/yaml_db'
 
 # selector de fechas con calendario mensual
 gem 'bootstrap-datepicker-rails'
+# error messages
+gem 'dynamic_form'
 
 # autocomplete en formularios
 gem 'rails3-jquery-autocomplete'

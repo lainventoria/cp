@@ -4,16 +4,9 @@
 %>
 
 <%= form_for @caja do |f| %>
+  <%= f.error_messages %>
   <% if @caja.errors.any? %>
     <% @editar = true %>
-    <div id="error_explanation" class="alert alert-danger">
-      <strong>No se guardo la Caja. </strong><%= pluralize(@caja.errors.count, "error") %>
-      <ul>
-      <% @caja.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
   <% end %>
 
   <fieldset <%= editar_o_bloquear %>>

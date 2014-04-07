@@ -70,6 +70,7 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     debug_inspector (0.0.2)
+    dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.4.0)
@@ -198,6 +199,7 @@ DEPENDENCIES
   bootstrap-filestyle-rails
   bootstrap-sass-rails
   coffee-rails (~> 4.0.0)
+  dynamic_form
   factory_girl_rails
   hirb
   inflections (= 0.0.5)

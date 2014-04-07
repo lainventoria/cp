@@ -1,15 +1,8 @@
 <%= form_for([@obra, @factura]) do |f| %>
   <% if @factura.errors.any? %>
-    <% @editar = true %>
-    <div id="error_explanation" class="alert alert-danger">
-      <strong>No se guardo la Factura. </strong>Debe corregir <%= pluralize(@factura.errors.count, "error") %>
-      <ul>
-      <% @factura.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+  <% @editar = true %>
   <% end %>
+  <%= f.error_messages %>
 
   <fieldset <%= editar_o_bloquear %>>
 
