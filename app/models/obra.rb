@@ -101,7 +101,7 @@ class Obra < ActiveRecord::Base
       cajas.create tipo: 'Administración X', situacion: 'efectivo', tipo_factura: 'X'
       cajas.create tipo: 'Chequera X', situacion: 'chequera', tipo_factura: 'X'
 
-      cajas.create tipo: 'Caja de Ahorro', situacion: 'banco'
+      cajas.create tipo: 'Caja de Ahorro', situacion: 'banco', banco: 'Cambiame'
       cajas.create tipo: 'Chequera', situacion: 'chequera'
       cajas.create tipo: 'Chequera propia', situacion: 'chequera'
       cajas.create tipo: 'Retenciones de Ganancias', situacion: 'chequera'

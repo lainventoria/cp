@@ -52,7 +52,7 @@ Cp::Application.routes.draw do
     resources :retenciones, only: [ :index, :show ]
     # /obra/cheque
     # no se editan cheques aca, solo se listan
-    resources :cheques, only: [ :index, :show, :edit ]
+    resources :cheques
   end
 
   # /caja

@@ -36,7 +36,8 @@ module RecibosHelper
   # crea un listado de cheques segun el tipo de factura que aceptan sus
   # cajas
   def cheques_de_terceros
-    @factura.obra.cheques.de_terceros.order(:fecha_vencimiento).reject do |c|
+    @factura.obra.cheques.de_terceros.where(estado: 'chequera')
+      .order(:fecha_vencimiento).reject do |c|
       # si la factura es valida, rebota las cajas de tipo invalido
       # si la factura es invalida, rebota las cajas de tipo valido
       if @factura.tipo_valido?
