@@ -61,6 +61,10 @@ module ApplicationHelper
     end
   end
 
+  def ruta_a_casa
+    params[:obra_id] ? obra_path(params[:obra_id]) : root_path
+  end
+
   # generar saltos entre obras desde la url actual
   # TODO cleverizar
   def con_esta_obra(obra = nil)

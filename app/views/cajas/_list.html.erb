@@ -1,8 +1,6 @@
-<%# parametros ( lista_caja, lista_banco )
-    lista_caja: oculta campos usados solo en el listado de cajas
-    lista_banco: oculta campos usados solo en el listado de cuentas
-    valor = [ "hidden", "" ]
-%>
+<% lista_caja = establece_parametros_listado_cajas(cajas.first.situacion)[0] %>
+<% lista_banco = establece_parametros_listado_cajas(cajas.first.situacion)[1] %>
+<% ocultar_en_chequera = establece_parametros_listado_cajas(cajas.first.situacion)[2] %>
 
 <table class="table table-hover table-condensed">
   <thead>
@@ -28,6 +26,14 @@
         <td class="<%= lista_banco %>"><%= caja.numero %></td>
         <td class="text-right"><%= formatted_number(caja.total('ARS')) %> ARS</td>
         <td class="text-right <%= lista_caja %>"><%= formatted_number(caja.total('USD')) %> USD</td>
+        <td class="text-center">
+          <a class="btn btn-sm btn-info <%= lista_caja %>" href="<%= con_obra? cambiar_caja_path(caja) %>">
+            Cambiar
+          </a>
+          <a type="button" class="btn btn-sm btn-info <%= ocultar_en_chequera %>" href="<%= con_obra? transferir_caja_path(caja) %>">
+            Transferir
+          </a>
+        </td>
       </tr>
     <% end %>
   </tbody>

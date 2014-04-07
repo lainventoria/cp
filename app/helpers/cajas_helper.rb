@@ -44,4 +44,23 @@ module CajasHelper
   def obra_caja
     @caja.new_record? ? params[:obra_id] : @caja.obra_id
   end
+
+  def establece_parametros_listado_cajas(situacion)
+    case situacion
+      when 'efectivo'
+        lista_caja = ''
+        lista_banco = 'hidden'
+        ocultar_en_chequera = ''
+      when 'banco'
+        lista_caja = 'hidden'
+        lista_banco = ''
+        ocultar_en_chequera = ''
+      when 'chequera'
+        lista_caja = 'hidden'
+        lista_banco = 'hidden'
+        ocultar_en_chequera = 'hidden'
+    end
+
+    return [ lista_caja, lista_banco, ocultar_en_chequera ]
+  end
 end
