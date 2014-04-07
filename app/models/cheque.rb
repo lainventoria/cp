@@ -193,6 +193,9 @@ class Cheque < ActiveRecord::Base
       # TODO Qué estado ponerle a un cheque propio usado como pago?
       self.estado = 'pasamanos' if terceros?
       if movimiento = chequera.extraer(monto, true)
+        # si no salvamos aca, al movimiento le va a llegar como causa un
+        # cheque no existe y falla todo
+        save
         movimiento.causa = self
         movimiento.recibo = este_recibo
         movimiento
