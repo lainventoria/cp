@@ -1,9 +1,12 @@
 module RecibosHelper
   def recibos_por_tipo_path
-    if determina_situacion_recibo == 'pago'
-      pagos_recibos_path
-    else
-      cobros_recibos_path
+    case determina_situacion_recibo
+      when 'pago'
+        pagos_recibos_path
+      when 'cobro'
+        cobros_recibos_path
+      else
+        internos_recibos_path
     end
   end
 
@@ -25,6 +28,22 @@ module RecibosHelper
         # TODO sacar el if cuando todos los movimientos tengan causa
         link_to(movimiento.causa_type, movimiento.causa) if movimiento.causa.present?
     end
+  end
+
+  def url_a_causa(movimiento)
+    case movimiento.causa_type
+      # Las causas sin vista en el sistema no generan links
+      when 'Efectivo', 'Transferencia', 'Operacion'
+        ''
+      else
+        # TODO sacar el if cuando todos los movimientos tengan causa
+        url_for(movimiento.causa) if movimiento.causa.present?
+    end
+  end
+
+  def navegar_a_causa(movimiento)
+    url =  url_a_causa(movimiento)
+    url.present? ? "class=ir-a data-uri=" + url : ''
   end
 
   def link_a_nuevo_movimiento(causa)

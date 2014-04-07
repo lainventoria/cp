@@ -6,11 +6,11 @@
   </div>
 
   <div class="row">
-    <a type="button" class="btn btn-danger col-md-3" href="<%= con_obra? factura_recibo_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
+    <a type="button" class="btn btn-danger col-md-3" href="<%= con_obra? recibo_path %>" data-confirm="Estas seguro?" data-method="delete" rel="nofollow">
       <span class="glyphicon glyphicon-remove-circle"></span>
       Borrar Recibo
     </a>
-    <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= con_obra? factura_recibo_path(@recibo.factura, @recibo) %>">
+    <a type="button" class="btn btn-warning col-md-3 col-md-offset-1" href="<%= con_obra? recibo_path(@recibo) %>">
       <span class="glyphicon glyphicon-eye-open"></span>
       Volver a Recibo
     </a>
@@ -22,19 +22,23 @@
 </div>
 
 <div class="col-md-4">
-  <div class="row">
-    <div class="field form-group col-md-6 pull-right">
-      <label>Saldo de la Factura</label><br>
-      <span class="form-control text-right" disabled ><%= formatted_number(@factura.saldo) %></span>
+  <% if ! @recibo.interno? %>
+    <div class="row">
+      <div class="field form-group col-md-6 pull-right">
+        <label>Saldo de la Factura</label><br>
+        <span class="form-control text-right" disabled ><%= formatted_number(@factura.saldo) %></span>
+      </div>
     </div>
-  </div>
+  <% end %>
 
-  <div class="col-md-offset-1">
+  <div class="row col-md-offset-1">
     <h4>Detalle de Movimientos</h4>
     <%= render 'movimientos/list', movimientos: @recibo.movimientos %>
   </div>
   <br>
-  <div id='movimientos' class="pull-right">
-    <%= render "agregar_#{@recibo.situacion}" %>
-  </div>
+  <% if ! @recibo.interno? %>
+    <div id='movimientos' class="pull-right">
+      <%= render "agregar_#{@recibo.situacion}" %>
+    </div>
+  <% end %>
 </div>
