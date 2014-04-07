@@ -9,22 +9,26 @@ class Recibo < ActiveRecord::Base
   has_many :movimientos, inverse_of: :recibo
   # Por eso cada recibo tiene que estar asociado a una factura
   # a menos que sea un recibo interno (burocracia!)
-  validates_presence_of :factura, unless: :interno?
+  validates_presence_of :factura, unless: :interno_o_temporal?
   validate :importe_no_supera_el_saldo, :meiosis_de_facturas,
            :todos_los_montos_son_monotonos, :siempre_es_hoy,
-           unless: :interno?
+           unless: :interno_o_temporal?
 
-  before_save :actualizar_situacion, unless: :interno?
+  before_save :actualizar_situacion, unless: :interno_o_temporal?
   before_destroy :borrar_movimientos_asociados
 
   # Todas las situaciones en que se generan recibos
-  SITUACIONES = %w(cobro pago interno)
+  SITUACIONES = %w(cobro pago interno temporal)
   validates_inclusion_of :situacion, in: SITUACIONES
 
   # Crear un recibo interno para una transacción específica
   # TODO pasar a build?
   def self.interno_nuevo
     create(situacion: 'interno', fecha: Time.now)
+  end
+
+  def self.temporal_nuevo
+    create(situacion: 'temporal', fecha: Time.now)
   end
 
   # Es un recibo de pago?
@@ -39,6 +43,14 @@ class Recibo < ActiveRecord::Base
 
   def interno?
     situacion == 'interno'
+  end
+
+  def temporal?
+    situacion == 'temporal'
+  end
+
+  def interno_o_temporal?
+    interno? || temporal?
   end
 
   def actualizar_situacion

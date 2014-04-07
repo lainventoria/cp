@@ -40,6 +40,8 @@ class Retencion < ActiveRecord::Base
 
   validate :factura_es_un_pago, :tipo_de_chequera, :tipo_de_cuenta
 
+  after_create :contabilizar_deuda
+
   monetize :monto_centavos, with_model_currency: :monto_moneda
 
   state_machine :estado, initial: :emitida do
@@ -111,7 +113,7 @@ class Retencion < ActiveRecord::Base
   # para validaciones y cosas así, ya que este método se llama desde Recibo.
   def usar_para_pagar(este_recibo)
     Retencion.transaction do
-      if movimiento = chequera.extraer(monto, true)
+      if movimiento = deuda_pendiente
         movimiento.causa = self
         movimiento.recibo = este_recibo
         aplicar
@@ -134,6 +136,10 @@ class Retencion < ActiveRecord::Base
     recibos.where(situacion: 'interno').any?
   end
 
+  def deuda_pendiente
+    recibos.where(situacion: 'temporal').movimientos.first
+  end
+
   private
 
     def factura_es_un_pago
@@ -147,6 +153,19 @@ class Retencion < ActiveRecord::Base
     def tipo_de_cuenta
       if cuenta.present?
         errors.add(:cuenta_id, :debe_ser_una_cuenta_de_banco) unless cuenta.banco?
+      end
+    end
+
+    # Genera un recibo temporal para almacenar la deuda que representa esta
+    # retención. Este recibo se reemplaza al usar la retención como pago
+    def contabilizar_deuda
+      Retencion.transaction do
+        temporal = Recibo.temporal_nuevo
+        if movimiento = chequera.extraer(monto, true)
+          movimiento.causa = self
+          temporal.movimientos << movimiento
+          temporal.save
+        end
       end
     end
 end
