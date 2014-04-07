@@ -78,4 +78,15 @@ module RecibosHelper
   def cuentas_de_donde_emitir
     @factura.obra.cajas.cuentas
   end
+
+  def chequeras_para_cheques_de_terceros
+    tipos = @factura.tipo_valido? ? Cp::Application.config.tipos_validos : Factura.tipos_invalidos
+
+    if @factura.tipo_valido?
+      [ @factura.obra.chequera ]
+    else
+      @factura.obra.cajas.chequeras.
+        where(tipo_factura: Factura.tipos_invalidos)
+    end
+  end
 end

@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
           :monto, :monto_moneda, :caja_id, :cheque_id, :retencion_id,
           :monto_aceptado, :monto_aceptado_moneda,
           :cuenta_id, :chequera_id, :numero, :fecha_emision, :beneficiario,
-          :fecha_vencimiento
+          :fecha_vencimiento, :situacion
         )
       else
         {}

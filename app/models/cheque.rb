@@ -63,7 +63,7 @@ class Cheque < ActiveRecord::Base
 
     parametros_permitidos = params.permit :cuenta_id, :chequera_id, :monto,
       :monto_moneda, :numero, :fecha_emision, :beneficiario,
-      :fecha_vencimiento
+      :fecha_vencimiento, :situacion
 
     # TODO scopear a obra y cosas así
     if cheque_de_terceros_id.present?
@@ -220,6 +220,7 @@ class Cheque < ActiveRecord::Base
       end
     else
       errors.add(:situacion, :debe_ser_de_terceros)
+      false
     end
   end
 

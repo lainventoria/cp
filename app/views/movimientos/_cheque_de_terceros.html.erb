@@ -1,13 +1,67 @@
-<h4>Entregar cheque de terceros</h4>
+<h4>Cheque de terceros</h4>
 
 <%= fields_for :causa do |f| %>
   <%= hidden_field_tag 'causa_tipo', 'cheque-de-terceros' %>
 
-  <div class="field form-group col-md-10" >
-    <%= f.label :cheque %>
-    <%= f.collection_select(:cheque_id, cheques_de_terceros, :id, :descripcion,
-      { prompt: "-Seleccione un cheque-" }, { class: "form-control" } ) %>
-  </div>
+  <% if @factura.pago? %>
+
+    <div class="field form-group col-md-10" >
+      <%= f.label :cheque %>
+      <%= f.collection_select(:cheque_id, cheques_de_terceros, :id, :descripcion,
+        { prompt: "-Seleccione un cheque-" }, { class: "form-control" } ) %>
+    </div>
+
+  <% else %>
+    <%= f.hidden_field :situacion, value: 'terceros' %>
+
+    <div class="field form-group col-md-4" >
+      <%= f.label :cuenta %>
+      <%= f.collection_select :chequera_id, chequeras_para_cheques_de_terceros,
+          :id, :tipo, { prompt: "-Seleccione Chequera-" }, { class: "form-control" } %>
+    </div>
+
+    <div class="field form-group col-md-3">
+      <%= f.label :fecha_emision %><br>
+      <div class="input-group date">
+        <%= f.text_field :fecha_emision, class: "form-control" %>
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-th"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field form-group col-md-3">
+      <%= f.label :fecha_vencimiento %><br>
+      <div class="input-group date">
+        <%= f.text_field :fecha_vencimiento, class: "form-control" %>
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-th"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field form-group col-md-2" >
+      <%= f.label :monto %>
+      <%= f.text_field :monto, class: 'form-control text-right',
+          data: { role:'money', a_sep:'.', a_dec:',' } %>
+    </div>
+
+    <div class="field form-group col-md-4">
+      <%= f.label :beneficiario %><br>
+      <%= f.text_field :beneficiario, class: 'form-control' %>
+    </div>
+
+    <div class="field form-group col-md-3">
+      <%= f.label :numero %><br>
+      <%= f.text_field :numero, class: "form-control" %>
+    </div>
+
+    <div class="field form-group col-md-3">
+      <%= f.label :banco %><br>
+      <%= f.text_field :beneficiario, class: 'form-control' %>
+    </div>
+
+  <% end %>
 
   <div class="field form-group col-md-2" >
     <br>
