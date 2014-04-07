@@ -92,7 +92,7 @@ class Factura < ActiveRecord::Base
   # Antes de guardar un recibo se tiene que hacer la validación a la
   # moneda de la factura
   def saldo
-    importe_total - recibos.collect(&:importe).sum.to_money(importe_total_moneda)
+    importe_total - recibos.collect(&:importe_cache).sum.to_money(importe_total_moneda)
   end
 
   # El importe total o bruto es el neto con el IVA incluido
