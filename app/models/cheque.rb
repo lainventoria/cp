@@ -192,6 +192,9 @@ class Cheque < ActiveRecord::Base
     Cheque.transaction do
       # TODO Qué estado ponerle a un cheque propio usado como pago?
       self.estado = 'pasamanos' if terceros?
+      # como lo estamos emitiendo, el banco es el mismo que el de la
+      # caja que emite
+      self.banco = chequera.banco
       if movimiento = chequera.extraer(monto, true)
         # si no salvamos aca, al movimiento le va a llegar como causa un
         # cheque no existe y falla todo
