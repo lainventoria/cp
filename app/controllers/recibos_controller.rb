@@ -26,7 +26,7 @@ class RecibosController < ApplicationController
   end
 
   def new
-    @recibo = @factura.recibos.build
+    @recibo = @factura.recibos.build fecha: Time.now
     @editar = true
   end
 

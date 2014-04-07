@@ -11,7 +11,8 @@ class Recibo < ActiveRecord::Base
   # a menos que sea un recibo interno (burocracia!)
   validates_presence_of :factura, unless: :interno?
   validate :importe_no_supera_el_saldo, :meiosis_de_facturas,
-           :todos_los_montos_son_monotonos, unless: :interno?
+           :todos_los_montos_son_monotonos, :siempre_es_hoy,
+           unless: :interno?
 
   before_save :actualizar_situacion, unless: :interno?
   before_destroy :borrar_movimientos_asociados
@@ -122,5 +123,10 @@ class Recibo < ActiveRecord::Base
       else
         movimientos.all?(&:destroy)
       end
+    end
+
+    # valida que si no pasamos fecha se ponga la actual
+    def siempre_es_hoy
+      self.fecha = Time.now if not fecha
     end
 end
