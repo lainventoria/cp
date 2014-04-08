@@ -21,7 +21,7 @@
         <td><%= link_to '', [retencion.factura, retencion], class:"glyphicon glyphicon-eye-open" %></td>
         <td class="<%= lista_larga %>"><%= formatted_date(retencion.fecha_vencimiento) %></td>
         <td><%= tipo_de_retencion(retencion.situacion) %></td>
-        <td>Aca va el estado</td>
+        <td><%= retencion.estado.capitalize %></td>
         <td class="<%= lista_larga %>"><%= retencion.factura.descripcion.first(40) %></td>
         <td class="text-right"><%= formatted_number(retencion.monto) %></td>
       </tr>
