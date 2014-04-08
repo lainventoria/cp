@@ -30,7 +30,7 @@ class Cheque < ActiveRecord::Base
 
   # campos requeridos
   validates_presence_of :fecha_emision, :fecha_vencimiento, :monto,
-                        :beneficiario
+                        :banco
 
   # Todos los cheques pertenecen a una chequera, si son de terceros es donde se
   # contabiliza el pago, si son propios es de donde se contabiliza la emisión
@@ -63,7 +63,7 @@ class Cheque < ActiveRecord::Base
 
     parametros_permitidos = params.permit :cuenta_id, :chequera_id, :monto,
       :monto_moneda, :numero, :fecha_emision, :beneficiario,
-      :fecha_vencimiento, :situacion
+      :fecha_vencimiento, :situacion, :banco
 
     # TODO scopear a obra y cosas así
     if cheque_de_terceros_id.present?
