@@ -5,7 +5,7 @@
 
   <div class="field form-group col-md-4" >
     <%= f.label :caja %>
-    <%= f.collection_select(:caja_id, cuentas_de_donde_transferir, :id, :tipo,
+    <%= f.collection_select(:caja_id, cuentas_de_donde_transferir, :id, :banco_tipo_numero,
       { prompt: "-Seleccione Cuenta-" }, { class: "form-control", required: true } ) %>
   </div>
 
