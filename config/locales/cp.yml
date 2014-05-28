@@ -46,6 +46,8 @@ es:
             base:
               restrict_dependent_destroy:
                 many: "No se puede borrar este tercero porque tiene facturas asociadas"
+            cuit:
+              no_es_valido: 'no es válido'
         movimiento:
           attributes:
             monto:
