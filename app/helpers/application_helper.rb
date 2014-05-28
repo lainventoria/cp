@@ -14,10 +14,6 @@ module ApplicationHelper
     date.nil? ? '' : date.strftime("%d %b %Y")
 	end
 
-  def validar_cuit(cuit)
-    Tercero.validar_cuit(cuit)
-  end
-
   # habilita la edicion de los formularios segun el valor de @editar
   def editar_o_bloquear
     if ! @editar
