@@ -8,17 +8,24 @@ class TerceroTest < ActiveSupport::TestCase
     end
   end
 
-  test "valida el funcionamiento de proveedor? y cliente?" do
-    @proveedor = create :tercero, relacion: "proveedor", cuit: "75-00000000-0"
-    @cliente = create :tercero, relacion: "cliente", cuit: "70-00004000-0"
-    @ambos = create :tercero, relacion: "ambos", cuit: "40-00007000-0"
+  test 'sabe si es un proveedor' do
+    proveedor = create :proveedor
 
-    assert @proveedor.proveedor?
-    assert_not @cliente.proveedor?
-    assert @ambos.proveedor?
+    assert proveedor.proveedor?
+    refute proveedor.cliente?
+  end
 
-    assert_not @proveedor.cliente?
-    assert @cliente.cliente?
-    assert @ambos.cliente?
+  test 'sabe si es un cliente' do
+    cliente = create :cliente
+
+    assert cliente.cliente?
+    refute cliente.proveedor?
+  end
+
+  test 'ambos es tanto cliente como proveedor' do
+    ambos = create(:tercero, relacion: 'ambos')
+
+    assert ambos.proveedor?
+    assert ambos.cliente?
   end
 end
