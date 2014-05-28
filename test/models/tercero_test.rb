@@ -28,4 +28,12 @@ class TerceroTest < ActiveSupport::TestCase
     assert ambos.proveedor?
     assert ambos.cliente?
   end
+
+  test 'sabe detectar cuits inválidos' do
+    refute Tercero.validar_cuit('10202234237')
+  end
+
+  test 'detecta si su cuit es inválido' do
+    assert build(:tercero).cuit_valido?
+  end
 end

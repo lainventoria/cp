@@ -9,7 +9,7 @@ class Tercero < ActiveRecord::Base
   # Validaciones
   validates_inclusion_of :relacion, in: RELACIONES
   validates_presence_of :nombre, :cuit
-  validate :validate_cuit
+  validate :el_cuit_es_valido
 
   # TODO este test complica las cosas durante el desarrollo inicial y usando
   # data dummy porque todos los cuits son iguales
@@ -22,7 +22,7 @@ class Tercero < ActiveRecord::Base
     cuit_sin_validar = cuit.to_s.gsub /[^0-9]/, ''
 
     # parece que el cuit es siempre de 11 cifras
-    return nil if not cuit_sin_validar.length == 11
+    return false unless cuit_sin_validar.length == 11
 
     multiplicadores = [ 5, 4, 3, 2, 7, 6, 5, 4, 3, 2, 1 ]
     resultado = 0
@@ -34,11 +34,6 @@ class Tercero < ActiveRecord::Base
 
     # el cuit es valido si el resto de dividir el resultado por 11 es 0
     (resultado % 11) == 0
-  end
-
-  # Valida la validez del CUIT 
-  def validate_cuit
-    errors.add(:cuit, :no_es_valido) unless cuit_valido?
   end
 
   # Es un proveedor?
@@ -54,4 +49,10 @@ class Tercero < ActiveRecord::Base
   def cuit_valido?
     Tercero.validar_cuit(cuit)
   end
+
+  private
+
+    def el_cuit_es_valido
+      errors.add(:cuit, :no_es_valido) unless cuit_valido?
+    end
 end
