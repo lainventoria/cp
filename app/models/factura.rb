@@ -18,8 +18,7 @@ class Factura < ActiveRecord::Base
   validates_inclusion_of :situacion, in: SITUACIONES
   validates_numericality_of :importe_neto, greater_than_or_equal_to: 0
   validates_numericality_of :importe_total, greater_than_or_equal_to: 0
-  validates_presence_of :obra
-  validates_presence_of :tercero
+  validates_presence_of :obra, :tercero
 
   validate :validate_saldo
 

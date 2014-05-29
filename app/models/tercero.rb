@@ -9,11 +9,8 @@ class Tercero < ActiveRecord::Base
   # Validaciones
   validates_inclusion_of :relacion, in: RELACIONES
   validates_presence_of :nombre, :cuit
+  validates_uniqueness_of :cuit
   validate :el_cuit_es_valido
-
-  # TODO este test complica las cosas durante el desarrollo inicial y usando
-  # data dummy porque todos los cuits son iguales
-  #  validates_uniqueness_of :cuit
 
   # seguramente hay una forma más elegante de hacer esto...
   def self.validar_cuit(cuit)

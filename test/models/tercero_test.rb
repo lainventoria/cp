@@ -36,4 +36,13 @@ class TerceroTest < ActiveSupport::TestCase
   test 'detecta si su cuit es inválido' do
     assert build(:tercero).cuit_valido?
   end
+
+  test 'no permite cuits duplicados' do
+    existente = create(:tercero)
+    refute build(:tercero, cuit: existente.cuit).valid?
+  end
+
+  test 'entiende cuits sin guiones' do
+    build(:tercero, cuit: '20312783224').valid?
+  end
 end
