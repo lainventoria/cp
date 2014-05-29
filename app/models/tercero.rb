@@ -1,7 +1,5 @@
 # encoding: utf-8
 class Tercero < ActiveRecord::Base
-  include ApplicationHelper
-
   # Cada tercero esta asociado a muchas facturas
   has_many :facturas, inverse_of: :tercero, dependent: :restrict_with_error
 
@@ -11,15 +9,28 @@ class Tercero < ActiveRecord::Base
   # Validaciones
   validates_inclusion_of :relacion, in: RELACIONES
   validates_presence_of :nombre, :cuit
-  validate :validate_cuit
+  validates_uniqueness_of :cuit
+  validate :el_cuit_es_valido
 
-  # TODO este test complica las cosas durante el desarrollo inicial y usando
-  # data dummy porque todos los cuits son iguales
-  #  validates_uniqueness_of :cuit
+  # seguramente hay una forma más elegante de hacer esto...
+  def self.validar_cuit(cuit)
+    # convertir a string si se pasa un número, remover los guiones si
+    # era una cadena
+    cuit_sin_validar = cuit.to_s.gsub /[^0-9]/, ''
 
-  # Valida la validez del CUIT 
-  def validate_cuit
-    errors[:base] << "El CUIT no es válido" if not validar_cuit(self.cuit)
+    # parece que el cuit es siempre de 11 cifras
+    return false unless cuit_sin_validar.length == 11
+
+    multiplicadores = [ 5, 4, 3, 2, 7, 6, 5, 4, 3, 2, 1 ]
+    resultado = 0
+
+    # multiplica cada elemento del cuit por uno de los multiplicadores
+    for i in 0..10
+      resultado = resultado + cuit_sin_validar[i].to_i * multiplicadores[i]
+    end
+
+    # el cuit es valido si el resto de dividir el resultado por 11 es 0
+    (resultado % 11) == 0
   end
 
   # Es un proveedor?
@@ -31,5 +42,14 @@ class Tercero < ActiveRecord::Base
   def cliente?
     relacion != "proveedor"
   end
-  
+
+  def cuit_valido?
+    Tercero.validar_cuit(cuit)
+  end
+
+  private
+
+    def el_cuit_es_valido
+      errors.add(:cuit, :no_es_valido) unless cuit_valido?
+    end
 end

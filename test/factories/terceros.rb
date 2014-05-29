@@ -1,16 +1,21 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :tercero do
-    nombre "MyString"
-    cuit "20-31278322-4"
-    contacto "MyString"
-    telefono "MyString"
-    celular "MyString"
-    email "MyString"
-    iva { rand(50) }
-    relacion "ambos"
-    direccion "MyString"
-    notas "MyText"
+    nombre "Juan Salvo"
+    relacion 'ambos'
+
+    # Generar cuits válidos, con default por si ninguno de los 10 zafa.
+    sequence(:cuit, '00000000') do |n|
+      (0..9).collect do |verificador|
+        "10-#{n}-#{verificador}"
+      end.select { |cuit| Tercero.validar_cuit(cuit) }.first || '20-31278322-4'
+    end
+
+    factory :proveedor do
+      relacion 'proveedor'
+    end
+
+    factory :cliente do
+      relacion 'cliente'
+    end
   end
 end
