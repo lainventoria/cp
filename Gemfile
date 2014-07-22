@@ -47,11 +47,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
 group :development do
   gem 'spring'
+  # Deploy con capistrano
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
 end
 
 group :development, :test do
