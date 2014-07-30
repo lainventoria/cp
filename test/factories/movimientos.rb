@@ -7,5 +7,6 @@ FactoryGirl.define do
 
     caja
     recibo { Recibo.create situacion: 'interno' }
+    causa { Efectivo.new }
   end
 end

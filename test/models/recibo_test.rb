@@ -3,7 +3,7 @@ require 'test_helper'
 
 class ReciboTest < ActiveSupport::TestCase
   test "es válido" do
-    [ :build, :build_stubbed, :create].each do |metodo|
+    [:build, :build_stubbed, :create].each do |metodo|
       assert_valid_factory metodo, :recibo
     end
   end
@@ -61,44 +61,5 @@ class ReciboTest < ActiveSupport::TestCase
       assert recibo.interno?
       assert_equal 0, recibo.importe
     end
-  end
-
-  test "borrar recibos borra sus movimientos" do
-    caja = create :caja
-    assert (recibo = caja.depositar!(Money.new(10000, 'ARS')))
-    recibo_id = recibo.id
-
-    assert recibo.movimientos.any?
-    assert recibo.destroy
-    assert recibo.movimientos.count == 0
-  end
-
-  test "borrar recibos borra sus movimientos a menos que tengan causa trackeable" do
-    recibo = create :recibo
-    retencion = create :retencion, monto: Money.new(1000)
-    recibo.pagar_con retencion
-
-    assert recibo.movimientos.any?
-    refute recibo.destroy
-    assert recibo.movimientos.any?
-
-    assert retencion.destroy
-    assert recibo.reload.destroy
-    assert recibo.movimientos.count == 0
-  end
-
-  test "borrar recibos no borra sus movimientos si alguna causa es trackeable" do
-    recibo = create :recibo
-    retencion = create :retencion, monto: Money.new(1000)
-    recibo.pagar_con retencion
-    recibo.pagar_con efectivo_por(Money.new(2000))
-
-    assert recibo.movimientos.count == 2
-    refute recibo.destroy
-    assert recibo.movimientos.count == 2
-
-    assert retencion.destroy
-    assert recibo.reload.destroy
-    assert recibo.movimientos.count == 0
   end
 end
