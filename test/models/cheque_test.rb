@@ -73,7 +73,7 @@ class ChequeTest < ActiveSupport::TestCase
     assert_equal Money.new(0), chequera.total
   end
 
-  test 'depositar un cheque extrae de la chequera' do
+  test 'depositar un cheque deja de contar el monto en la chequera' do
     otra_caja = create :cuenta
     cheque = create :cheque_de_terceros
 
@@ -87,7 +87,8 @@ class ChequeTest < ActiveSupport::TestCase
     assert_equal 'depositado', cheque.estado
     # al depositar un cheque, se asocia a una caja diferente
     assert_equal otra_caja, cheque.cuenta
-    assert_equal cheque.monto, -1 * cheque.chequera.total
+    # no se generó ningún movimiento
+    assert_equal 0, cheque.chequera.total
   end
 
   test 'cobrar un cheque depositado concreta el depósito' do

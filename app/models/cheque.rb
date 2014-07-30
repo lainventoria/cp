@@ -107,9 +107,7 @@ class Cheque < ActiveRecord::Base
   end
 
   # Para poder cobrar un cheque de terceros, antes se deposita en una
-  # caja y se espera que el banco lo verifique. Equivale a una
-  # transferencia de una caja a otra pero en dos pasos (o confirmación
-  # manual).
+  # caja y se espera que el banco lo verifique.
   def depositar(cuenta_destino)
     # TODO validar
     # solo los cheques de terceros se depositan
@@ -118,18 +116,11 @@ class Cheque < ActiveRecord::Base
     return nil if cuenta_destino.chequera?
 
     # El cheque se saca de una caja y se deposita en otra, como todavía
-    # no lo cobramos, se registra como una salida
-    Cheque.transaction do
-      recibo = Recibo.interno_nuevo
-      movimiento = chequera.extraer(monto, true)
-      movimiento.causa = self
-      recibo.movimientos << movimiento
-
-      # FIXME update
-      self.estado = 'depositado'
-      self.cuenta = cuenta_destino
-      save
-    end
+    # no lo cobramos, solo se indica que se depositará el dinero en una
+    # caja
+    self.estado = 'depositado'
+    self.cuenta = cuenta_destino
+    save
 
     self
   end
@@ -143,9 +134,7 @@ class Cheque < ActiveRecord::Base
     Cheque.transaction do
       # terminar de transferir el monto del cheque de la chequera a la
       # caja destino
-      movimiento = cuenta.depositar(monto, true)
-      movimiento.causa = self
-      recibos.interno.movimientos << movimiento
+      chequera.transferir(monto, cuenta)
 
       # marcar el cheque como cobrado
       self.estado = 'cobrado'
