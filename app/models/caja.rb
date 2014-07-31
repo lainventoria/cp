@@ -1,6 +1,5 @@
 # encoding: utf-8
 class Caja < ActiveRecord::Base
-
   default_scope { where(archivada: false) }
 
   belongs_to :obra, inverse_of: :cajas

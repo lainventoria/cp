@@ -4,7 +4,7 @@ class Operacion < CausaNoTrackeable
 
   validates_presence_of :monto, :caja
 
-  # Usa sus datos para transferir
+  # Usa sus datos para cambiar moneda
   def cambiar
     caja.cambiar monto, monto_aceptado
   end
