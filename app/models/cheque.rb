@@ -118,9 +118,7 @@ class Cheque < ActiveRecord::Base
     # El cheque se saca de una caja y se deposita en otra, como todavía
     # no lo cobramos, solo se indica que se depositará el dinero en una
     # caja
-    self.estado = 'depositado'
-    self.cuenta = cuenta_destino
-    save
+    update(estado: 'depositado', cuenta: cuenta_destino)
 
     self
   end
@@ -137,8 +135,7 @@ class Cheque < ActiveRecord::Base
       chequera.transferir(monto, cuenta)
 
       # marcar el cheque como cobrado
-      self.estado = 'cobrado'
-      save
+      update(estado: 'cobrado')
     end
 
     self
