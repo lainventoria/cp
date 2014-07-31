@@ -11,7 +11,8 @@ class Efectivo < CausaNoTrackeable
     # Si ofrezco una moneda a cambio de la correspondiente a la factura, tengo
     # que cambiarla
     if monto_aceptado.try :nonzero?
-      caja.cambiar(monto, monto_aceptado)
+      # Cambiamos la moneda y asociamos el recibo al recibo interno
+      caja.cambiar(monto, monto_aceptado).update(recibo: recibo)
       self.monto = monto_aceptado
     end
 
