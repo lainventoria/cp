@@ -7,6 +7,11 @@ class Recibo < ActiveRecord::Base
 
   # Los recibos disparan movimientos
   has_many :movimientos, inverse_of: :recibo
+  # Algunos recibos tienen comprobantes, por ahora en forma de recibos internos
+  has_many :comprobantes, ->{ where(situacion: 'interno') },
+    class_name: 'Recibo', dependent: :destroy
+  belongs_to :recibo, inverse_of: :comprobantes
+
   # Por eso cada recibo tiene que estar asociado a una factura
   # a menos que sea un recibo interno (burocracia!)
   validates_presence_of :factura, unless: :interno_o_temporal?
