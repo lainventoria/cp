@@ -26,7 +26,9 @@ class ReciboCobrarConTest < ActiveSupport::TestCase
       monto_aceptado: @factura.importe_total,
       caja: caja
 
-    assert @recibo.cobrar_con(medio_de_cobro)
+    assert_difference ->{ @recibo.reload.comprobantes.count } do
+      assert @recibo.cobrar_con(medio_de_cobro)
+    end
     assert @factura.reload.cancelada?
     assert_equal monto_recibido, caja.total('USD')
   end
@@ -50,7 +52,9 @@ class ReciboCobrarConTest < ActiveSupport::TestCase
       monto_aceptado: @factura.importe_total,
       caja: cuenta
 
-    assert @recibo.cobrar_con(medio_de_cobro)
+    assert_difference ->{ @recibo.reload.comprobantes.count } do
+      assert @recibo.cobrar_con(medio_de_cobro)
+    end
     assert @factura.reload.cancelada?
     assert_equal monto_recibido, cuenta.total('USD')
   end

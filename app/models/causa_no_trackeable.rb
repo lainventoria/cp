@@ -92,7 +92,7 @@ class CausaNoTrackeable
     # El cambio es a la inversa que en pagos, porque necesitamos que quede
     # asentada la plata que nos dan en realidad
     if monto_aceptado.try :nonzero?
-      caja.cambiar(monto_aceptado, monto)
+      caja.cambiar(monto_aceptado, monto).update(recibo: recibo)
       self.monto = monto_aceptado
     end
 
