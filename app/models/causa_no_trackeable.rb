@@ -64,6 +64,47 @@ class CausaNoTrackeable
     false
   end
 
+  # Puedo ofrecer pesos (monto), o dólares (monto) aceptados como pesos
+  # (monto_aceptado), intercambiando las monedas directamente
+  def usar_para_pagar(recibo)
+    # Si ofrezco una moneda a cambio de la correspondiente a la factura, tengo
+    # que cambiarla
+    if monto_aceptado.try :nonzero?
+      # Cambiamos la moneda y asociamos el recibo al recibo interno
+      caja.cambiar(monto, monto_aceptado).update(recibo: recibo)
+      self.monto = monto_aceptado
+    end
+
+    # Extraigo de la caja ya sea el pago correcto, o el pago aceptado que
+    # generó el cambio
+    if movimiento = caja.extraer(monto)
+      movimiento.causa = self
+      movimiento.recibo = recibo
+      movimiento
+    else
+      false
+    end
+  end
+
+  # Puedo aceptar pesos (monto), o dólares (monto) aceptados como pesos
+  # (monto_aceptado), intercambiando las monedas directamente
+  def usar_para_cobrar(recibo)
+    # El cambio es a la inversa que en pagos, porque necesitamos que quede
+    # asentada la plata que nos dan en realidad
+    if monto_aceptado.try :nonzero?
+      caja.cambiar(monto_aceptado, monto)
+      self.monto = monto_aceptado
+    end
+
+    if movimiento = caja.depositar(monto)
+      movimiento.causa = self
+      movimiento.recibo = recibo
+      movimiento
+    else
+      false
+    end
+  end
+
   # Los siguientes métodos son necesarios para que rails genere la asociación
   # desde el `belongs_to` del otro modelo
 
