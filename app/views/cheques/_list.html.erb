@@ -22,7 +22,8 @@
         <td class="h4 text-center"><span class="label <%= etiqueta_de_estado cheque.estado %>"><%= cheque.estado %></span></td>
         <td><%= formatted_date(cheque.fecha_emision) %></td>
         <td><%= formatted_date(cheque.fecha_vencimiento) %></td>
-        <td><%= formatted_number(cheque.monto) %></td>
+        <td><%= formatted_number(cheque.monto) %>
+            <%= cheque.monto_moneda %></td>
         <td><%= cheque.beneficiario %></td>
         <td><%= cheque.chequera.tipo %></td>
         <td><%= cheque.banco %></td>
