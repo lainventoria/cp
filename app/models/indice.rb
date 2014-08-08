@@ -2,7 +2,7 @@
 class Indice < ActiveRecord::Base
   has_many :cuotas
   validates_presence_of :periodo, :denominacion, :valor
-  DENOMINACIONES = ["Costo de construcción", "Materiales", "Mano de obra"]
+  DENOMINACIONES = ['Costo de construcción', 'Materiales', 'Mano de obra']
 
   # cuando se actualiza un índice a su valor definitivo deja de ser
   # temporal
@@ -29,7 +29,7 @@ class Indice < ActiveRecord::Base
       indice_anterior = Indice.where(denominacion: denominacion).
         order(:periodo).last
 
-      raise "Faltan los indices" if indice_anterior.nil?
+      raise 'Faltan los indices' if indice_anterior.nil?
 
       # y crear un indice temporal con el valor del ultimo indice
       # disponible

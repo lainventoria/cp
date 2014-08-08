@@ -36,12 +36,12 @@ class Tercero < ActiveRecord::Base
 
   # Es un proveedor?
   def proveedor?
-    relacion != "cliente"
+    relacion != 'cliente'
   end
 
   # Es un cliente?
   def cliente?
-    relacion != "proveedor"
+    relacion != 'proveedor'
   end
 
   def cuit_valido?

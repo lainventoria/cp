@@ -2,17 +2,17 @@ module FacturasHelper
 
   def titulo_lista_facturas
     if @situacion == 'pago'
-      "Listado de Facturas por Pagar"
+      'Listado de Facturas por Pagar'
     else
-      "Listado de Facturas por Cobrar"
+      'Listado de Facturas por Cobrar'
     end
   end
 
   def titulo_detalle_factura
     if @factura.pago?
-      "Factura por Pagar"
+      'Factura por Pagar'
     else
-      "Factura por Cobrar"
+      'Factura por Cobrar'
     end
   end
 
@@ -34,7 +34,7 @@ module FacturasHelper
 
   def moneda_factura
     if @factura.new_record?
-      "ARS"
+      'ARS'
     else
       @factura.importe_neto_moneda
     end
@@ -54,9 +54,9 @@ module FacturasHelper
 
   def titulo_para_saldadas
     if params[:saldadas].present?
-      "Ver por saldar"
+      'Ver por saldar'
     else
-      "Ver saldadas"
+      'Ver saldadas'
     end
   end
 end

@@ -30,7 +30,7 @@ class RetencionesController < ApplicationController
       if @retencion.save
         format.html do
           redirect_to [@retencion.factura, @retencion],
-            notice: "Retención creada con éxito."
+            notice: 'Retención creada con éxito.'
         end
         format.json { render action: 'show', status: :created, location: @retencion }
       else
@@ -45,7 +45,7 @@ class RetencionesController < ApplicationController
       if @retencion.update(retencion_params)
         format.html do
           redirect_to [@retencion.factura, @retencion],
-            notice: "Retención actualizada con éxito."
+            notice: 'Retención actualizada con éxito.'
         end
         format.json { head :no_content }
       else

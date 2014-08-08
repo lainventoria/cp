@@ -13,11 +13,11 @@
       <div class="field form-group col-md-8">
         <%= f.hidden_field :tercero_id %>
         <%= f.label :tercero %><br>
-        <%= autocomplete_field_tag 'contrato_de_venta[tercero_attributes[nombre]]', @contrato.tercero.try(:nombre), autocomplete_tercero_nombre_contratos_de_venta_path, { class: "form-control" } %>
+        <%= autocomplete_field_tag 'contrato_de_venta[tercero_attributes[nombre]]', @contrato.tercero.try(:nombre), autocomplete_tercero_nombre_contratos_de_venta_path, { class: 'form-control' } %>
       </div>
       <div class="field form-group col-md-4">
         <%= f.label '', 'CUIT' %><br>
-        <%= autocomplete_field_tag 'contrato_de_venta[tercero_attributes[cuit]]', @contrato.tercero.try(:cuit), autocomplete_tercero_cuit_contratos_de_venta_path, { class: "form-control" } %>
+        <%= autocomplete_field_tag 'contrato_de_venta[tercero_attributes[cuit]]', @contrato.tercero.try(:cuit), autocomplete_tercero_cuit_contratos_de_venta_path, { class: 'form-control' } %>
       </div>
     </div>
 
@@ -61,7 +61,7 @@ end %>
 <% if @contrato.new_record? %>
       <div class="field form-group col-md-4">
         <div class="row">
-        <%= f.collection_select(:unidades_funcionales, @obra.unidades_funcionales.disponibles, :id, :para_mostrar, { prompt: "-Seleccione Unidad-" }, { class: "form-control" } ) %>
+        <%= f.collection_select(:unidades_funcionales, @obra.unidades_funcionales.disponibles, :id, :para_mostrar, { prompt: '-Seleccione Unidad-' }, { class: 'form-control' } ) %>
         </div> <br/>
         <div class="row">
           <a id="contrato_de_venta_unidad_funcional_agregar" class="btn btn-sm btn-primary pull-right">
@@ -83,7 +83,7 @@ end %>
           <div class="field form-group"> 
             <label>Índice</label>
 <% if @contrato.new_record? %>
-<%= f.select(:relacion_indice, ['anterior','actual'], { class: "form-control" } ) %>
+<%= f.select(:relacion_indice, ['anterior','actual'], { class: 'form-control' } ) %>
 <% else %>
   <%= @contrato.indice.periodo %>
 <% end %>

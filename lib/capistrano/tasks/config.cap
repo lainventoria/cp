@@ -6,20 +6,20 @@
 #     set :linked_files, %w{config/database.yml config/secrets.yml}
 #
 namespace :config do
-  desc "Garantiza que haya un directorio para la configuración"
+  desc 'Garantiza que haya un directorio para la configuración'
   task :preparar do
     on roles(:app) do
       execute :mkdir, '-pv', fetch(:config_path)
     end
   end
 
-  desc "Configura la aplicación con los valores para producción"
+  desc 'Configura la aplicación con los valores para producción'
   task :configurar => :preparar do
     # Prepara según la tarea que definamos, por default es config:subir
     invoke fetch(:config_source)
   end
 
-  desc "Sube al server la configuración desde config=path (:config_local_path por default)"
+  desc 'Sube al server la configuración desde config=path (:config_local_path por default)'
   task :subir => [:preparar, fetch(:config_local_path)] do
     dir = ENV['config'] || fetch(:config_local_path)
 

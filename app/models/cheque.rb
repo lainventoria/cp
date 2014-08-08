@@ -47,7 +47,7 @@ class Cheque < ActiveRecord::Base
   # TODO testear
   scope :vencidos, lambda { |time = nil|
     time = Time.now if not time
-    where("fecha_vencimiento < ?", time)
+    where('fecha_vencimiento < ?', time)
   }
 
   # Trae todos los cheques depositados

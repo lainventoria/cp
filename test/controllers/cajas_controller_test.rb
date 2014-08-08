@@ -6,18 +6,18 @@ class CajasControllerTest < ActionController::TestCase
     @caja = create :caja
   end
 
-  test "accede a la lista de cajas" do
+  test 'accede a la lista de cajas' do
     get :index
     assert_response :success
     assert_not_nil assigns(:cajas)
   end
 
-  test "accede a crear" do
+  test 'accede a crear' do
     get :new
     assert_response :success
   end
 
-  test "crea" do
+  test 'crea' do
     obra = create :obra
     assert_difference('Caja.count') do
       post :create, caja: attributes_for(:caja, obra_id: obra)
@@ -26,36 +26,36 @@ class CajasControllerTest < ActionController::TestCase
     assert_redirected_to caja_path(assigns(:caja))
   end
 
-  test "muestra" do
+  test 'muestra' do
     get :show, id: @caja
     assert_response :success
   end
 
-  test "muestra a través de su obra" do
+  test 'muestra a través de su obra' do
     get :show, obra_id: @caja.obra, id: @caja
     assert_response :success
   end
 
-  test "no muestra a través de otra obra" do
+  test 'no muestra a través de otra obra' do
     # Rails devuelve un 404 por default con estos errores en producción
     assert_raise ActiveRecord::RecordNotFound do
       get :show, obra_id: create(:obra), id: @caja
     end
   end
 
-  test "accede a editar" do
+  test 'accede a editar' do
     get :edit, id: @caja
     assert_response :success
   end
 
-  test "actualiza" do
+  test 'actualiza' do
     patch :update, id: @caja, caja: { tipo: 'Otro' }
     assert_redirected_to caja_path(caja = assigns(:caja))
 
     assert_equal 'Otro', caja.tipo
   end
 
-  test "destruye" do
+  test 'destruye' do
     # vaciamiento :P
     @caja.depositar! Money.new(1)
     @caja.depositar! Money.new(1, 'USD')

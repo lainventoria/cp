@@ -2,26 +2,26 @@
 require 'test_helper'
 
 class ChequeTest < ActiveSupport::TestCase
-  test "es válido" do
+  test 'es válido' do
     [ :build, :build_stubbed, :create].each do |metodo|
       assert_valid_factory metodo, :cheque
       assert_valid_factory metodo, :cheque_de_terceros
     end
   end
 
-  test "el cheque está vencido" do
+  test 'el cheque está vencido' do
     cheque = create :cheque, fecha_vencimiento: Time.now - rand(360000)
 
     assert cheque.vencido?, "#{Time.now} > #{cheque.fecha_vencimiento}"
   end
 
-  test "el cheque no está vencido" do
+  test 'el cheque no está vencido' do
     cheque = create :cheque
 
     assert_not cheque.vencido?, "#{Time.now} > #{cheque.fecha_vencimiento}"
   end
 
-  test "algunos cheques se vencen" do
+  test 'algunos cheques se vencen' do
     create :cheque # no vencido
 
     cheque_vencido = create :cheque, fecha_vencimiento: Time.now - rand(36000)
@@ -32,14 +32,14 @@ class ChequeTest < ActiveSupport::TestCase
     assert_equal Cheque.vencidos.count, 1
   end
 
-  test "los cheques propios no se depositan" do
+  test 'los cheques propios no se depositan' do
     cheque = create :cheque, situacion: 'propio', estado: 'chequera'
     cuenta = create :cuenta
 
     assert_not cheque.depositar(cuenta)
   end
 
-  test "los cheques de terceros no se pagan si estan en chequera" do
+  test 'los cheques de terceros no se pagan si estan en chequera' do
     cheque = create :cheque_de_terceros, estado: 'chequera'
     assert_not cheque.pagar, cheque.errors.messages
   end
@@ -123,7 +123,7 @@ class ChequeTest < ActiveSupport::TestCase
     assert_equal 'Otro', cheque.banco
   end
 
-  test "borrar cheques borra sus movimientos" do
+  test 'borrar cheques borra sus movimientos' do
     recibo = create :recibo
     cheque = create :cheque, monto: Money.new(1000)
     recibo.pagar_con cheque

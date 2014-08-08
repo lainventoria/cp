@@ -17,15 +17,15 @@ class FacturasController < ApplicationController
   def cobros
     @facturas = (@obra ? @obra.facturas : Factura).joins(:tercero).where(situacion: 'cobro').order(@order)
     @facturas = params[:saldadas].present? ? @facturas.saldadas : @facturas.por_saldar
-    @situacion = "cobro"
-    render "index"
+    @situacion = 'cobro'
+    render 'index'
   end
 
   def pagos
     @facturas = (@obra ? @obra.facturas : Factura).joins(:tercero).where(situacion: 'pago').order(@order)
     @facturas = params[:saldadas].present? ? @facturas.saldadas : @facturas.por_saldar
-    @situacion = "pago"
-    render "index"
+    @situacion = 'pago'
+    render 'index'
   end
 
   def show

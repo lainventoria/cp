@@ -5,7 +5,7 @@
   <%= f.collection_select(:cuenta_id,
         cheque.chequera.obra.cajas.where(situacion: 'banco'),
         :id,
-        :tipo, { prompt: "-Seleccione Caja-" },
-        { class: "form-control input-sm" } ) %>
-  <%= f.submit class: "btn btn-sm btn-info", value: "Depositar" %>
+        :tipo, { prompt: '-Seleccione Caja-' },
+        { class: 'form-control input-sm' } ) %>
+  <%= f.submit class: 'btn btn-sm btn-info', value: 'Depositar' %>
 <% end %>

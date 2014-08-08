@@ -11,14 +11,14 @@ class RecibosController < ApplicationController
 
   def cobros
     @recibos = @recibos.joins(:tercero).where(situacion: 'cobro').order(@order)
-    @situacion = "Cobros"
-    render "index"
+    @situacion = 'Cobros'
+    render 'index'
   end
 
   def pagos
     @recibos = @recibos.joins(:tercero).where(situacion: 'pago').order(@order)
-    @situacion = "Pagos"
-    render "index"
+    @situacion = 'Pagos'
+    render 'index'
   end
 
   def show

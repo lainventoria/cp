@@ -7,46 +7,46 @@ class RetencionesControllerTest < ActionController::TestCase
     @retencion = create :retencion, factura: @factura
   end
 
-  test "accede a la lista de retenciones globales" do
+  test 'accede a la lista de retenciones globales' do
     get :index
     assert_response :success
     assert_not_nil assigns(:retenciones)
   end
 
-  test "accede a la lista de retenciones de la factura" do
+  test 'accede a la lista de retenciones de la factura' do
     get :index, factura_id: @factura
     assert_response :success
     assert_not_nil assigns(:retenciones)
   end
 
-  test "accede a la lista de retenciones de la obra" do
+  test 'accede a la lista de retenciones de la obra' do
     get :index, obra_id: @factura.obra
     assert_response :success
     assert_not_nil assigns(:retenciones)
   end
 
-  test "muestra" do
+  test 'muestra' do
     get :show, id: @retencion
     assert_response :success
   end
 
-  test "muestra a través de su factura" do
+  test 'muestra a través de su factura' do
     get :show, id: @retencion, factura_id: @factura
     assert_response :success
   end
 
-  test "no muestra a través de otra factura" do
+  test 'no muestra a través de otra factura' do
     assert_raise ActiveRecord::RecordNotFound do
       get :show, id: @retencion, factura_id: create(:factura)
     end
   end
 
-  test "muestra a través de su obra" do
+  test 'muestra a través de su obra' do
     get :show, obra_id: @retencion.obra, id: @retencion
     assert_response :success
   end
 
-  test "no muestra a través de otra obra" do
+  test 'no muestra a través de otra obra' do
     # Rails devuelve un 404 por default con estos errores en producción
     assert_raise ActiveRecord::RecordNotFound do
       get :show, obra_id: create(:obra), id: @retencion
