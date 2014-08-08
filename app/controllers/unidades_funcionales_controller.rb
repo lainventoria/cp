@@ -25,8 +25,9 @@ class UnidadesFuncionalesController < ApplicationController
 
     respond_to do |format|
       if @unidad.save
-        format.html do redirect_to [@unidad.obra, @unidad],
-          notice: 'Unidad funcional creada con éxito.'
+        format.html do
+          redirect_to [@unidad.obra, @unidad],
+            notice: 'Unidad funcional creada con éxito.'
         end
         format.json do
           render action: 'show', status: :created, location: @unidad
