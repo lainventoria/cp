@@ -36,8 +36,14 @@ class ChequesController < ApplicationController
 
     respond_to do |format|
       if @cheque.save
-        format.html { redirect_to [@cheque.chequera.obra, @cheque.chequera, @cheque], notice: 'Cheque creado con éxito.' }
-        format.json { render action: 'show', status: :created, location: [@cheque.chequera.obra, @cheque.chequera, @cheque] }
+        format.html do
+          redirect_to [@cheque.chequera.obra, @cheque.chequera, @cheque],
+            notice: 'Cheque creado con éxito.'
+        end
+        format.json do
+          render action: 'show', status: :created,
+            location: [@cheque.chequera.obra, @cheque.chequera, @cheque]
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @cheque.errors, status: :unprocessable_entity }
@@ -48,7 +54,10 @@ class ChequesController < ApplicationController
   def update
     respond_to do |format|
       if @cheque.update(cheque_params)
-        format.html { redirect_to [@cheque.chequera.obra, @cheque.chequera, @cheque], notice: 'Cheque actualizado con éxito.' }
+        format.html do
+          redirect_to [@cheque.chequera.obra, @cheque.chequera, @cheque],
+            notice: 'Cheque actualizado con éxito.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -71,8 +80,10 @@ class ChequesController < ApplicationController
     respond_to do |format|
 
       if @cheque.pagar
-        format.html { redirect_to obra_cheques_path(@cheque.chequera.obra, situacion: 'propio'),
-                      notice: 'Cheque pagado con éxito' }
+        format.html do
+          redirect_to obra_cheques_path(@cheque.chequera.obra, situacion: 'propio'),
+            notice: 'Cheque pagado con éxito'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'show' }
@@ -84,8 +95,10 @@ class ChequesController < ApplicationController
   def depositar
     respond_to do |format|
       if @cheque.depositar(Caja.find(params[:cheque][:cuenta_id]))
-        format.html { redirect_to [@cheque.chequera.obra,@cheque.chequera,@cheque],
-                      notice: 'Cheque depositado con éxito' }
+        format.html do
+          redirect_to [@cheque.chequera.obra,@cheque.chequera,@cheque],
+            notice: 'Cheque depositado con éxito'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -98,8 +111,10 @@ class ChequesController < ApplicationController
     @cheque = Cheque.find(params[:id])
     respond_to do |format|
       if @cheque.cobrar
-        format.html { redirect_to [@cheque.chequera.obra,@cheque.chequera,@cheque],
-                      notice: 'Cheque cobrado con éxito' }
+        format.html do
+          redirect_to [@cheque.chequera.obra,@cheque.chequera,@cheque],
+            notice: 'Cheque cobrado con éxito'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

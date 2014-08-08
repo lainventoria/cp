@@ -39,11 +39,11 @@ class ContratoDeVentaTest < ActiveSupport::TestCase
     # el factory siempre agrega una
     total = cv.unidades_funcionales.first.precio_venta
 
-    5.times {
+    5.times do
       uf = create :unidad_funcional
       total += uf.precio_venta
       cv.agregar_unidad_funcional(uf)
-    }
+    end
 
     assert_equal total, cv.monto_total, [total, cv.monto_total, cv.total_de_unidades_funcionales, cv.total_de_cuotas, cv]
   end
@@ -62,6 +62,5 @@ class ContratoDeVentaTest < ActiveSupport::TestCase
     cv.agregar_unidad_funcional(uf_usd)
 
     assert_not cv.valid?, cv.inspect
-
   end
 end

@@ -25,10 +25,12 @@ class UnidadesFuncionalesController < ApplicationController
 
     respond_to do |format|
       if @unidad.save
-        format.html { redirect_to [@unidad.obra, @unidad], notice: 'Unidad funcional creada con éxito.' }
-        format.json {
+        format.html do redirect_to [@unidad.obra, @unidad],
+          notice: 'Unidad funcional creada con éxito.'
+        end
+        format.json do
           render action: 'show', status: :created, location: @unidad
-        }
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @unidad.errors, status: :unprocessable_entity }
@@ -39,7 +41,10 @@ class UnidadesFuncionalesController < ApplicationController
   def update
     respond_to do |format|
       if @unidad.update(unidad_funcional_params)
-        format.html { redirect_to [@unidad.obra,@unidad], notice: 'Unidad funcional actualizada con éxito.' }
+        format.html do
+          redirect_to [@unidad.obra,@unidad],
+            notice: 'Unidad funcional actualizada con éxito.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

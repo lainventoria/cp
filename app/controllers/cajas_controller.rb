@@ -30,9 +30,7 @@ class CajasController < ApplicationController
     respond_to do |format|
       if @caja.save
         format.html { redirect_to ir_a, notice: 'Caja creada con éxito.' }
-        format.json {
-          render action: 'show', status: :created, location: @caja
-        }
+        format.json { render action: 'show', status: :created, location: @caja }
       else
         # FIXME pasar situacion via controlador o helper
         params[:situacion] = @caja.situacion
