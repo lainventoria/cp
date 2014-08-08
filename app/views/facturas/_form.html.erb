@@ -10,20 +10,20 @@
 
       <div class="field form-group col-md-4">
         <%= f.label :obra_id %><br>
-        <%= f.collection_select(:obra_id, Obra.all, :id, :nombre, { prompt: "-Seleccione Obra-", selected: obra_factura }, { class: "form-control" } ) %>
+        <%= f.collection_select(:obra_id, Obra.all, :id, :nombre, { prompt: '-Seleccione Obra-', selected: obra_factura }, { class: 'form-control' } ) %>
       </div>
       <div class="field form-group col-md-2">
         <%= f.label :tipo %><br>
-        <%= f.text_field :tipo, class: "form-control" %>
+        <%= f.text_field :tipo, class: 'form-control' %>
       </div>
       <div class="field form-group col-md-3">
         <%= f.label :numero %><br>
-        <%= f.text_field :numero, class: "form-control" %>
+        <%= f.text_field :numero, class: 'form-control' %>
       </div>
       <div class="field form-group col-md-3">
         <%= f.label :fecha %><br>
         <div class="input-group date">
-          <%= f.text_field :fecha, { class: "form-control", value:formatted_date(@factura.fecha) } %>
+          <%= f.text_field :fecha, { class: 'form-control', value: formatted_date(@factura.fecha) } %>
           <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
       </div>
@@ -33,16 +33,16 @@
       <div class="field form-group col-md-6">
         <%= f.hidden_field :tercero_id %>
         <%= f.label :tercero %><br>
-        <%= autocomplete_field_tag 'factura[tercero_attributes[nombre]]', @factura.tercero.try(:nombre), autocomplete_tercero_nombre_facturas_path, { class: "form-control" } %>
+        <%= autocomplete_field_tag 'factura[tercero_attributes[nombre]]', @factura.tercero.try(:nombre), autocomplete_tercero_nombre_facturas_path, { class: 'form-control' } %>
       </div>
       <div class="field form-group col-md-3">
         <%= f.label '', 'CUIT' %><br>
-        <%= autocomplete_field_tag 'factura[tercero_attributes[cuit]]', @factura.tercero.try(:cuit), autocomplete_tercero_cuit_facturas_path, { class: "form-control" } %>
+        <%= autocomplete_field_tag 'factura[tercero_attributes[cuit]]', @factura.tercero.try(:cuit), autocomplete_tercero_cuit_facturas_path, { class: 'form-control' } %>
       </div>
       <div class="field form-group col-md-3">
         <%= f.label :fecha_pago %><br>
         <div class="input-group date">
-          <%= f.text_field :fecha_pago, { class: "form-control", value:formatted_date(@factura.fecha_pago) } %>
+          <%= f.text_field :fecha_pago, { class: 'form-control', value: formatted_date(@factura.fecha_pago) } %>
           <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
       </div>
@@ -57,7 +57,7 @@
     <div class="row">
       <div class="field form-group col-md-12">
         <%= f.label :descripcion %><br>
-        <%= f.text_area :descripcion, class: "form-control" %>
+        <%= f.text_area :descripcion, class: 'form-control' %>
       </div>
     </div>
 
@@ -67,15 +67,15 @@
       </div>
       <div class="field form-group col-md-3">
         <%= f.label :importe_neto %><br>
-        <%= f.text_field :importe_neto, { class: "form-control calcula_total text-right", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
+        <%= f.text_field :importe_neto, { class: 'form-control calcula_total text-right', data: {role: 'money', a_sep:'.', a_dec:',' } } %>
       </div>
       <div class="field form-group col-md-2 ">
         <%= f.label :iva %><br>
-        <%= f.text_field :iva, { class: "form-control calcula_total text-right", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
+        <%= f.text_field :iva, { class: 'form-control calcula_total text-right', data: {role: 'money', a_sep:'.', a_dec:',' } } %>
       </div>
       <div class="field form-group col-md-3">
         <%= f.label :importe_total %><br>
-        <%= f.text_field :importe_total, { class: "form-control text-right", disabled: "true", data: {role: 'money', a_sep:'.', a_dec:',' } } %>
+        <%= f.text_field :importe_total, { class: 'form-control text-right', disabled: true, data: {role: 'money', a_sep:'.', a_dec:',' } } %>
       </div>
     </div>
 
@@ -85,9 +85,9 @@
 
     <%# campo necesario para crear/editar facturas %>
     <%= f.hidden_field :situacion, value: determina_situacion_factura %>
-    <%= f.hidden_field :importe_neto_moneda, class: "actualizar_moneda" %>
-    <%= f.hidden_field :iva_moneda, class: "actualizar_moneda" %>
-    <%= f.hidden_field :importe_total_moneda, class: "actualizar_moneda" %>
+    <%= f.hidden_field :importe_neto_moneda, class: 'actualizar_moneda' %>
+    <%= f.hidden_field :iva_moneda, class: 'actualizar_moneda' %>
+    <%= f.hidden_field :importe_total_moneda, class: 'actualizar_moneda' %>
 
   </fieldset>
 

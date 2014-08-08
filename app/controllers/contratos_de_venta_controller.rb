@@ -34,7 +34,10 @@ class ContratosDeVentaController < ApplicationController
 
     respond_to do |format|
       if @contrato.save
-        format.html { redirect_to [@contrato.obra, @contrato], notice: 'Contrato creado con éxito.' }
+        format.html do
+          redirect_to [@contrato.obra, @contrato],
+            notice: 'Contrato creado con éxito.'
+        end
         format.json { render action: 'show', status: :created, location: @contrato }
       else
         format.html { render action: 'new' }
@@ -46,7 +49,10 @@ class ContratosDeVentaController < ApplicationController
   def update
     respond_to do |format|
       if @contrato.update(contrato_de_venta_params)
-        format.html { redirect_to [@contrato.obra, @contrato], notice: 'Contrato actualizado con éxito.' }
+        format.html do
+          redirect_to [@contrato.obra, @contrato],
+            notice: 'Contrato actualizado con éxito.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -79,8 +85,9 @@ class ContratosDeVentaController < ApplicationController
       )
     end
 
+    # TODO refactorizar
     def agregar_unidades
-      params[:unidades_funcionales].each do |uf| 
+      params[:unidades_funcionales].each do |uf|
         unidad = UnidadFuncional.find(uf.first)
         p = uf[1]['precio_venta'].sub(',','').sub('.','').to_i
         unidad.precio_venta_final_centavos = p
@@ -89,6 +96,7 @@ class ContratosDeVentaController < ApplicationController
       end
     end
 
+    # TODO refactorizar
     def agregar_cuotas
       f = params['fechas']
       m = params['montos']
@@ -96,12 +104,13 @@ class ContratosDeVentaController < ApplicationController
       cuotas = f.zip(m).sort_by { |c| c[0].to_time }
       primer = cuotas.shift
       @contrato.agregar_pago_inicial(primer[0],primer[1])
-      cuotas.map { |fecha,monto| @contrato.agregar_cuota(vencimiento: fecha, monto_original: monto, descripcion: "Cuota ##{i}") }
+      cuotas.map do |fecha, monto|
+        @contrato.agregar_cuota vencimiento: fecha, monto_original: monto,
+          descripcion: "Cuota ##{i}"
+      end
     end
-
 
     def set_contrato
       @contrato = ContratoDeVenta.find(params[:id])
     end
- 
 end

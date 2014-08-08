@@ -11,14 +11,14 @@ class RecibosController < ApplicationController
 
   def cobros
     @recibos = @recibos.joins(:tercero).where(situacion: 'cobro').order(@order)
-    @situacion = "Cobros"
-    render "index"
+    @situacion = 'Cobros'
+    render 'index'
   end
 
   def pagos
     @recibos = @recibos.joins(:tercero).where(situacion: 'pago').order(@order)
-    @situacion = "Pagos"
-    render "index"
+    @situacion = 'Pagos'
+    render 'index'
   end
 
   def show
@@ -52,7 +52,10 @@ class RecibosController < ApplicationController
       if ok && @recibo.save && @recibo.pagar_o_cobrar_con(@causa)
 
         format.html { seguir_agregando_o_mostrar }
-        format.json { render action: 'show', status: :created, location: [@recibo.factura, @recibo] }
+        format.json do
+          render action: 'show', status: :created,
+            location: [@recibo.factura, @recibo]
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @recibo.errors, status: :unprocessable_entity }

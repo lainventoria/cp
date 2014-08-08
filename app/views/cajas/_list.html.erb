@@ -1,3 +1,4 @@
+<%# TODO refactorizar %>
 <% lista_caja = establece_parametros_listado_cajas(cajas.first.situacion)[0] %>
 <% lista_banco = establece_parametros_listado_cajas(cajas.first.situacion)[1] %>
 <% ocultar_en_chequera = establece_parametros_listado_cajas(cajas.first.situacion)[2] %>
@@ -19,7 +20,7 @@
   <tbody>
     <% cajas.each do |caja| %>
       <tr class="ir-a" data-uri="<%= con_obra? caja_path(caja.id)%>">
-        <td><%= link_to '', @obra ? [ caja.obra, caja ] : caja, class:"glyphicon glyphicon-eye-open" %></td>
+        <td><%= link_to '', @obra ? [ caja.obra, caja ] : caja, class: 'glyphicon glyphicon-eye-open' %></td>
         <td><%= caja.obra.nombre %></td>
         <td class="<%= lista_banco %>"><%= caja.banco %></td>
         <td><%= caja.tipo %></td>

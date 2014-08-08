@@ -28,7 +28,10 @@ class RetencionesController < ApplicationController
 
     respond_to do |format|
       if @retencion.save
-        format.html { redirect_to [@retencion.factura, @retencion], notice: "Retención creada con éxito." }
+        format.html do
+          redirect_to [@retencion.factura, @retencion],
+            notice: 'Retención creada con éxito.'
+        end
         format.json { render action: 'show', status: :created, location: @retencion }
       else
         format.html { render action: 'new' }
@@ -40,7 +43,10 @@ class RetencionesController < ApplicationController
   def update
     respond_to do |format|
       if @retencion.update(retencion_params)
-        format.html { redirect_to [@retencion.factura, @retencion], notice: "Retención actualizada con éxito." }
+        format.html do
+          redirect_to [@retencion.factura, @retencion],
+            notice: 'Retención actualizada con éxito.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     monto_original { Money.new rand(1000) }
     vencimiento { Time.now.to_date + rand(30).days}
-    descripcion "cuota de prueba"
+    descripcion 'cuota de prueba'
   end
 end
 

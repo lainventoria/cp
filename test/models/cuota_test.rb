@@ -24,28 +24,28 @@ class CuotaTest < ActiveSupport::TestCase
     @cv.save
   end
 
-  test "es válida" do
+  test 'es válida' do
     [ :build, :build_stubbed, :create].each do |metodo|
       assert_valid_factory metodo, :cuota
     end
   end
 
-  test "necesita monto_original" do
+  test 'necesita monto_original' do
     assert m = build(:cuota, monto_original_centavos: nil)
     assert_not m.save
   end
 
-  test "necesita vencimiento" do
+  test 'necesita vencimiento' do
     assert m = build(:cuota, vencimiento: nil)
     assert_not m.save
   end
 
-  test "necesita descripcion" do
+  test 'necesita descripcion' do
     assert m = build(:cuota, descripcion: nil)
     assert_not m.save
   end
 
-  test "el monto se actualiza en base al indice del mes anterior" do
+  test 'el monto se actualiza en base al indice del mes anterior' do
     assert cuota = @cv.cuotas.sample
     assert indice_siguiente = create(:indice, valor: 1200, periodo: @cv.periodo_para(cuota.vencimiento))
 
@@ -53,15 +53,15 @@ class CuotaTest < ActiveSupport::TestCase
     assert_equal cuota.monto_original * (indice_siguiente.valor / @indice.valor), cuota.monto_actualizado
   end
 
-  test "listar cuotas vencidas" do
+  test 'listar cuotas vencidas' do
     assert_equal 2, @cv.cuotas.vencidas.count, @cv.cuotas.vencidas.inspect
   end
 
-  test "algunas cuotas están vencidas" do
+  test 'algunas cuotas están vencidas' do
     assert @cv.cuotas.vencidas.first.vencida?, @cv.cuotas.vencidas.inspect
   end
 
-  test "las cuotas generan facturas de cobro" do
+  test 'las cuotas generan facturas de cobro' do
     c = @cv.cuotas.first
     assert c.generar_factura, c.errors.messages.inspect
 
@@ -75,7 +75,7 @@ class CuotaTest < ActiveSupport::TestCase
     assert_equal c.vencimiento + 10.days, f.fecha_pago.to_date
   end
 
-  test "las cuotas que no están vencidas se pagan al indice actual" do
+  test 'las cuotas que no están vencidas se pagan al indice actual' do
     # la ultima cuota todavía no está vencida
     c = @cv.cuotas.last
     assert_not c.vencida?, c.vencimiento
@@ -103,18 +103,18 @@ class CuotaTest < ActiveSupport::TestCase
       f.importe_neto
   end
 
-  test "a veces queremos especificar el indice de la factura" do
+  test 'a veces queremos especificar el indice de la factura' do
     c = @cv.cuotas.last
     assert_not c.vencida?, c.vencimiento
 
     p = (Date.today + 5.months).beginning_of_month
-    assert indice_cualquiera = create(:indice, valor: 1300, periodo: p, denominacion: "Costo de construcción"), p
+    assert indice_cualquiera = create(:indice, valor: 1300, periodo: p, denominacion: 'Costo de construcción'), p
     assert c.generar_factura(p), c.errors.messages.inspect
     assert f = c.factura, c.inspect
     assert_equal c.monto_original * ( indice_cualquiera.valor / @indice.valor), f.importe_neto, [f.inspect, c.inspect]
   end
 
-  test "si el indice no existe se crea uno temporal" do
+  test 'si el indice no existe se crea uno temporal' do
     c = @cv.cuotas[2]
 
     assert c.generar_factura, c.errors.messages.inspect
@@ -135,16 +135,15 @@ class CuotaTest < ActiveSupport::TestCase
     assert_not_equal factura_importe_original, c.factura.importe_total
   end
 
-  test "hay cuotas pendientes" do
+  test 'hay cuotas pendientes' do
     assert_equal 2, @cv.cuotas.pendientes.count
   end
 
-  test "hay cuotas que ya estan emitidas" do
+  test 'hay cuotas que ya estan emitidas' do
     assert_difference('@cv.cuotas.pendientes.count', -1) do
       @cv.cuotas.first.generar_factura
     end
 
     assert_equal 1, @cv.cuotas.emitidas.count
   end
-
 end

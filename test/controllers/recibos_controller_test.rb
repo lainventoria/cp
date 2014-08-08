@@ -6,7 +6,7 @@ class RecibosControllerTest < ActionController::TestCase
     @factura = create :factura, importe_neto: Money.new(3000), iva: Money.new(3000*0.21)
   end
 
-  test "accede a la lista global de recibos de pago" do
+  test 'accede a la lista global de recibos de pago' do
     create :recibo, situacion: 'cobro',
       factura: create(:factura, situacion: 'cobro')
     create :recibo, situacion: 'pago',
@@ -22,7 +22,7 @@ class RecibosControllerTest < ActionController::TestCase
     assert assigns(:recibos).count == 1, [ assigns(:recibos).count.to_s + ' recibos asignados' ]
   end
 
-  test "accede a la lista global de recibos de cobro" do
+  test 'accede a la lista global de recibos de cobro' do
     create :recibo, situacion: 'cobro',
       factura: create(:factura, situacion: 'cobro')
     create :recibo, situacion: 'pago',
@@ -38,19 +38,19 @@ class RecibosControllerTest < ActionController::TestCase
     assert assigns(:recibos).count == 1, [ assigns(:recibos).count.to_s + ' recibos asignados' ]
   end
 
-  test "accede a la lista de recibos de pago" do
+  test 'accede a la lista de recibos de pago' do
     get :pagos, factura_id: @factura
     assert_response :success
     assert_not_nil assigns(:recibos)
   end
 
-  test "accede a la lista de recibos de cobro" do
+  test 'accede a la lista de recibos de cobro' do
     get :cobros, factura_id: @factura
     assert_response :success
     assert_not_nil assigns(:recibos)
   end
 
-  test "accede a la lista de la obra de recibos de pago" do
+  test 'accede a la lista de la obra de recibos de pago' do
     recibo = create :recibo, situacion: 'pago'
 
     get :pagos, obra_id: recibo.obra
@@ -58,7 +58,7 @@ class RecibosControllerTest < ActionController::TestCase
     assert_not_nil assigns(:recibos)
   end
 
-  test "accede a la lista de la obra de recibos de cobro" do
+  test 'accede a la lista de la obra de recibos de cobro' do
     recibo = create :recibo, situacion: 'cobro'
 
     get :cobros, obra_id: recibo.obra
@@ -67,12 +67,12 @@ class RecibosControllerTest < ActionController::TestCase
   end
 
 
-  test "accede a crear" do
+  test 'accede a crear' do
     get :new, factura_id: @factura
     assert_response :success
   end
 
-  test "crea" do
+  test 'crea' do
     importe_permitido = @factura.saldo
 
     assert_difference('Recibo.count') do
@@ -86,31 +86,31 @@ class RecibosControllerTest < ActionController::TestCase
     assert_redirected_to factura_recibo_path(@factura, assigns(:recibo))
   end
 
-  test "muestra" do
+  test 'muestra' do
     get :show, id: create(:recibo, factura: @factura), factura_id: @factura
     assert_response :success
   end
 
-  test "muestra a través de su obra" do
+  test 'muestra a través de su obra' do
     recibo_interno = @factura.obra.cajas.first.depositar!(Money.new(1000))
 
     get :show, obra_id: @factura.obra, id: recibo_interno
     assert_response :success
   end
 
-  test "no muestra a través de otra obra" do
+  test 'no muestra a través de otra obra' do
     # Rails devuelve un 404 por default con estos errores en producción
     assert_raise ActiveRecord::RecordNotFound do
       get :show, obra_id: create(:obra), id: create(:recibo, factura: @factura)
     end
   end
 
-  test "accede a editar" do
+  test 'accede a editar' do
     get :edit, id: create(:recibo, factura: @factura), factura_id: @factura
     assert_response :success
   end
 
-  test "actualiza" do
+  test 'actualiza' do
     recibo = create :recibo, factura: @factura
 
     importe_permitido = @factura.saldo
@@ -119,7 +119,7 @@ class RecibosControllerTest < ActionController::TestCase
     assert_redirected_to factura_recibo_path(@factura, assigns(:recibo))
   end
 
-  test "destruye" do
+  test 'destruye' do
     recibo = create :recibo, factura: @factura
 
     assert_difference('Recibo.count', -1) do

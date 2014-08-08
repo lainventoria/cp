@@ -17,7 +17,7 @@
   <tbody>
     <% @cheques.each do |cheque| %>
       <tr class="ir-a" data-uri="<%= obra_caja_cheque_path(cheque.chequera.obra, cheque.chequera, cheque.id) %>">
-        <td><%= link_to '', [cheque.chequera.obra, cheque.chequera, cheque], class:"glyphicon glyphicon-eye-open" %></td>
+        <td><%= link_to '', [cheque.chequera.obra, cheque.chequera, cheque], class:'glyphicon glyphicon-eye-open' %></td>
         <td class="h4 text-center"><span class="label <%= etiqueta_de_situacion cheque.situacion %>"><%= cheque.situacion %></span></td>
         <td class="h4 text-center"><span class="label <%= etiqueta_de_estado cheque.estado %>"><%= cheque.estado %></span></td>
         <td><%= formatted_date(cheque.fecha_emision) %></td>

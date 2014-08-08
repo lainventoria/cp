@@ -25,10 +25,13 @@ class UnidadesFuncionalesController < ApplicationController
 
     respond_to do |format|
       if @unidad.save
-        format.html { redirect_to [@unidad.obra, @unidad], notice: 'Unidad funcional creada con éxito.' }
-        format.json {
+        format.html do
+          redirect_to [@unidad.obra, @unidad],
+            notice: 'Unidad funcional creada con éxito.'
+        end
+        format.json do
           render action: 'show', status: :created, location: @unidad
-        }
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @unidad.errors, status: :unprocessable_entity }
@@ -39,7 +42,10 @@ class UnidadesFuncionalesController < ApplicationController
   def update
     respond_to do |format|
       if @unidad.update(unidad_funcional_params)
-        format.html { redirect_to [@unidad.obra,@unidad], notice: 'Unidad funcional actualizada con éxito.' }
+        format.html do
+          redirect_to [@unidad.obra,@unidad],
+            notice: 'Unidad funcional actualizada con éxito.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -75,7 +81,8 @@ class UnidadesFuncionalesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def unidad_funcional_params
       params.require(:unidad_funcional).permit(
-        :obra_id, :tipo, :precio_venta, :precio_venta_centavos, :precio_venta_moneda, :descripcion
+        :obra_id, :tipo, :precio_venta, :precio_venta_centavos,
+        :precio_venta_moneda, :descripcion
       )
     end
 end

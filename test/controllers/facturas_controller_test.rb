@@ -6,12 +6,12 @@ class FacturasControllerTest < ActionController::TestCase
     @factura = create :factura
   end
 
-  test "accede a nueva factura" do
+  test 'accede a nueva factura' do
     get :new
     assert_response :success
   end
 
-  test "crea" do
+  test 'crea' do
     assert_difference('Factura.count') do
 
       post :create, factura: {
@@ -28,7 +28,7 @@ class FacturasControllerTest < ActionController::TestCase
     assert_redirected_to obra_factura_path(@factura.obra, assigns(:factura))
   end
 
-  test "crea un tercero adhoc" do
+  test 'crea un tercero adhoc' do
     obra = create :obra
     assert_difference('Factura.count') do
       assert_difference('Tercero.count') do
@@ -47,29 +47,29 @@ class FacturasControllerTest < ActionController::TestCase
     assert_redirected_to obra_factura_path(obra, assigns(:factura))
   end
 
-  test "muestra" do
+  test 'muestra' do
     get :show, id: @factura
     assert_response :success
   end
 
-  test "muestra a través de su obra" do
+  test 'muestra a través de su obra' do
     get :show, obra_id: @factura.obra, id: @factura
     assert_response :success
   end
 
-  test "no muestra a través de otra obra" do
+  test 'no muestra a través de otra obra' do
     # Rails devuelve un 404 por default con estos errores en producción
     assert_raise ActiveRecord::RecordNotFound do
       get :show, obra_id: create(:obra), id: @factura
     end
   end
 
-  test "accede a editar" do
+  test 'accede a editar' do
     get :edit, id: @factura
     assert_response :success
   end
 
-  test "actualiza" do
+  test 'actualiza' do
 
     patch :update, id: @factura, factura: { tercero_id: @factura.tercero,
       descripcion: @factura.descripcion, situacion: @factura.situacion,
@@ -80,7 +80,7 @@ class FacturasControllerTest < ActionController::TestCase
     assert_redirected_to factura_path(assigns(:factura))
   end
 
-  test "destruye" do
+  test 'destruye' do
     ruta = if @factura.pago?
       pagos_facturas_path
     else

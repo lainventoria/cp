@@ -8,16 +8,17 @@
     <div class="row">
       <div class="field form-group col-md-6">
         <%= f.label :denominacion %><br>
-        <%= f.select :denominacion, Indice::DENOMINACIONES, { prompt: '-Elegir-' }, { class: 'form-control' } %>
+        <%= f.select :denominacion, Indice::DENOMINACIONES,
+              { prompt: '-Elegir-' }, { class: 'form-control' } %>
       </div>
       <div class="field form-group col-md-2">
         <%= f.label :valor %><br>
-        <%= f.text_field :valor, class: "form-control" %>
+        <%= f.text_field :valor, class: 'form-control' %>
       </div>
       <div class="field form-group col-md-2">
         <%= f.label :periodo %><br>
         <div class="input-group date">
-          <%= f.text_field :periodo, { class: "form-control" } %>
+          <%= f.text_field :periodo, { class: 'form-control' } %>
           <span class="input-group-addon">
             <i class="glyphicon glyphicon-th"></i>
           </span>

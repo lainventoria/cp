@@ -15,7 +15,7 @@ class Cuota < ActiveRecord::Base
   # que no sean el pago inicial porque es como la cuota 0
   scope :vencidas, lambda { |time = nil|
     time = Time.now if not time
-    where.not(descripcion: "Pago inicial").where("vencimiento < ?", time)
+    where.not(descripcion: 'Pago inicial').where('vencimiento < ?', time)
   }
 
   # cuotas con facturas emitidas

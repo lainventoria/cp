@@ -9,7 +9,7 @@ class UnidadFuncionalTest < ActiveSupport::TestCase
     end
   end
 
-  test "cada unidad se vende a un solo tercero" do
+  test 'cada unidad se vende a un solo tercero' do
     uf = create :unidad_funcional
     cv = create :contrato_de_venta
 
@@ -20,13 +20,13 @@ class UnidadFuncionalTest < ActiveSupport::TestCase
     assert_equal cv.tercero, uf.tercero
   end
 
-  test "hay unidades estan disponibles" do
+  test 'hay unidades estan disponibles' do
     uf = create :unidad_funcional
 
     assert_equal 1, UnidadFuncional.disponibles.count
   end
 
-  test "cuando se venden dejan de estar disponibles" do
+  test 'cuando se venden dejan de estar disponibles' do
     uf = create :unidad_funcional
     cv = create :contrato_de_venta
 

@@ -1,8 +1,7 @@
 # encoding: utf-8
-
 FactoryGirl.define do
   factory :tercero do
-    nombre "Juan Salvo"
+    nombre 'Juan Salvo'
     relacion 'ambos'
 
     # Generar cuits válidos, con default por si ninguno de los 10 zafa.

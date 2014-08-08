@@ -1,16 +1,16 @@
 module ChequesHelper
   def titulo_vista_cheque
-    @cheque.propio? ? "Detalles de Cheque Propio" : "Detalles de Cheque de Tercero"
+    @cheque.propio? ? 'Detalles de Cheque Propio' : 'Detalles de Cheque de Tercero'
   end
 
   def titulo_listado_cheques
-    titulo = "Listado de Cheques"
+    titulo = 'Listado de Cheques'
     case params[:situacion]
-      when 'propio' then titulo += " Propios"
-      when 'terceros' then titulo += " de Terceros"
+      when 'propio' then titulo += ' Propios'
+      when 'terceros' then titulo += ' de Terceros'
     end
 
-    titulo += " depositados" if params[:depositados]
+    titulo += ' depositados' if params[:depositados]
     # TODO cambiar a fecha seleccionada
     titulo += " vencidos al #{formatted_date(Time.now)}" if params[:vencidos]
 

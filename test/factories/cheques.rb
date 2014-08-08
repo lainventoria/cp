@@ -1,13 +1,11 @@
 # encoding: utf-8
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :cheque do
     chequera
     cuenta
 
-    banco "adam smith & co"
-    beneficiario "pepe honguito"
+    banco 'adam smith & co'
+    beneficiario 'pepe honguito'
     monto { Money.new(1 + rand(10)) }
     fecha_emision { Time.now }
     fecha_vencimiento { Time.now + rand(360000) }

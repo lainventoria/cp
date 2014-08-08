@@ -8,13 +8,13 @@ class RetencionTest < ActiveSupport::TestCase
     end
   end
 
-  test "no se puede asociar a un cobro" do
+  test 'no se puede asociar a un cobro' do
     cobro = build :factura, situacion: 'cobro'
 
     refute build(:retencion, factura: cobro).valid?
   end
 
-  test "borrar retenciones borra sus movimientos" do
+  test 'borrar retenciones borra sus movimientos' do
     recibo = create :recibo
     retencion = create :retencion, monto: Money.new(1000)
     recibo.pagar_con retencion

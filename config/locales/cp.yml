@@ -5,68 +5,68 @@ es:
         retencion:
           attributes:
             factura:
-              debe_ser_un_pago: "La factura asociada debe ser un pago"
+              debe_ser_un_pago: 'La factura asociada debe ser un pago'
             estado:
-              invalid_transition: "Estado inválido"
+              invalid_transition: 'Estado inválido'
         cheque:
           attributes:
             situacion:
-              debe_ser_de_terceros: "Sólo se cobran cheques de terceros"
+              debe_ser_de_terceros: 'Sólo se cobran cheques de terceros'
             chequera_id:
-              debe_ser_una_chequera: "La caja asociada debe ser de tipo chequera"
+              debe_ser_una_chequera: 'La caja asociada debe ser de tipo chequera'
             cuenta_id:
-              debe_ser_una_cuenta_de_banco: "La caja asociada debe ser de tipo banco"
+              debe_ser_una_cuenta_de_banco: 'La caja asociada debe ser de tipo banco'
         obra:
           attributes:
             base:
               restrict_dependent_destroy:
-                many: "No se puede borrar esta obra porque tiene %{record} asociadas"
+                many: 'No se puede borrar esta obra porque tiene %{record} asociadas'
         factura:
           attributes:
             base:
               restrict_dependent_destroy:
-                many: "No se puede borrar esta factura porque tiene %{record} asociados"
-                one: "No se puede borrar esta factura porque tiene una retención asociada"
+                many: 'No se puede borrar esta factura porque tiene %{record} asociados'
+                one: 'No se puede borrar esta factura porque tiene una retención asociada'
             recibos:
               sobrepasan_el_importe_total: 'Sobrepasan el importe total'
         recibo:
           attributes:
             base:
-              medio_de_pago_invalido: "Medio de pago (%{causa}) inválido: %{mensaje}"
+              medio_de_pago_invalido: 'Medio de pago (%{causa}) inválido: %{mensaje}'
             movimientos:
               sobrepasan_el_saldo: 'Sobrepasan el saldo'
               no_son_en_la_misma_moneda: 'Todos los %{situacion}s deben realizarse en la misma moneda'
-              meiosis_de_facturas: "La caja tiene que ser compatible con el tipo de factura"
-              debes_agregar_causa: "No se puede guardar un recibo sin una Causa"
+              meiosis_de_facturas: 'La caja tiene que ser compatible con el tipo de factura'
+              debes_agregar_causa: 'No se puede guardar un recibo sin una Causa'
         caja:
           attributes:
             base:
-              no_archivar_con_saldo: "No se puede archivar una caja con saldos restantes"
+              no_archivar_con_saldo: 'No se puede archivar una caja con saldos restantes'
         tercero:
           attributes:
             base:
               restrict_dependent_destroy:
-                many: "No se puede borrar este tercero porque tiene facturas asociadas"
+                many: 'No se puede borrar este tercero porque tiene facturas asociadas'
             cuit:
               no_es_valido: 'no es válido'
         movimiento:
           attributes:
             monto:
-              no_hay_fondos_suficientes: "La caja no tiene fondos suficientes"
+              no_hay_fondos_suficientes: 'La caja no tiene fondos suficientes'
         unidad_funcional:
           attributes:
             base:
-              no_debe_tener_contratos: "La unidad funcional no puede tener contratos de venta al momento de borrarse."
+              no_debe_tener_contratos: 'La unidad funcional no puede tener contratos de venta al momento de borrarse.'
         contrato_de_venta:
           attributes:
             cuotas:
-              total_igual_a_monto_total: "El monto total no coincide con el total de cuotas"
+              total_igual_a_monto_total: 'El monto total no coincide con el total de cuotas'
             tercero:
-              debe_ser_cliente: "debe ser un cliente"
+              debe_ser_cliente: 'debe ser un cliente'
             unidades_funcionales:
-              debe_ser_la_misma_moneda: "todas las unidades funcionales deben tener la misma moneda"
+              debe_ser_la_misma_moneda: 'todas las unidades funcionales deben tener la misma moneda'
             cuotas:
-              debe_ser_la_misma_moneda: "todas las cuotas deben tener la misma moneda"
+              debe_ser_la_misma_moneda: 'todas las cuotas deben tener la misma moneda'
     attributes:
       retencion:
         situacion: 'Tipo'

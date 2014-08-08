@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
 	def formatted_date(date)
-    date.nil? ? '' : date.strftime("%d %b %Y")
+    date.nil? ? '' : date.strftime('%d %b %Y')
 	end
 
   # habilita la edicion de los formularios segun el valor de @editar
@@ -26,11 +26,11 @@ module ApplicationHelper
   def formatted_number(numero, moneda = nil)
     content_tag :span, class: negativo_rojo(numero) do
       number_to_currency(numero.to_f,
-        delimiter: ".",
-        separator: ",",
-        format: "%n %u&nbsp;".html_safe,
+        delimiter: '.',
+        separator: ',',
+        format: '%n %u&nbsp;'.html_safe,
         unit: (moneda || ''),
-        negative_format: "( %n ) %u" )
+        negative_format: '( %n ) %u' )
     end
   end
 
@@ -80,7 +80,7 @@ module ApplicationHelper
           when 'cobros' then url_for(params.merge({ obra_id: obra.try(:id) }))
           # pero el resto lleva al listado de cobros o pagos segun que
           # factura estemos viendo
-          else url_for(params.merge({ obra_id: obra.try(:id), action: @factura.try(:situacion) +"s", id: nil }))
+          else url_for(params.merge({ obra_id: obra.try(:id), action: @factura.try(:situacion) +'s', id: nil }))
         end
       when 'recibos' then
         case params[:action]
@@ -94,7 +94,7 @@ module ApplicationHelper
             if @recibo.interno?
               url_for(params.merge({ obra_id: obra.try(:id), controller: 'cajas', action: 'index', id: nil }))
             else
-              url_for(params.merge({ obra_id: obra.try(:id), factura_id: nil, action: @recibo.try(:situacion) +"s", id: nil }))
+              url_for(params.merge({ obra_id: obra.try(:id), factura_id: nil, action: @recibo.try(:situacion) +'s', id: nil }))
             end
         end
       # para las cajas siempre queremos ir al indice de cajas segun obra

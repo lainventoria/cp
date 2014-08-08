@@ -8,18 +8,18 @@ class ContratosDeVentaControllerTest < ActionController::TestCase
     indice.save
   end
 
-  test "accede a la lista de contratos" do
+  test 'accede a la lista de contratos' do
     get :index, obra_id: @contrato.obra
     assert_response :success
     assert_not_nil assigns(:contratos)
   end
 
-  test "accede a crear" do
+  test 'accede a crear' do
     get :new, obra_id: @contrato.obra
     assert_response :success
   end
 
-  test "crea" do
+  test 'crea' do
     obra = create :obra
     unidad = create :unidad_funcional
     cuota = create :cuota
@@ -36,17 +36,17 @@ class ContratosDeVentaControllerTest < ActionController::TestCase
     assert_redirected_to obra_contrato_de_venta_path(obra, contrato )
   end
 
-  test "muestra a través de su obra" do
+  test 'muestra a través de su obra' do
     get :show, obra_id: @contrato.obra, id: @contrato
     assert_response :success
   end
 
-  test "accede a editar" do
+  test 'accede a editar' do
     get :edit, id: @contrato, obra_id: @contrato.obra
     assert_response :success
   end
 
-  test "actualiza" do
+  test 'actualiza' do
     monto_original = @contrato.monto_total
     tercero = create :tercero
     patch :update, id: @contrato, obra_id: @contrato.obra, contrato_de_venta: { tercero_id: [tercero] }
@@ -56,7 +56,7 @@ class ContratosDeVentaControllerTest < ActionController::TestCase
     assert contrato.tercero = tercero
   end
 
-  test "destruye" do
+  test 'destruye' do
     obra = @contrato.obra
     assert_difference('ContratoDeVenta.count', -1) do
       delete :destroy, id: @contrato, obra_id: @contrato.obra

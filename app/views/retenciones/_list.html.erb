@@ -1,6 +1,6 @@
 <%# parametros ( lista_larga )
     lista_larga: ocultar campos usados solo en listado detallado
-    valor = [ "hidden", "" ]
+    valor = [ 'hidden', '' ]
 %>
 
 <table class="table table-hover table-condensed">
@@ -18,7 +18,7 @@
   <tbody>
     <% @retenciones.each do |retencion| %>
       <tr class="ir-a" data-uri="<%= con_obra? factura_retencion_path(retencion.factura, retencion) %>">
-        <td><%= link_to '', [retencion.factura, retencion], class:"glyphicon glyphicon-eye-open" %></td>
+        <td><%= link_to '', [retencion.factura, retencion], class: 'glyphicon glyphicon-eye-open' %></td>
         <td class="<%= lista_larga %>"><%= formatted_date(retencion.fecha_vencimiento) %></td>
         <td><%= tipo_de_retencion(retencion.situacion) %></td>
         <td><%= retencion.estado.capitalize %></td>

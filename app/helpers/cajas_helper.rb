@@ -11,20 +11,20 @@ module CajasHelper
   def opciones_formulario_caja
     case valor_situacion
       when 'banco'
-        { form_caja: "hidden",
-          form_banco: "" }
+        { form_caja: 'hidden',
+          form_banco: '' }
       else
-        { form_caja: "",
-          form_banco: "hidden" }
+        { form_caja: '',
+          form_banco: 'hidden' }
     end
   end
 
   def ver_en_caja
-    @caja.efectivo? ? "" : "hidden"
+    @caja.efectivo? ? '' : 'hidden'
   end
 
   def ver_en_cuenta
-    @caja.banco? ? "" : "hidden"
+    @caja.banco? ? '' : 'hidden'
   end
 
   def caja_o_cuenta(caja = @caja)
