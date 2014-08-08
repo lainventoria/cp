@@ -80,7 +80,8 @@ class UnidadesFuncionalesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def unidad_funcional_params
       params.require(:unidad_funcional).permit(
-        :obra_id, :tipo, :precio_venta, :precio_venta_centavos, :precio_venta_moneda, :descripcion
+        :obra_id, :tipo, :precio_venta, :precio_venta_centavos,
+        :precio_venta_moneda, :descripcion
       )
     end
 end
