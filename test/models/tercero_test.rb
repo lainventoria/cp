@@ -27,6 +27,14 @@ class TerceroTest < ActiveSupport::TestCase
     refute Tercero.validar_cuit('10202234237')
   end
 
+  test 'convierte los cuits a string' do
+    assert_equal '12345', Tercero.normalizar_cuit(12345)
+  end
+
+  test 'deja sólo los caracteres numéricos en los cuits' do
+    assert_equal '12345', Tercero.normalizar_cuit('1-23/45')
+  end
+
   test 'detecta si su cuit es inválido' do
     assert build(:tercero).cuit_valido?
   end
@@ -34,6 +42,11 @@ class TerceroTest < ActiveSupport::TestCase
   test 'no permite cuits duplicados' do
     existente = create(:tercero)
     refute build(:tercero, cuit: existente.cuit).valid?
+  end
+
+  test 'no permite cuits duplicados normalizados' do
+    existente = create(:tercero, cuit: '20-10309499-3' )
+    refute build(:tercero, cuit: 20103094993).valid?
   end
 
   test 'entiende cuits sin guiones' do
