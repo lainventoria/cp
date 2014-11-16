@@ -6,41 +6,54 @@ class TercerosControllerTest < ActionController::TestCase
     @tercero = create :tercero
   end
 
-  test 'should get index' do
+  test 'accede a la lista' do
     get :index
     assert_response :success
     assert_not_nil assigns(:terceros)
   end
 
-  test 'should get new' do
+  test 'accede a crear' do
     get :new
     assert_response :success
   end
 
-  test 'should create tercero usando un cuit diferente' do
+  test 'crea' do
     assert_difference('Tercero.count') do
-      post :create, tercero: { celular: @tercero.celular, relacion: @tercero.relacion, cuit: '20-24229800-5', direccion: @tercero.direccion, email: @tercero.email, iva: @tercero.iva, nombre: @tercero.nombre, telefono: @tercero.telefono, contacto: @tercero.contacto, notas: @tercero.notas }
+      post :create, tercero: attributes_for(:tercero)
     end
 
     assert_redirected_to tercero_path(assigns(:tercero))
   end
 
-  test 'should show tercero' do
+  test 'muestra' do
     get :show, id: @tercero
     assert_response :success
   end
 
-  test 'should get edit' do
+  test 'accede a editar' do
     get :edit, id: @tercero
     assert_response :success
   end
 
-  test 'should update tercero' do
-    patch :update, id: @tercero, tercero: { celular: @tercero.celular, relacion: @tercero.relacion, cuit: @tercero.cuit, direccion: @tercero.direccion, email: @tercero.email, iva: @tercero.iva, nombre: @tercero.nombre, telefono: @tercero.telefono, contacto: @tercero.contacto, notas: @tercero.notas }
+  test 'actualiza' do
+    atributos = attributes_for :tercero, :completo
+
+    patch :update, id: @tercero, tercero: atributos
+
     assert_redirected_to tercero_path(assigns(:tercero))
+    assert_equal atributos[:celular], @tercero.reload.celular
+    assert_equal atributos[:relacion], @tercero.relacion
+    assert_equal atributos[:cuit], @tercero.cuit
+    assert_equal atributos[:direccion], @tercero.direccion
+    assert_equal atributos[:email], @tercero.email
+    assert_equal atributos[:iva], @tercero.iva
+    assert_equal atributos[:nombre], @tercero.nombre
+    assert_equal atributos[:telefono], @tercero.telefono
+    assert_equal atributos[:contacto], @tercero.contacto
+    assert_equal atributos[:notas], @tercero.notas
   end
 
-  test 'should destroy tercero' do
+  test 'destruye' do
     assert_difference('Tercero.count', -1) do
       delete :destroy, id: @tercero
     end
@@ -48,11 +61,9 @@ class TercerosControllerTest < ActionController::TestCase
     assert_redirected_to terceros_path
   end
 
-# TODO activar test cuando se furecen los cuits unicos en el modelo
-#  test 'impide la creacion de un nuevo tercero con un cuit existente' do
-#    assert_no_difference('Tercero.count') do
-#      post :create, tercero: { celular: @tercero.celular, relacion: @tercero.relacion, cuit: @tercero.cuit, direccion: @tercero.direccion, email: @tercero.email, iva: @tercero.iva, nombre: @tercero.nombre, telefono: @tercero.telefono, contacto: @tercero.contacto, notas: @tercero.notas }
-#    end
-#  end
-
+  test 'no crea un nuevo tercero con un cuit existente' do
+    assert_no_difference('Tercero.count') do
+      post :create, tercero: attributes_for(:tercero, cuit: @tercero.cuit)
+    end
+  end
 end
