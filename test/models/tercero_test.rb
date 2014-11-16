@@ -40,12 +40,14 @@ class TerceroTest < ActiveSupport::TestCase
   end
 
   test 'no permite cuits duplicados' do
-    existente = create(:tercero)
-    refute build(:tercero, cuit: existente.cuit).valid?
+    existente = create(:tercero).cuit
+
+    refute build(:tercero, cuit: existente).valid?
   end
 
   test 'no permite cuits duplicados normalizados' do
-    existente = create(:tercero, cuit: '20-10309499-3' )
+    create :tercero, cuit: '20-10309499-3'
+
     refute build(:tercero, cuit: 20103094993).valid?
   end
 

@@ -13,6 +13,10 @@ class Tercero < ActiveRecord::Base
   validates_uniqueness_of :cuit
   validate :el_cuit_es_valido
 
+  normalize_attribute :cuit do |valor|
+    normalizar_cuit(valor)
+  end
+
   # seguramente hay una forma más elegante de hacer esto...
   def self.validar_cuit(cuit)
     cuit_normalizado = normalizar_cuit(cuit)
@@ -34,7 +38,7 @@ class Tercero < ActiveRecord::Base
 
   # Fuerza string y remueve lo que no son números
   def self.normalizar_cuit(cuit)
-    cuit.to_s.gsub /[^0-9]/, ''
+    cuit.to_s.gsub(/[^0-9]/, '')
   end
 
   # Es un proveedor?
