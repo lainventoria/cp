@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027145038) do
+ActiveRecord::Schema.define(version: 20141116043048) do
 
   create_table "cajas", force: true do |t|
     t.integer  "obra_id"

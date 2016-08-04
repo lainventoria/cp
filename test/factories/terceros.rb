@@ -18,5 +18,15 @@ FactoryGirl.define do
     factory :cliente do
       relacion 'cliente'
     end
+
+    trait :completo do
+      contacto 'hablar con H.G.O'
+      telefono '154123456789'
+      celular '15912312234'
+      email { generate :email }
+      iva 0.21
+      direccion 'El chalecito de Vicente López'
+      notas 'usa traje'
+    end
   end
 end

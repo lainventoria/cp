@@ -8,4 +8,8 @@ FactoryGirl.define do
     cuits = %w{20-31278322-4 20-12319302-5 20-10309499-3}
     cuits[n % cuits.size]
   end
+
+  sequence :email do |n|
+    "mail-numero-#{n}@falso.com"
+  end
 end
